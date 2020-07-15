@@ -1,42 +1,31 @@
-import logo from "./logo.svg";
 import "./App.css";
-import React, { useEffect, useState } from "react";
-import firebase from "firebase";
+import React from "react";
+import Router from "../Router";
+import { createBrowserHistory } from "history";
+import { createStore, applyMiddleware, compose } from "redux";
+import { generateReducers } from "../../reducers";
+import { routerMiddleware } from "connected-react-router";
+import { Provider } from "react-redux";
+import MuiThemeProvider from "@material-ui/core/MuiThemeProvider";
+import theme from "../src/style";
 
-const App = () => {
-  const [users, setUsers] = useState([]);
+export const history = createBrowserHistory();
 
-  useEffect(() => {
-    const getUsers = async () => {
-      const querySnapshot = await firebase
-        .firestore()
-        .collection('users')
-        .get();
+const middlewares = [
+  applyMiddleware(routerMiddleware(history), thunk),
+  window.__REDUX_DEVTOOLS_EXTENSION__
+    ? window.__REDUX_DEVTOOLS_EXTENSION__()
+    : (f) => f,
+];
 
-      const usersList = querySnapshot.docs.map((doc) => {
-        return doc.data();
-      });
-      setUsers(usersList);
-    };
-    getUsers();
-  }, []);
+const store = createStore(generateReducers(history), compose(...middlewares));
 
-  console.log(users)
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>TESTE DEPLOY SPOTENU</p>
-        {users.map((user) => {
-          return (
-            <div>
-              <p>{user.name}</p>
-            </div>
-          );
-        })}
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <Provider store={store}>
+    <MuiThemeProvider theme={theme}>
+      <Router history={history} />
+    </MuiThemeProvider>
+  </Provider>
+);
 
 export default App;
