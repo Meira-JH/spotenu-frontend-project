@@ -1,11 +1,16 @@
 import { push, replace } from "connected-react-router";
-import { routes } from "../containers/Router"
+import { routes } from "../router"
+import firebase from 'firebase'
+
 
 export const SignUpAction = (signUpInfo) => async (dispatch) => {
   try {
     await firebase
       .auth()
-      .createUserWithEmailAndPassword(signUpInfo.email, signUpInfo.password);
+      .createUserWithEmailAndPassword(signUpInfo.email, signUpInfo.password)
+      .catch(function(error){
+        console.error(error);
+      });
       
     dispatch(push(routes.root))
 
@@ -14,4 +19,3 @@ export const SignUpAction = (signUpInfo) => async (dispatch) => {
   }
 };
 
-export const SetUser
