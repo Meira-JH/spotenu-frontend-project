@@ -4,25 +4,29 @@ import { Switch, Route } from "react-router-dom";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import LandingPage from "../pages/LandingPage";
+import SignUpPage from "../pages/SignUpPage";
+import LoginPage from "../pages/LoginPage";
 
 export const routes = {
-    root: "/",
-  //   adminPage: "/adminpage",
-  //   applicationPage: "/application",
-  //   tripsListPage: "/tripslist",
-  //   tripDetailsPage: "/tripdetails",
+  root: "/",
+  signUp: "/signUp",
+  login: "/login",
+  signUpBand: "/signUpBand",
 };
 
 export default function Router(props) {
   return (
     <Fragment>
-      <Header />
       <ConnectedRouter history={props.history}>
+        <Header />
         <Switch>
+          <Route exact path={routes.signUp} component={SignUpPage} />
+          <Route exact path={routes.login} component={LoginPage} />
           <Route exact path={routes.root} component={LandingPage} />
+          {/* <Route exact path={routes.signUpBand} component={SignUpBandPage} /> */}
         </Switch>
+        <Footer />
       </ConnectedRouter>
-      <Footer />
     </Fragment>
   );
 }

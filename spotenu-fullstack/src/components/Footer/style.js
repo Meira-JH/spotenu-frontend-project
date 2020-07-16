@@ -8,7 +8,7 @@ export const FooterWrapper = styled.div`
   width: 100%;
   height: 18vh;
   background: #483f35;
-  box-shadow: 0 2px 15px;
+  box-shadow: 0 1px 10px;
   position: relative;
   bottom: 0;
 `;

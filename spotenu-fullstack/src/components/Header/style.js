@@ -1,53 +1,87 @@
 import styled from "styled-components";
 
 export const HeaderWrapper = styled.header`
-  display: grid;
   width: 100%;
-  justify-items: start;
-  align-items: center;
   height: 90px;
-  grid-template: 1fr, 1fr, 1fr, 1fr / 1fr;
-  grid-template-areas: ". Logo . . ButtonSignUp .";
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr;
+  grid-template-areas: 
+  " . LogoWrapper . ButtonWrapper . ";
   background-color: rgba(72, 63, 53, 0.3);
   position: fixed;
+  z-index: 1;
 `;
 
-export const LogoContainer = styled.div`
-  height: 80%;
-  grid-area: Logo;
-  cursor: pointer;
+export const LogoWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  grid-area: LogoWrapper;
+  display:flex;
+  flex-direction: column;
+  align-self: center;
+  justify-self: flex-start;
+  align-items: flex-start;
+  justify-content: center;
 `;
 
 export const Logo = styled.img`
-  width: 100%;
-  height: 100%;
+  width: 55%;
   color: white;
   cursor: pointer;
 `;
 
+export const ButtonWrapper = styled.div`
+  grid-area: ButtonWrapper;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+  text-align: center;
+  color: #ff595c;
+  height: 100%;
+`;
+
+
 export const SignUp = styled.p`
   text-align: center;
-  grid-area: ButtonSignUp;
-  font-size: 1.5vw;
+  font-size: 18px;
   color: #ffff;
   font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
   cursor: pointer;
-  margin-right: 2vw;  
-  justify-items: start;
   &:hover {
-    color: #614EA0;
+    color: #614ea0;
+    background-color: rgba(255, 255, 255, 0.7)
   }
 `;
 
-export const ButtonWrapper = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
+export const BandSignUp = styled.p`
   text-align: center;
-  font-size: 1.5vw;
-  color: #ff595c;
+  font-size: 18px;
+  color: #ffff;
   font-weight: 700;
-  height: 70%;
-  padding-right: 12vw;
+  padding: 8px;
+  border-radius: 8px;
   cursor: pointer;
+  &:hover {
+    color: #614ea0;
+    background-color: rgba(255, 255, 255, 0.7)
+  }
 `;
+
+export const Login = styled.p`
+  text-align: center;
+  font-size: 18px;
+  color: #ffff;
+  font-weight: 700;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    color: #ffcd02;
+    background-color: rgba(97, 78, 160, 0.8)
+  }
+`;
+

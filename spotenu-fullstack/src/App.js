@@ -1,4 +1,3 @@
-import "./App.css";
 import React from "react";
 import thunk from "redux-thunk";
 import Router from "./router";

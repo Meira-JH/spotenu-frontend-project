@@ -14,22 +14,7 @@ import {
 } from "./style";
 
 class LandingPage extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      email: "",
-      password: "",
-    };
-  }
-
-  toLogin = (event) => {
-    event.preventDefault();
-
-    this.props.toLogin(this.state.email, this.state.password);
-    console.log(this.state.email, this.state.password);
-    this.setState({ email: "", password: "" });
-  };
-
+  
   render() {
     return (
       <LandingPageWrapper>
@@ -57,7 +42,7 @@ class LandingPage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // toLogin: (email, password) => dispatch(toLogin(email, password)),
+    toSignUpPage: () => dispatch(push(routes.signUp))
   };
 };
 
