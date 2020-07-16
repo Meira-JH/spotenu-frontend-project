@@ -2,7 +2,7 @@ const initialState = {
     users: [],
 }
 
-export default users = (state = initialState, action) => {
+const users = (state = initialState, action) => {
     console.log(action.payload)
     switch (action.type){
         case 'SET_USERS' : {
@@ -14,3 +14,5 @@ export default users = (state = initialState, action) => {
             return state;
     }
 }
+
+export default users

@@ -1,22 +1,18 @@
 import React from "react";
-import styled from 'styled-components'
+import { FooterWrapper, FooterLinksWrapper, FooterCreditsWrapper } from "./style";
 
 
 export default function Footer() {
   return (
       <FooterWrapper>
+        <FooterLinksWrapper>
+          <a>Legal</a>
+          <a>Cookies</a>
+          <a>Sobre anúncios</a>
+        </FooterLinksWrapper>
+        <FooterCreditsWrapper>
+          <p>Background Picture by Malte Wingen</p>
+        </FooterCreditsWrapper>
       </FooterWrapper>
   );
 }
-
-
-const FooterWrapper = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-width: 100%;
-height: 18vh;
-background: #483f35;
-box-shadow: 0 -0.2vw 2vw;
-`

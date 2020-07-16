@@ -1,16 +1,30 @@
 import React, { Component } from "react";
-import { Header } from "./style";
+import { 
+  HeaderWrapper,
+  LogoContainer,
+  Logo,
+  SignUp,
+ } from "./style";
+ import logo from "../../img/method-draw-image.svg";
+ import logoHover from "../../img/method-draw-image-hover.svg";
 
 class Header extends Component {
   render() {
     return (
-      <Header ref={this.props.innerRef} sticky={this.props.sticky}>
-          
-      </Header>
+      <HeaderWrapper>
+        <LogoContainer>
+          <Logo 
+          src={(logo)}
+          onMouseOver={event => (event.currentTarget.src = logoHover)}
+          onMouseOut={event => (event.currentTarget.src = logo)}
+          />
+        </LogoContainer>
+          <SignUp onClick>
+            Cadastre-se!
+          </SignUp>
+      </HeaderWrapper>
     );
   }
 }
 
-export default React.forwardRef((props, ref) => (
-  <Header innerRef={ref} {...props} />
-));
+export default Header;

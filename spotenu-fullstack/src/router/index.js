@@ -1,9 +1,12 @@
 import React, { Fragment } from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
+import Footer from "../components/Footer";
+import Header from "../components/Header";
+import LandingPage from "../pages/LandingPage";
 
 export const routes = {
-  //   root: "/",
+    root: "/",
   //   adminPage: "/adminpage",
   //   applicationPage: "/application",
   //   tripsListPage: "/tripslist",
@@ -16,7 +19,7 @@ export default function Router(props) {
       <Header />
       <ConnectedRouter history={props.history}>
         <Switch>
-          {/* <Route exact path={routes.root} component={LoginPage} /> */}
+          <Route exact path={routes.root} component={LandingPage} />
         </Switch>
       </ConnectedRouter>
       <Footer />
