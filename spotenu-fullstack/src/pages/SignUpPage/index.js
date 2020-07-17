@@ -7,24 +7,33 @@ import {
   FormWrapper,
   SignUpTextField,
   SignUpButton,
+  SignUpTitle,
+  FirstBlock,
+  SecondBlock,
+  SecondTitle,
+  SignUpLogo
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { SignUpAction } from "../../actions/usersActions"
-import firebase from 'firebase'
+import { SignUpAction } from "../../actions/usersActions";
 
 class SignUpPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
+      signUp:{
+        accountType: "free",
+        email: "",
+        name: "",
+        nickname: "",
+        password: "",
+        confirmPassword: "",
+        role: "ouvinte"
+      },
       showPassword: false,
+      showConfirmPassword: false,
     };
   }
 
@@ -32,9 +41,15 @@ class SignUpPage extends Component {
     this.setState({ showPassword: !this.state.showPassword });
   };
 
+  handleClickShowConfirmPassword = () => {
+    this.setState({ showConfirmPassword: !this.state.showConfirmPassword });
+  };
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ 
+      signUp: { ...this.state.signUp, [name]: value } 
+    });
   };
 
   handleSubmmit = (event) => {
@@ -42,13 +57,7 @@ class SignUpPage extends Component {
 
     if (this.password !== this.confirmPassword) {
     } else {
-      this.props.toSignUp(this.state);
-      const user = firebase.auth().currentUser;
-      if (user) {
-        this.props.goToLandingPage();
-      } else {
-        console.error("Problema ao cadastrar")
-      }
+      this.props.toSignUp(this.state.signUp);
     }
   };
 
@@ -70,7 +79,7 @@ class SignUpPage extends Component {
         title: "O email deve ser válido",
       },
       {
-        name: "username",
+        name: "nickname",
         type: "text",
         label: "Insira seu nome de usuário",
         required: true,
@@ -79,15 +88,26 @@ class SignUpPage extends Component {
       },
       {
         name: "password",
-        type: this.showPassword ? "text" : "password",
+        type: this.state.showPassword ? "text" : "password",
         label: "Insira sua senha",
         required: true,
         pattern: "{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
+        endAdornment: (
+          <InputAdornment position="end">
+              <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={this.handleClickShowPassword}
+                  edge="end"
+              >
+                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
+          </InputAdornment>
+      ),
       },
       {
         name: "confirmPassword",
-        type: this.showPassword ? "text" : "password",
+        type: this.state.showConfirmPassword ? "text" : "password",
         label: "Repita sua senha",
         required: true,
         pattern: "{6,}",
@@ -96,41 +116,50 @@ class SignUpPage extends Component {
           <InputAdornment position="end">
             <IconButton
               aria-label="toggle password visibility"
-              onClick={this.handleClickShowPassword}
+              onClick={this.handleClickShowConfirmPassword}
               edge="end"
             >
-              {this.showPassword ? <Visibility /> : <VisibilityOff />}
+              {this.state.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
             </IconButton>
           </InputAdornment>
         ),
       },
     ];
 
-    const signUpMap = signUpFormStructure.map((input) => (
-      <div key={input.name}>
+    const signUpRenderMap = signUpFormStructure.map((input) => (
         <SignUpTextField
-          id={Date.now()}
+          variant="outlined"
+          key={input.name}
           name={input.name}
           type={input.type}
           label={input.label}
-          value={this.state[input.name] || ""}
+          value={this.state.signUp[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
-          inputProps={{
+          InputProps={{
             pattern: input.pattern,
             title: input.title,
             endAdornment: input.endAdornment,
           }}
         />
-      </div>
     ));
 
     return (
       <SignUpPageWrapper>
-        <FormWrapper onSubmit={this.handleSubmmit}>
-          {signUpMap}
-          <SignUpButton type="submit">Cadastrar</SignUpButton>
-        </FormWrapper>
+        <FirstBlock>
+          <FormWrapper onSubmit={this.handleSubmmit}>
+            <SignUpLogo src={require('../../img/music/logocabecacirculo.png')}/>
+
+            {signUpRenderMap}
+
+            <SignUpButton type="submit">Cadastrar</SignUpButton>
+          </FormWrapper>
+        </FirstBlock>
+        <SecondBlock>
+          <SecondTitle>
+            Faça uma conta premium e aproveite todas as maravilhas do Spotenu!
+          </SecondTitle>
+        </SecondBlock>
       </SignUpPageWrapper>
     );
   }

@@ -4,10 +4,10 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   height: 90px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: 
-  " . LogoWrapper . ButtonWrapper . ";
+  " . LogoWrapper . . ButtonWrapper ButtonWrapper ";
   background-color: rgba(72, 63, 53, 0.3);
   position: fixed;
   z-index: 1;
@@ -26,15 +26,17 @@ export const LogoWrapper = styled.div`
 `;
 
 export const Logo = styled.img`
-  width: 55%;
+  width: 80%;
   color: white;
   cursor: pointer;
 `;
 
 export const ButtonWrapper = styled.div`
   grid-area: ButtonWrapper;
+  font-size: 22px;
   display: flex;
   flex-direction: row;
+  justify-self: flex-start;
   align-items: center;
   justify-content: space-evenly;
   text-align: center;
@@ -45,43 +47,58 @@ export const ButtonWrapper = styled.div`
 
 export const SignUp = styled.p`
   text-align: center;
-  font-size: 18px;
   color: #ffff;
-  font-weight: 700;
-  padding: 8px;
-  border-radius: 8px;
+  font-weight: 500;
+  padding: 6px;
+  border-radius: 4px;
   cursor: pointer;
+
+  transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
   &:hover {
-    color: #614ea0;
-    background-color: rgba(255, 255, 255, 0.7)
+    color: #ffff;
+    background-color: rgb(255,205,2, 0.5);
   }
 `;
 
 export const BandSignUp = styled.p`
   text-align: center;
-  font-size: 18px;
   color: #ffff;
-  font-weight: 700;
-  padding: 8px;
-  border-radius: 8px;
+  font-weight: 500;
+  padding: 4px;
+  margin: 8px;
+  border-radius: 4px;
   cursor: pointer;
+
+  transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
   &:hover {
-    color: #614ea0;
-    background-color: rgba(255, 255, 255, 0.7)
+    color: #ffff;
+    background-color: rgb(255,205,2, 0.5);
   }
 `;
 
 export const Login = styled.p`
   text-align: center;
-  font-size: 18px;
   color: #ffff;
-  font-weight: 700;
-  padding: 8px;
-  border-radius: 8px;
+  font-weight: 500;
+  padding: 4px;
+  border-radius: 0 8px 8px 0;
+  border-left: 1px white solid;
+  padding-left: 1vw;
   cursor: pointer;
+
+
+  transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
   &:hover {
-    color: #ffcd02;
-    background-color: rgba(97, 78, 160, 0.8)
+    text-decoration: underline;
   }
 `;
 

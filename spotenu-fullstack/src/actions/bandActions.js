@@ -1,0 +1,32 @@
+import { push, replace } from "connected-react-router";
+import { routes } from "../router";
+import firebase from "firebase";
+
+export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
+    try {
+      await firebase
+        .auth()
+        .createUserWithEmailAndPassword(signUpBandInfo.email, signUpBandInfo.password)
+        .then((credential) => {
+          console.log(credential)
+          firebase
+            .firestore()
+            .collection('bands')
+            .doc(credential.user.uid)
+            .set({
+              email: signUpBandInfo.email,
+              name: signUpBandInfo.name,
+              nickname: signUpBandInfo.nickname,
+              description: signUpBandInfo.description,
+              password: signUpBandInfo.password,
+              role: signUpBandInfo.role
+            })
+          })
+        .catch(function (error) {
+          console.error(error.code, error.message);
+        });
+      dispatch(push(routes.root));
+    } catch (error) {
+      console.error(error);
+    }
+  };

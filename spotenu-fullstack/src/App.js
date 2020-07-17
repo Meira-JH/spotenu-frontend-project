@@ -13,7 +13,7 @@ const middlewares = [
   applyMiddleware(routerMiddleware(history), thunk),
   window.__REDUX_DEVTOOLS_EXTENSION__
     ? window.__REDUX_DEVTOOLS_EXTENSION__()
-    : (f) => f,
+    : f => f
 ];
 
 const store = createStore(generateReducers(history), compose(...middlewares));

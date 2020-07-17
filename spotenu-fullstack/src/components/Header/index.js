@@ -13,9 +13,28 @@ import logoHover from "../../img/method-draw-image-hover.svg";
 import { routes } from "../../router";
 import { connect } from "react-redux"
 import { push, replace } from "connected-react-router"
+import firebase from 'firebase'
 
 class Header extends Component {
   render() {
+    const isLogged = firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        console.log(user)
+        return true
+      } else {
+        return false
+      }
+    });
+
+    function logout () {
+      firebase.auth().signOut().then( () => {
+        this.props.goToLandingPage()
+      }).catch(function(error) {
+        console.log(error.code, error.message)
+      });
+    } 
+    
+    console.log(isLogged)
     return (
       <HeaderWrapper>
         <LogoWrapper>
@@ -35,13 +54,23 @@ class Header extends Component {
           <BandSignUp 
           onClick = { this.props.goToSignUpBandPage }
           >
-            Tem um banda?
+            Tem uma banda?
           </BandSignUp>
-          <Login 
-          onClick = { this.props.goToLoginPage }
-          >
-            Login
-          </Login>
+          {isLogged ? 
+            (
+              <Login 
+              onClick = { logout }
+              >
+                Logout
+              </Login>
+            ) : (
+              <Login 
+              onClick = { this.props.goToLoginPage }
+              >
+                Login
+              </Login>
+            )
+          }
         </ButtonWrapper>
       </HeaderWrapper>
     );
@@ -51,7 +80,7 @@ class Header extends Component {
 const mapDispatchToProps = (dispatch) => {
   return{
     goToLandingPage: () => dispatch(push(routes.root)),
-    goToLoginPage: () => dispatch(replace(routes.login)),
+    goToLoginPage: () => dispatch(push(routes.login)),
     goToSignUpPage: () => dispatch(push(routes.signUp)),
     goToSignUpBandPage: () => dispatch(push(routes.signUpBand)),
   }

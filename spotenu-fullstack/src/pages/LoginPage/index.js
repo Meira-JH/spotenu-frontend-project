@@ -2,23 +2,31 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import { LoginPageWrapper, FormWrapper } from "./style";
+import {
+  LoginPageWrapper,
+  FormWrapper,
+  LoginTextField,
+  LoginButton,
+  LoginLogo,
+  LoginTitle,
+  FirstBlock,
+  SecondBlock,
+  SecondTitle
+} from "./style";
 import IconButton from "@material-ui/core/IconButton";
-import Button from "@material-ui/core/Button";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import TextField from "@material-ui/core/TextField";
+import { LoginAction } from "../../actions/usersActions";
 
 class LoginPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "",
-      email: "",
-      username: "",
-      password: "",
-      confirmPassword: "",
+      login:{
+        email: "",
+        password: "",
+      },
       showPassword: false,
     };
   }
@@ -29,7 +37,9 @@ class LoginPage extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+    this.setState({ 
+      login: { ...this.state.login, [name]: value } 
+    });
   };
 
   handleSubmmit = (event) => {
@@ -37,76 +47,74 @@ class LoginPage extends Component {
 
     if (this.password !== this.confirmPassword) {
     } else {
-      // this.props.signUp(this.state);
-      this.props.goToLoginPage();
+      this.props.toLogin(this.state.login);
     }
   };
 
   render() {
-    const loginFormStructure = [
+    const LoginFormStructure = [
       {
         name: "email",
         type: "text",
-        label: "Insira seu email ou nome de usuário",
+        label: "Insira seu email",
         required: true,
-        pattern: "{6,}",
-        title: "O email/nome de usuário deve ser válido",
+        title: "O email deve ser válido",
       },
       {
         name: "password",
-        type: this.showPassword ? "text" : "password",
+        type: this.state.showPassword ? "text" : "password",
         label: "Insira sua senha",
-        required: true,
-        pattern: "{6,}",
-        title: "A senha deve ter pelo menos 6 caracteres",
-      },
-      {
-        name: "confirmPassword",
-        type: this.showPassword ? "text" : "password",
-        label: "Repita sua senha",
         required: true,
         pattern: "{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
-            <IconButton
-              aria-label="toggle password visibility"
-              onClick={this.handleClickShowPassword}
-              edge="end"
-            >
-              {this.showPassword ? <Visibility /> : <VisibilityOff />}
-            </IconButton>
+              <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={this.handleClickShowPassword}
+                  edge="end"
+              >
+                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+              </IconButton>
           </InputAdornment>
-        ),
-      },
+      ),
+      }
     ];
-    
-    const loginMap = loginFormStructure.map((input) => (
-      <div key={input.name}>
-        <TextField
-          id={Date.now()}
+
+    const LoginRenderMap = LoginFormStructure.map((input) => (
+        <LoginTextField
+          key={input.name}
+          variant="outlined"
           name={input.name}
           type={input.type}
           label={input.label}
-          value={this.state.form[input.name] || ""}
+          value={this.state.login[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
-          inputProps={{
+          InputProps={{
             pattern: input.pattern,
             title: input.title,
             endAdornment: input.endAdornment,
           }}
         />
-      </div>
     ));
 
     return (
       <LoginPageWrapper>
-        <FormWrapper onSubmit={this.handleSubmmit}>
-          {loginMap}
+        <FirstBlock>
+          <FormWrapper onSubmit={this.handleSubmmit}>
+            <LoginLogo src={require('../../img/music/logocabecacirculo.png')}/>
+            
+            {LoginRenderMap}
 
-          <Button type="submit">Cadastrar</Button>
-        </FormWrapper>
+            <LoginButton type="submit">Entrar</LoginButton>
+          </FormWrapper>
+        </FirstBlock>
+        <SecondBlock>
+          <SecondTitle>
+            Acesse o universo da mais distinta música
+          </SecondTitle>
+        </SecondBlock>
       </LoginPageWrapper>
     );
   }
@@ -115,6 +123,7 @@ class LoginPage extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
+    toLogin: (LoginInfo) => dispatch(LoginAction(LoginInfo)),
   };
 };
 
