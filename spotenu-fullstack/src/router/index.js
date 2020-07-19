@@ -7,12 +7,14 @@ import LandingPage from "../pages/LandingPage";
 import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpBandPage from "../pages/SignUpBandPage";
+import SignUpAdminPage from "../pages/SignUpAdminPage";
 
 export const routes = {
   root: "/",
   signUp: "/signUp",
   login: "/login",
   signUpBand: "/signUpBand",
+  registerAdmin: "/registerAdmin"
 };
 
 export default function Router(props) {
@@ -21,6 +23,7 @@ export default function Router(props) {
       <ConnectedRouter history={props.history}>
         <Header />
         <Switch>
+          <Route exact path={routes.registerAdmin} component={SignUpAdminPage} />
           <Route exact path={routes.signUpBand} component={SignUpBandPage} />
           <Route exact path={routes.signUp} component={SignUpPage} />
           <Route exact path={routes.login} component={LoginPage} />

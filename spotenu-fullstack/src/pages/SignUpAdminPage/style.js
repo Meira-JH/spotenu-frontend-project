@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import img from "../../img/music/bruce-mars-signup-unsplash.jpg";
+import img from "../../img/music/damian-zaleski-admin-unsplash.jpg";
 import { Button, TextField } from "@material-ui/core";
 
-export const SignUpPageWrapper = styled.div`
+export const SignUpAdminPageWrapper = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -41,43 +41,30 @@ export const FormWrapper = styled.form`
   padding: 1vw 2vw ;
 `;
 
-export const SignUpLogo = styled.img`
+export const SignUpAdminLogo = styled.img`
   max-height: 5vw;
 `;
 
-export const SignUpTitle = styled.span`
+export const SignUpAdminTitle = styled.span`
   font-size: 28px;
   font-weight: 700;
   color: #483f35;
 `;
+export const SignUpAdminButton = styled(Button)`
+  && {
+    background-color: #614ea0;
+    color: #ffff;
+    &:hover {
+      background-color: #ffff;
+      color: #614ea0;
+      font-weight: 900;
+    }
+  }
+`;
 
-export const SignUpTextField = styled(TextField)`
+export const SignUpAdminTextField = styled(TextField)`
   width: 18vw;
   text-align: center;
-`;
-
-export const SignUpButton = styled(Button)`
-  && {
-    background-color: #614ea0;
-    color: #ffff;
-    &:hover {
-      background-color: #ffff;
-      color: #614ea0;
-      font-weight: 900;
-    }
-  }
-`;
-
-export const GoToAdminRegistration = styled(Button)`
-  && {
-    background-color: #614ea0;
-    color: #ffff;
-    &:hover {
-      background-color: #ffff;
-      color: #614ea0;
-      font-weight: 900;
-    }
-  }
 `;
 
 export const SecondBlock = styled.div`

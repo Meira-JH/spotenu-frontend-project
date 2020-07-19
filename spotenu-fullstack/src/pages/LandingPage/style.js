@@ -15,12 +15,12 @@ export const FirstBlock = styled.div`
   width: 100%;
   height: 40vw;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
-  " . . . . ."
-  " . TextWrapper . . ."
-  " . . . . .";
+  " . . . . . ."
+  " . TextWrapper TextWrapper . . ."
+  " . . . . . .";
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
@@ -30,7 +30,7 @@ export const FirstBlock = styled.div`
 
 export const FirstTextWrapper = styled.div`
   grid-area: TextWrapper;
-  width: 100%;
+  width: 90%;
   height: 100%;
   display:flex;
   flex-direction: column;
@@ -43,11 +43,12 @@ export const FirstTextWrapper = styled.div`
 
 export const FirstTitle = styled.p`
   color: #ffff;
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 900;
 `;
 
 export const FirstText = styled.p`
+  width: 78%;
   color: #ffff;
   font-size: 25px;
   font-weight: 400;

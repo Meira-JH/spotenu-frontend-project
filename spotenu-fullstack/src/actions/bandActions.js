@@ -14,6 +14,7 @@ export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
             .collection('bands')
             .doc(credential.user.uid)
             .set({
+              approved: signUpBandInfo.approved,
               email: signUpBandInfo.email,
               name: signUpBandInfo.name,
               nickname: signUpBandInfo.nickname,

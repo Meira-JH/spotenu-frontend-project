@@ -3,34 +3,33 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
 import {
-  SignUpBandPageWrapper,
+  SignUpAdminPageWrapper,
   FormWrapper,
-  SignUpBandTextField,
-  SignUpBandButton,
+  SignUpAdminTextField,
+  SignUpAdminButton,
   FirstBlock,
   SecondBlock,
   SecondTitle,
-  SignUpBandLogo
+  SignUpAdminLogo
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { SignUpBandAction } from "../../actions/bandActions";
+import { SignUpAdminAction } from "../../actions/adminActions";
 
-class SignUpBandPage extends Component {
+class SignUpAdminPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUpBand:{
+      signUpAdmin:{
         approved: false,
         email: "",
         name: "",
         nickname: "",
-        description: "",
         password: "",
         confirmPassword: "",
-        role: "banda"
+        role: "admin"
       },
       showPassword: false,
       showConfirmPassword: false,
@@ -48,7 +47,7 @@ class SignUpBandPage extends Component {
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({ 
-      signUpBand: { ...this.state.signUpBand, [name]: value } 
+      signUpAdmin: { ...this.state.signUpAdmin, [name]: value } 
     });
   };
 
@@ -57,12 +56,12 @@ class SignUpBandPage extends Component {
 
     if (this.password !== this.confirmPassword) {
     } else {
-      this.props.toSignUpBand(this.state.signUpBand);
+      this.props.toSignUpAdmin(this.state.signUpAdmin);
     }
   };
 
   render() {
-    const SignUpBandFormStructure = [
+    const signUpAdminFormStructure = [
       {
         name: "name",
         type: "text",
@@ -84,14 +83,6 @@ class SignUpBandPage extends Component {
         label: "Insira seu nome de usuário",
         required: true,
         pattern: "{5,}",
-        title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
-      },
-      {
-        name: "description",
-        type: "text",
-        label: "Descreva o estilo da sua banda",
-        required: true,
-        pattern: "{15,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
       },
       {
@@ -118,8 +109,8 @@ class SignUpBandPage extends Component {
         type: this.state.showConfirmPassword ? "text" : "password",
         label: "Repita sua senha",
         required: true,
-        pattern: "{6,}",
-        title: "A senha deve ter pelo menos 6 caracteres",
+        pattern: "{10,}",
+        title: "A senha deve ter pelo menos 10 caracteres",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton
@@ -134,14 +125,14 @@ class SignUpBandPage extends Component {
       },
     ];
 
-    const SignUpBandRenderMap = SignUpBandFormStructure.map((input) => (
-        <SignUpBandTextField
+    const signUpAdminRenderMap = signUpAdminFormStructure.map((input) => (
+        <SignUpAdminTextField
           variant="outlined"
           key={input.name}
           name={input.name}
           type={input.type}
           label={input.label}
-          value={this.state.signUpBand[input.name] || ""}
+          value={this.state.signUpAdmin[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
           InputProps={{
@@ -153,31 +144,31 @@ class SignUpBandPage extends Component {
     ));
 
     return (
-      <SignUpBandPageWrapper>
+      <SignUpAdminPageWrapper>
         <FirstBlock>
           <FormWrapper onSubmit={this.handleSubmmit}>
-            <SignUpBandLogo src={require('../../img/music/logocabecacirculo.png')}/>
+            <SignUpAdminLogo src={require('../../img/music/logocabecacirculo.png')}/>
 
-            {SignUpBandRenderMap}
+            {signUpAdminRenderMap}
 
-            <SignUpBandButton type="submit">Cadastrar Banda</SignUpBandButton>
+            <SignUpAdminButton type="submit">Cadastrar Administrador</SignUpAdminButton>
           </FormWrapper>
         </FirstBlock>
         <SecondBlock>
           <SecondTitle>
-            Nos ajude a irradiar a melhor arte! Cadastre sua banda! 
+            Seja parte da equipe Spotenu!
           </SecondTitle>
         </SecondBlock>
-      </SignUpBandPageWrapper>
+      </SignUpAdminPageWrapper>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToLandingPage: () => dispatch(push(routes.root)),
-    toSignUpBand: (SignUpBandInfo) => dispatch(SignUpBandAction(SignUpBandInfo)),
+    // goToLandingPage: () => dispatch(push(routes.root)),
+    toSignUpAdmin: (signUpAdminInfo) => dispatch(SignUpAdminAction(signUpAdminInfo)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpBandPage);
+export default connect(null, mapDispatchToProps)(SignUpAdminPage);

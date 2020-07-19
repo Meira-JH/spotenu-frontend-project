@@ -17,22 +17,15 @@ import firebase from 'firebase'
 
 class Header extends Component {
   render() {
-    const isLogged = firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        console.log(user)
-        return true
-      } else {
-        return false
-      }
-    });
+    const isLogged = firebase.auth().currentUser;
+    console.log(isLogged)
 
-    function logout () {
-      firebase.auth().signOut().then( () => {
+
+    const logout = firebase.auth().signOut().then( () => {
         this.props.goToLandingPage()
       }).catch(function(error) {
         console.log(error.code, error.message)
       });
-    } 
     
     console.log(isLogged)
     return (

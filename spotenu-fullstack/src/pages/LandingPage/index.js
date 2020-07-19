@@ -20,7 +20,7 @@ class LandingPage extends Component {
       <LandingPageWrapper>
         <FirstBlock>
           <FirstTextWrapper>
-            <FirstTitle>Divulgue sua música</FirstTitle>
+            <FirstTitle>Reverencie o que há de melhor na música</FirstTitle>
             <FirstText>
               A Spotenu te oferece uma rede única de artistas e ouvintes
               aficcionados pelas belas artes
