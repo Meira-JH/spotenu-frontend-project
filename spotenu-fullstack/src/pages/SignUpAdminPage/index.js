@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
@@ -10,26 +10,27 @@ import {
   FirstBlock,
   SecondBlock,
   SecondTitle,
-  SignUpAdminLogo
+  SignUpAdminLogo,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAdminAction } from "../../actions/adminActions";
+import Layout from "../../components/Layout/FirstLayout";
 
 class SignUpAdminPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUpAdmin:{
+      signUpAdmin: {
         approved: false,
         email: "",
         name: "",
         nickname: "",
         password: "",
         confirmPassword: "",
-        role: "admin"
+        role: "admin",
       },
       showPassword: false,
       showConfirmPassword: false,
@@ -46,8 +47,8 @@ class SignUpAdminPage extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ 
-      signUpAdmin: { ...this.state.signUpAdmin, [name]: value } 
+    this.setState({
+      signUpAdmin: { ...this.state.signUpAdmin, [name]: value },
     });
   };
 
@@ -94,15 +95,15 @@ class SignUpAdminPage extends Component {
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
-              <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                  edge="end"
-              >
-                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={this.handleClickShowPassword}
+              edge="end"
+            >
+              {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
           </InputAdornment>
-      ),
+        ),
       },
       {
         name: "confirmPassword",
@@ -118,7 +119,11 @@ class SignUpAdminPage extends Component {
               onClick={this.handleClickShowConfirmPassword}
               edge="end"
             >
-              {this.state.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+              {this.state.showConfirmPassword ? (
+                <Visibility />
+              ) : (
+                <VisibilityOff />
+              )}
             </IconButton>
           </InputAdornment>
         ),
@@ -126,40 +131,46 @@ class SignUpAdminPage extends Component {
     ];
 
     const signUpAdminRenderMap = signUpAdminFormStructure.map((input) => (
-        <SignUpAdminTextField
-          variant="outlined"
-          key={input.name}
-          name={input.name}
-          type={input.type}
-          label={input.label}
-          value={this.state.signUpAdmin[input.name] || ""}
-          required={input.required}
-          onChange={this.handleInputChange}
-          InputProps={{
-            pattern: input.pattern,
-            title: input.title,
-            endAdornment: input.endAdornment,
-          }}
-        />
+      <SignUpAdminTextField
+        variant="outlined"
+        key={input.name}
+        name={input.name}
+        type={input.type}
+        label={input.label}
+        value={this.state.signUpAdmin[input.name] || ""}
+        required={input.required}
+        onChange={this.handleInputChange}
+        InputProps={{
+          pattern: input.pattern,
+          title: input.title,
+          endAdornment: input.endAdornment,
+        }}
+      />
     ));
 
     return (
-      <SignUpAdminPageWrapper>
-        <FirstBlock>
-          <FormWrapper onSubmit={this.handleSubmmit}>
-            <SignUpAdminLogo src={require('../../img/music/logocabecacirculo.png')}/>
+      <Fragment>
+        <Layout>
+          <SignUpAdminPageWrapper>
+            <FirstBlock>
+              <FormWrapper onSubmit={this.handleSubmmit}>
+                <SignUpAdminLogo
+                  src={require("../../img/music/logocabecacirculo.png")}
+                />
 
-            {signUpAdminRenderMap}
+                {signUpAdminRenderMap}
 
-            <SignUpAdminButton type="submit">Cadastrar Administrador</SignUpAdminButton>
-          </FormWrapper>
-        </FirstBlock>
-        <SecondBlock>
-          <SecondTitle>
-            Seja parte da equipe Spotenu!
-          </SecondTitle>
-        </SecondBlock>
-      </SignUpAdminPageWrapper>
+                <SignUpAdminButton type="submit">
+                  Cadastrar Administrador
+                </SignUpAdminButton>
+              </FormWrapper>
+            </FirstBlock>
+            <SecondBlock>
+              <SecondTitle>Seja parte da equipe Spotenu!</SecondTitle>
+            </SecondBlock>
+          </SignUpAdminPageWrapper>
+        </Layout>
+      </Fragment>
     );
   }
 }
@@ -167,7 +178,8 @@ class SignUpAdminPage extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     // goToLandingPage: () => dispatch(push(routes.root)),
-    toSignUpAdmin: (signUpAdminInfo) => dispatch(SignUpAdminAction(signUpAdminInfo)),
+    toSignUpAdmin: (signUpAdminInfo) =>
+      dispatch(SignUpAdminAction(signUpAdminInfo)),
   };
 };
 

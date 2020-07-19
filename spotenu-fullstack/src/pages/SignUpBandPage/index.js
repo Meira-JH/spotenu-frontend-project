@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
@@ -10,19 +10,20 @@ import {
   FirstBlock,
   SecondBlock,
   SecondTitle,
-  SignUpBandLogo
+  SignUpBandLogo,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpBandAction } from "../../actions/bandActions";
+import Layout from "../../components/Layout/FirstLayout";
 
 class SignUpBandPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUpBand:{
+      signUpBand: {
         approved: false,
         email: "",
         name: "",
@@ -30,7 +31,7 @@ class SignUpBandPage extends Component {
         description: "",
         password: "",
         confirmPassword: "",
-        role: "banda"
+        role: "banda",
       },
       showPassword: false,
       showConfirmPassword: false,
@@ -47,8 +48,8 @@ class SignUpBandPage extends Component {
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
-    this.setState({ 
-      signUpBand: { ...this.state.signUpBand, [name]: value } 
+    this.setState({
+      signUpBand: { ...this.state.signUpBand, [name]: value },
     });
   };
 
@@ -103,15 +104,15 @@ class SignUpBandPage extends Component {
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
-              <IconButton
-                  aria-label="toggle password visibility"
-                  onClick={this.handleClickShowPassword}
-                  edge="end"
-              >
-                  {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
-              </IconButton>
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={this.handleClickShowPassword}
+              edge="end"
+            >
+              {this.state.showPassword ? <Visibility /> : <VisibilityOff />}
+            </IconButton>
           </InputAdornment>
-      ),
+        ),
       },
       {
         name: "confirmPassword",
@@ -127,7 +128,11 @@ class SignUpBandPage extends Component {
               onClick={this.handleClickShowConfirmPassword}
               edge="end"
             >
-              {this.state.showConfirmPassword ? <Visibility /> : <VisibilityOff />}
+              {this.state.showConfirmPassword ? (
+                <Visibility />
+              ) : (
+                <VisibilityOff />
+              )}
             </IconButton>
           </InputAdornment>
         ),
@@ -135,40 +140,48 @@ class SignUpBandPage extends Component {
     ];
 
     const SignUpBandRenderMap = SignUpBandFormStructure.map((input) => (
-        <SignUpBandTextField
-          variant="outlined"
-          key={input.name}
-          name={input.name}
-          type={input.type}
-          label={input.label}
-          value={this.state.signUpBand[input.name] || ""}
-          required={input.required}
-          onChange={this.handleInputChange}
-          InputProps={{
-            pattern: input.pattern,
-            title: input.title,
-            endAdornment: input.endAdornment,
-          }}
-        />
+      <SignUpBandTextField
+        variant="outlined"
+        key={input.name}
+        name={input.name}
+        type={input.type}
+        label={input.label}
+        value={this.state.signUpBand[input.name] || ""}
+        required={input.required}
+        onChange={this.handleInputChange}
+        InputProps={{
+          pattern: input.pattern,
+          title: input.title,
+          endAdornment: input.endAdornment,
+        }}
+      />
     ));
 
     return (
-      <SignUpBandPageWrapper>
-        <FirstBlock>
-          <FormWrapper onSubmit={this.handleSubmmit}>
-            <SignUpBandLogo src={require('../../img/music/logocabecacirculo.png')}/>
+      <Fragment>
+        <Layout>
+          <SignUpBandPageWrapper>
+            <FirstBlock>
+              <FormWrapper onSubmit={this.handleSubmmit}>
+                <SignUpBandLogo
+                  src={require("../../img/music/logocabecacirculo.png")}
+                />
 
-            {SignUpBandRenderMap}
+                {SignUpBandRenderMap}
 
-            <SignUpBandButton type="submit">Cadastrar Banda</SignUpBandButton>
-          </FormWrapper>
-        </FirstBlock>
-        <SecondBlock>
-          <SecondTitle>
-            Nos ajude a irradiar a melhor arte! Cadastre sua banda! 
-          </SecondTitle>
-        </SecondBlock>
-      </SignUpBandPageWrapper>
+                <SignUpBandButton type="submit">
+                  Cadastrar Banda
+                </SignUpBandButton>
+              </FormWrapper>
+            </FirstBlock>
+            <SecondBlock>
+              <SecondTitle>
+                Nos ajude a irradiar a melhor arte! Cadastre sua banda!
+              </SecondTitle>
+            </SecondBlock>
+          </SignUpBandPageWrapper>
+        </Layout>
+      </Fragment>
     );
   }
 }
@@ -176,7 +189,8 @@ class SignUpBandPage extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
-    toSignUpBand: (SignUpBandInfo) => dispatch(SignUpBandAction(SignUpBandInfo)),
+    toSignUpBand: (SignUpBandInfo) =>
+      dispatch(SignUpBandAction(SignUpBandInfo)),
   };
 };
 

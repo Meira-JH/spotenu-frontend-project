@@ -8,6 +8,7 @@ import SignUpPage from "../pages/SignUpPage";
 import LoginPage from "../pages/LoginPage";
 import SignUpBandPage from "../pages/SignUpBandPage";
 import SignUpAdminPage from "../pages/SignUpAdminPage";
+import PageError from "../pages/PageError";
 
 export const routes = {
   root: "/",
@@ -21,15 +22,16 @@ export default function Router(props) {
   return (
     <Fragment>
       <ConnectedRouter history={props.history}>
-        <Header />
+        {/* <Header /> */}
         <Switch>
           <Route exact path={routes.registerAdmin} component={SignUpAdminPage} />
           <Route exact path={routes.signUpBand} component={SignUpBandPage} />
           <Route exact path={routes.signUp} component={SignUpPage} />
           <Route exact path={routes.login} component={LoginPage} />
           <Route exact path={routes.root} component={LandingPage} />
+          <Route path={routes.error} component={PageError} />
         </Switch>
-        <Footer />
+        {/* <Footer /> */}
       </ConnectedRouter>
     </Fragment>
   );

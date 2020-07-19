@@ -1,4 +1,5 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
+import { withRouter } from "react-router-dom";
 import {
   HeaderWrapper,
   LogoWrapper,
@@ -10,16 +11,16 @@ import {
 } from "./style";
 import logo from "../../img/method-draw-image.svg";
 import logoHover from "../../img/method-draw-image-hover.svg";
-import { routes } from "../../router";
-import { connect } from "react-redux"
-import { push, replace } from "connected-react-router"
 import firebase from 'firebase'
 
-class Header extends Component {
+class Header extends PureComponent {
+
+  goTo = route => {
+    this.props.history.push(route)
+  }
+
   render() {
     const isLogged = firebase.auth().currentUser;
-    console.log(isLogged)
-
 
     const logout = firebase.auth().signOut().then( () => {
         this.props.goToLandingPage()
@@ -27,7 +28,6 @@ class Header extends Component {
         console.log(error.code, error.message)
       });
     
-    console.log(isLogged)
     return (
       <HeaderWrapper>
         <LogoWrapper>
@@ -35,17 +35,17 @@ class Header extends Component {
             src={logo}
             onMouseOver={(event) => (event.currentTarget.src = logoHover)}
             onMouseOut={(event) => (event.currentTarget.src = logo)}
-            onClick={this.props.goToLandingPage}
+            onClick={() => this.goTo("/")}
           />
         </LogoWrapper>
         <ButtonWrapper>
           <SignUp 
-          onClick = { this.props.goToSignUpPage }
+          onClick = { () => this.goTo("/signUp") }
           >
             Cadastre-se!
           </SignUp>
           <BandSignUp 
-          onClick = { this.props.goToSignUpBandPage }
+          onClick = { () => this.goTo("/signUpBand") }
           >
             Tem uma banda?
           </BandSignUp>
@@ -58,7 +58,7 @@ class Header extends Component {
               </Login>
             ) : (
               <Login 
-              onClick = { this.props.goToLoginPage }
+              onClick = { () => this.goTo("/login") }
               >
                 Login
               </Login>
@@ -70,13 +70,4 @@ class Header extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return{
-    goToLandingPage: () => dispatch(push(routes.root)),
-    goToLoginPage: () => dispatch(push(routes.login)),
-    goToSignUpPage: () => dispatch(push(routes.signUp)),
-    goToSignUpBandPage: () => dispatch(push(routes.signUpBand)),
-  }
-}
-
-export default connect(null, mapDispatchToProps)(Header);
+export default withRouter(Header);

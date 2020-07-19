@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
@@ -18,6 +18,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { LoginAction } from "../../actions/usersActions";
+import Layout from "../../components/Layout/FirstLayout";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -100,6 +101,8 @@ class LoginPage extends Component {
     ));
 
     return (
+      <Fragment>
+      <Layout>
       <LoginPageWrapper>
         <FirstBlock>
           <FormWrapper onSubmit={this.handleSubmmit}>
@@ -116,6 +119,8 @@ class LoginPage extends Component {
           </SecondTitle>
         </SecondBlock>
       </LoginPageWrapper>
+      </Layout>
+      </Fragment>
     );
   }
 }

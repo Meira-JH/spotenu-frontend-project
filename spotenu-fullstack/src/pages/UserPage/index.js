@@ -3,66 +3,31 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
 import {
-  SignUpPageWrapper,
-  FormWrapper,
-  SignUpTextField,
-  SignUpButton,
-  FirstBlock,
-  SecondBlock,
-  SecondTitle,
-  SignUpLogo,
-  GoToAdminRegistration
+  UserPageWrapper,
+  UserTextField,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { SignUpAction } from "../../actions/usersActions";
+import { UserAction } from "../../actions/usersActions";
 
-class SignUpPage extends Component {
+class UserPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      signUp:{
-        accountType: "free",
-        email: "",
-        name: "",
-        nickname: "",
-        password: "",
-        confirmPassword: "",
-        role: "ouvinte"
-      },
-      showPassword: false,
-      showConfirmPassword: false,
     };
   }
-
-  handleClickShowPassword = () => {
-    this.setState({ showPassword: !this.state.showPassword });
-  };
-
-  handleClickShowConfirmPassword = () => {
-    this.setState({ showConfirmPassword: !this.state.showConfirmPassword });
-  };
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({ 
-      signUp: { ...this.state.signUp, [name]: value } 
+      [name]: value
     });
   };
 
-  handleSubmmit = (event) => {
-    event.preventDefault();
-
-    if (this.password !== this.confirmPassword) {
-    } else {
-      this.props.toSignUp(this.state.signUp);
-    }
-  };
-
   render() {
-    const signUpFormStructure = [
+    const UserFormStructure = [
       {
         name: "name",
         type: "text",
@@ -126,14 +91,14 @@ class SignUpPage extends Component {
       },
     ];
 
-    const signUpRenderMap = signUpFormStructure.map((input) => (
-        <SignUpTextField
+    const UserRenderMap = UserFormStructure.map((input) => (
+        <UserTextField
           variant="outlined"
           key={input.name}
           name={input.name}
           type={input.type}
           label={input.label}
-          value={this.state.signUp[input.name] || ""}
+          value={this.state.User[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
           InputProps={{
@@ -145,26 +110,9 @@ class SignUpPage extends Component {
     ));
 
     return (
-      <SignUpPageWrapper>
-        <FirstBlock>
-          <FormWrapper onSubmit={this.handleSubmmit}>
-            <SignUpLogo src={require('../../img/music/logocabecacirculo.png')}/>
-
-            {signUpRenderMap}
-
-            <SignUpButton type="submit">Cadastrar</SignUpButton>
-            <GoToAdminRegistration 
-              onClick={ this.props.goToSignUpAdminPage }
-            >Seja um Admin
-            </GoToAdminRegistration>
-          </FormWrapper>
-        </FirstBlock>
-        <SecondBlock>
-          <SecondTitle>
-            Faça uma conta e aproveite todas as maravilhas do Spotenu!
-          </SecondTitle>
-        </SecondBlock>
-      </SignUpPageWrapper>
+      <UserPageWrapper>
+       
+      </UserPageWrapper>
     );
   }
 }
@@ -172,9 +120,9 @@ class SignUpPage extends Component {
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
-    goToSignUpAdminPage: () => dispatch(push(routes.registerAdmin)),
-    toSignUp: (signUpInfo) => dispatch(SignUpAction(signUpInfo)),
+    goToUserAdminPage: () => dispatch(push(routes.registerAdmin)),
+    toUser: (UserInfo) => dispatch(UserAction(UserInfo)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpPage);
+export default connect(null, mapDispatchToProps)(UserPage);
