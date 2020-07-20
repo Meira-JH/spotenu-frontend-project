@@ -12,7 +12,7 @@ import {
   SecondTitle,
   StyledButton,
 } from "./style";
-import Layout from "../../components/Layout/FirstLayout";
+import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 
 class LandingPage extends Component {
   render() {

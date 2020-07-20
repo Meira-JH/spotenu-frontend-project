@@ -43,7 +43,7 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
         console.error(error.code, error.message);
       });
 
-    dispatch(push(routes.root));
+    dispatch(push(routes.user));
   } catch (error) {
     console.error(error);
   }

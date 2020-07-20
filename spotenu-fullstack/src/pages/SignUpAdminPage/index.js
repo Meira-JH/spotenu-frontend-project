@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../../router";
 import {
   SignUpAdminPageWrapper,
   FormWrapper,
@@ -17,7 +15,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAdminAction } from "../../actions/adminActions";
-import Layout from "../../components/Layout/FirstLayout";
+import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 
 class SignUpAdminPage extends Component {
   constructor(props) {

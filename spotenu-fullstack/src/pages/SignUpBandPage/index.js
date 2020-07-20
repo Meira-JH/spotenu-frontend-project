@@ -17,7 +17,7 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpBandAction } from "../../actions/bandActions";
-import Layout from "../../components/Layout/FirstLayout";
+import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 
 class SignUpBandPage extends Component {
   constructor(props) {

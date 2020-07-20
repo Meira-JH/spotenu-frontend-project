@@ -7,7 +7,7 @@ export const HeaderWrapper = styled.header`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: " . LogoWrapper . . ButtonWrapper ButtonWrapper ";
-  background-color: rgba(72, 63, 53, 0.3);
+  background-color: rgb(72, 63, 53, 0.3);
   position: fixed;
   z-index: 1;
 `;
