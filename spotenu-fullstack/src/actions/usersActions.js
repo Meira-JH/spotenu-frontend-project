@@ -3,12 +3,12 @@ import { routes } from "../router";
 import firebase from "firebase";
 
 export const SignUpAction = (signUpInfo) => async (dispatch) => {
+  console.log(signUpInfo)
   try {
     await firebase
       .auth()
       .createUserWithEmailAndPassword(signUpInfo.email, signUpInfo.password)
       .then((credential) => {
-        console.log(credential)
         firebase
           .firestore()
           .collection('users')
@@ -25,7 +25,7 @@ export const SignUpAction = (signUpInfo) => async (dispatch) => {
       .catch(function (error) {
         console.error(error.code, error.message);
       });
-    dispatch(push(routes.root));
+    dispatch(push(routes.user));
   } catch (error) {
     console.error(error);
   }

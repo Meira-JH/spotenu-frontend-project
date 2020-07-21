@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { device } from "../Layout/mediaQueries";
 
 export const HeaderWrapper = styled.header`
   width: 100%;
@@ -34,7 +35,7 @@ export const Logo = styled.img`
 
 export const ButtonWrapper = styled.div`
   grid-area: ButtonWrapper;
-  font-size: 22px;
+  font-size: 1.2vw;
   display: flex;
   flex-direction: row;
   justify-self: flex-start;
@@ -43,6 +44,12 @@ export const ButtonWrapper = styled.div`
   text-align: center;
   color: #ff595c;
   height: 100%;
+
+  @media ${device.laptopL} {
+    font-size: 16px;
+  }
+  @media ${device.tablet} {
+  }
 `;
 
 export const SignUp = styled.p`
@@ -60,6 +67,10 @@ export const SignUp = styled.p`
   &:hover {
     color: #ffff;
     background-color: rgb(255, 205, 2, 0.5);
+  }
+  @media ${device.tablet} {
+    display: none;
+    cursor: default;
   }
 `;
 
@@ -80,6 +91,10 @@ export const BandSignUp = styled.p`
     color: #ffff;
     background-color: rgb(255, 205, 2, 0.5);
   }
+  @media ${device.tablet} {
+    display: none;
+    cursor: default;
+  }
 `;
 
 export const Login = styled.p`
@@ -97,4 +112,15 @@ export const Login = styled.p`
   &:hover {
     text-decoration: underline 3px solid rgb(255, 205, 2);
   }
+  @media ${device.tablet} {
+    display: none;
+    cursor: default;
+  }
 `;
+
+export const MenuContainer = styled.div`
+  display: none;
+  @media ${device.tablet} {
+      display: inline;
+    }
+`

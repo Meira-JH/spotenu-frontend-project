@@ -1,13 +1,14 @@
 const initialState = {
+    currentUser: undefined,
     users: [],
 }
 
 const users = (state = initialState, action) => {
     console.log(action.payload)
     switch (action.type){
-        case 'SET_USERS' : {
+        case 'SET_USER' : {
             return{
-                ...state, usersList: action.payload
+                ...state, user: action.payload
             }
         }
         default:

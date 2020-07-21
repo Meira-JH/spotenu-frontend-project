@@ -56,8 +56,7 @@ class SignUpBandPage extends Component {
   handleSubmmit = (event) => {
     event.preventDefault();
 
-    if (this.password !== this.confirmPassword) {
-    } else {
+    if (this.password === this.confirmPassword) {
       this.props.toSignUpBand(this.state.signUpBand);
     }
   };
@@ -67,24 +66,25 @@ class SignUpBandPage extends Component {
       {
         name: "name",
         type: "text",
-        label: "Insira seu nome",
+        label: "Insira o nome da sua banda",
         required: true,
-        pattern: "[A-Za-z ãé]{5,}",
+        pattern: ".{5,}",
         title: "O nome deve conter no mínimo 5 letras",
       },
       {
         name: "email",
         type: "text",
-        label: "Insira seu email",
+        label: "Insira o email da sua banda",
         required: true,
         title: "O email deve ser válido",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       },
       {
         name: "nickname",
         type: "text",
-        label: "Insira seu nome de usuário",
+        label: "Nome de usuário da banda",
         required: true,
-        pattern: "{5,}",
+        pattern: ".{5,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
       },
       {
@@ -92,15 +92,15 @@ class SignUpBandPage extends Component {
         type: "text",
         label: "Descreva o estilo da sua banda",
         required: true,
-        pattern: "{15,}",
+        pattern: ".{15,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
       },
       {
         name: "password",
         type: this.state.showPassword ? "text" : "password",
-        label: "Insira sua senha",
+        label: "Insira a senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -117,7 +117,7 @@ class SignUpBandPage extends Component {
       {
         name: "confirmPassword",
         type: this.state.showConfirmPassword ? "text" : "password",
-        label: "Repita sua senha",
+        label: "Repita a senha",
         required: true,
         pattern: "{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
@@ -149,7 +149,7 @@ class SignUpBandPage extends Component {
         value={this.state.signUpBand[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
-        InputProps={{
+        inputProps={{
           pattern: input.pattern,
           title: input.title,
           endAdornment: input.endAdornment,
@@ -188,7 +188,6 @@ class SignUpBandPage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToLandingPage: () => dispatch(push(routes.root)),
     toSignUpBand: (SignUpBandInfo) =>
       dispatch(SignUpBandAction(SignUpBandInfo)),
   };

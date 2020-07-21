@@ -8,6 +8,8 @@ import SignUpBandPage from "../pages/SignUpBandPage";
 import SignUpAdminPage from "../pages/SignUpAdminPage";
 import PageError from "../pages/PageError";
 import UserPage from "../pages/UserPage";
+import AdminPage from "../pages/AdminPage";
+import BandPage from "../pages/BandPage";
 
 export const routes = {
   root: "/",
@@ -15,7 +17,9 @@ export const routes = {
   login: "/login",
   signUpBand: "/signUpBand",
   registerAdmin: "/registerAdmin",
-  user: "/user"
+  user: "/user",
+  admin: "/admin",
+  band: "/band"
 };
 
 export default function Router(props) {
@@ -23,6 +27,8 @@ export default function Router(props) {
     <Fragment>
       <ConnectedRouter history={props.history}>
         <Switch>
+          <Route exact path={routes.band} component={BandPage} />
+          <Route exact path={routes.admin} component={AdminPage} />
           <Route exact path={routes.user} component={UserPage} />
           <Route exact path={routes.registerAdmin} component={SignUpAdminPage} />
           <Route exact path={routes.signUpBand} component={SignUpBandPage} />

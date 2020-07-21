@@ -1,13 +1,12 @@
 import React, { PureComponent } from "react";
 import { withRouter } from "react-router-dom";
-import { AccountMenuWrapper } from "./style";
-import firebase from "firebase";
-import { Drawer, Card, CardContent, Typography, CardActions, Button, Divider, List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
+import { BandMenuWrapper } from "./style";
+import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
 import StarBorder from '@material-ui/icons/StarBorder';
 
-class AccountMenu extends PureComponent {
+class BandMenu extends PureComponent {
 
     // [open, setOpen] = React.useState(true);
 
@@ -20,21 +19,12 @@ class AccountMenu extends PureComponent {
   };
 
   render() {
-    const GeneralListItemMap = ["Músicas", "Gêneros", "Playlists"].map(
-      (text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>
-            {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
-          </ListItemIcon>
-          <ListItemText primary={text} />
-        </ListItem>
-      )
-    );
 
     const FavListItemMap = [
-      "Minhas Músicas",
-      "Meus Albuns",
-      "Minhas Playlists",
+      "Músicas da banda",
+      "Albuns da banda",
+      "Criar música",
+      "Criar álbum"
     ].map((text, index) => (
       <ListItem button key={text}>
         <ListItemIcon>
@@ -45,23 +35,22 @@ class AccountMenu extends PureComponent {
     ));
 
     return (
-      <AccountMenuWrapper>
+      <BandMenuWrapper>
         <List
           component="nav"
           anchor="left"
           aria-labelledby="nested-list-subheader"
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
-              Sua conta
+              Produções da banda
             </ListSubheader>
           }
         >
-            {GeneralListItemMap}
             {FavListItemMap}
         </List>
-      </AccountMenuWrapper>
+      </BandMenuWrapper>
       );
   }
 }
 
-export default withRouter(AccountMenu);
+export default withRouter(BandMenu);

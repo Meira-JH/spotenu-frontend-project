@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import img from "../../img/music/malte-wingen-background1-unsplash.jpg";
 import Button from "@material-ui/core/Button";
+import { device, size } from "../../components/Layout/mediaQueries";
 
 export const LandingPageWrapper = styled.div`
   width: 100%;
@@ -13,19 +14,34 @@ export const LandingPageWrapper = styled.div`
 
 export const FirstBlock = styled.div`
   width: 100%;
-  height: 40vw;
+  max-height: 40vw;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr 1fr 1fr;
   grid-template-areas: 
   " . . . . . ."
-  " . TextWrapper TextWrapper . . ."
+  " Responsive TextWrapper TextWrapper . . ."
   " . . . . . .";
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
   box-shadow: 0 1px 5px;
+
+  @media ${device.laptopL}{
+    max-height: 58vw;
+  }
+  @media ${device.laptop}{
+    max-height: 65vw;
+  }
+  @media ${device.tablet}{
+    max-height: 95vw;
+  }
+  @media ${device.mobileL}{
+    max-height: 120vw;
+    background-size: auto;
+    background-position: left;
+  }
 `;
 
 export const FirstTextWrapper = styled.div`
@@ -39,12 +55,30 @@ export const FirstTextWrapper = styled.div`
   align-items: flex-start;
   justify-content: center;
   padding-left: 1vw;
+
+  @media ${device.tablet}{
+    width: 35vw;
+    grid-area: Responsive;
+    padding-left: 10vw;
+  }
+  @media ${device.mobileL}{
+    width: 70vw;
+    grid-area: TextWrapper;
+    padding: 15vw 0 0 0;
+    align-items: center;
+  }
 `;
+
 
 export const FirstTitle = styled.p`
   color: #ffff;
   font-size: 40px;
   font-weight: 900;
+
+  @media ${device.mobileL}{
+    font-size: 28px;
+    text-align: center;
+  }
 `;
 
 export const FirstText = styled.p`
@@ -53,6 +87,13 @@ export const FirstText = styled.p`
   font-size: 25px;
   font-weight: 400;
   padding-bottom: 2vw;
+
+  @media ${device.mobileL}{
+    width: auto;
+    font-size: 16px;
+    margin: 3vw;
+    text-align: center;
+  }
 `;
 
 export const StyledButton = styled(Button)`
@@ -65,6 +106,9 @@ export const StyledButton = styled(Button)`
     background-color: #ffff;
     color: #483f35;
     font-weight: 900;
+  }
+  @media ${device.mobileL}{
+    font-size: 12px;
   }
 }
 `;
@@ -83,4 +127,14 @@ export const SecondTitle = styled.p`
   color: black;
   font-size: 45px;
   font-weight: 900;
+
+  @media ${device.laptop}{
+    font-size: 26px;
+    text-align: center;
+  }
+  @media ${device.mobileL}{
+    padding-top: 10vw;
+    font-size: 22px;
+  }
 `;
+

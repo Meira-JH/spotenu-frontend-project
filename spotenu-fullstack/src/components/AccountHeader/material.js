@@ -19,7 +19,7 @@ import { AppBar } from "@material-ui/core";
 
 const Logo = styled.img`
   max-width: 190px;
-  padding: 5px;
+  padding: 0 35px;
 `
 
 const theme = createMuiTheme({

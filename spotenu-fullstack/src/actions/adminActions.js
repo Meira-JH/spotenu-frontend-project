@@ -11,7 +11,7 @@ export const SignUpAdminAction = (signUpInfo) => async (dispatch) => {
         console.log(credential)
         firebase
           .firestore()
-          .collection('users')
+          .collection('admins')
           .doc(credential.user.uid)
           .set({
             approved: signUpInfo.approved,

@@ -8,26 +8,31 @@ import {
   BandSignUp,
   Login,
   ButtonWrapper,
+  MenuContainer,
 } from "./style";
 import logo from "../../img/method-draw-image.svg";
 import logoHover from "../../img/method-draw-image-hover.svg";
-import firebase from 'firebase'
+import firebase from "firebase";
+import CustomizedMenus from "../HiddenMenu";
 
 class Header extends PureComponent {
-
-  goTo = route => {
-    this.props.history.push(route)
-  }
+  goTo = (route) => {
+    this.props.history.push(route);
+  };
 
   render() {
     const isLogged = firebase.auth().currentUser;
 
-    const logout = firebase.auth().signOut().then( () => {
-        this.props.goToLandingPage()
-      }).catch(function(error) {
-        console.log(error.code, error.message)
+    const logout = firebase
+      .auth()
+      .signOut()
+      .then(() => {
+        this.props.goToLandingPage();
+      })
+      .catch(function (error) {
+        console.log(error.code, error.message);
       });
-    
+
     return (
       <HeaderWrapper>
         <LogoWrapper>
@@ -39,31 +44,20 @@ class Header extends PureComponent {
           />
         </LogoWrapper>
         <ButtonWrapper>
-          <SignUp 
-          onClick = { () => this.goTo("/signUp") }
-          >
-            Cadastre-se!
-          </SignUp>
-          <BandSignUp 
-          onClick = { () => this.goTo("/signUpBand") }
-          >
+          <MenuContainer>
+            <CustomizedMenus 
+            goToSignUp = {() => this.goTo("/signUp")}
+            />
+          </MenuContainer>
+          <SignUp onClick={() => this.goTo("/signUp")}>Cadastre-se!</SignUp>
+          <BandSignUp onClick={() => this.goTo("/signUpBand")}>
             Tem uma banda?
           </BandSignUp>
-          {isLogged ? 
-            (
-              <Login 
-              onClick = { logout }
-              >
-                Logout
-              </Login>
-            ) : (
-              <Login 
-              onClick = { () => this.goTo("/login") }
-              >
-                Login
-              </Login>
-            )
-          }
+          {isLogged ? (
+            <Login onClick={logout}>Logout</Login>
+          ) : (
+            <Login onClick={() => this.goTo("/login")}>Login</Login>
+          )}
         </ButtonWrapper>
       </HeaderWrapper>
     );

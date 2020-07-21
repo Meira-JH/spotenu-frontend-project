@@ -19,6 +19,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAction } from "../../actions/usersActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
+import { infoValidation } from "../../util/validation";
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -55,9 +56,15 @@ class SignUpPage extends Component {
 
   handleSubmmit = (event) => {
     event.preventDefault();
+    const state = this.state.signUp;
+    new infoValidation().signup(
+      state.name,
+      state.password,
+      state.email,
+      state.role
+    );
 
-    if (this.password !== this.confirmPassword) {
-    } else {
+    if (this.password === this.confirmPassword) {
       this.props.toSignUp(this.state.signUp);
     }
   };
@@ -69,7 +76,7 @@ class SignUpPage extends Component {
         type: "text",
         label: "Insira seu nome",
         required: true,
-        pattern: "[A-Za-z ãé]{5,}",
+        pattern: ".{5,}",
         title: "O nome deve conter no mínimo 5 letras",
       },
       {
@@ -78,13 +85,14 @@ class SignUpPage extends Component {
         label: "Insira seu email",
         required: true,
         title: "O email deve ser válido",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       },
       {
         name: "nickname",
         type: "text",
         label: "Insira seu nome de usuário",
         required: true,
-        pattern: "{5,}",
+        pattern: ".{5,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
       },
       {
@@ -92,7 +100,7 @@ class SignUpPage extends Component {
         type: this.state.showPassword ? "text" : "password",
         label: "Insira sua senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -111,7 +119,7 @@ class SignUpPage extends Component {
         type: this.state.showConfirmPassword ? "text" : "password",
         label: "Repita sua senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -141,7 +149,7 @@ class SignUpPage extends Component {
         value={this.state.signUp[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
-        InputProps={{
+        inputProps={{
           pattern: input.pattern,
           title: input.title,
           endAdornment: input.endAdornment,

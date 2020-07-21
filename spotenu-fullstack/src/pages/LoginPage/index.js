@@ -8,7 +8,6 @@ import {
   LoginTextField,
   LoginButton,
   LoginLogo,
-  LoginTitle,
   FirstBlock,
   SecondBlock,
   SecondTitle
@@ -46,8 +45,7 @@ class LoginPage extends Component {
   handleSubmmit = (event) => {
     event.preventDefault();
 
-    if (this.password !== this.confirmPassword) {
-    } else {
+    if (this.password === this.confirmPassword) {
       this.props.toLogin(this.state.login);
     }
   };
@@ -60,13 +58,14 @@ class LoginPage extends Component {
         label: "Insira seu email",
         required: true,
         title: "O email deve ser válido",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       },
       {
         name: "password",
         type: this.state.showPassword ? "text" : "password",
         label: "Insira sua senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -92,7 +91,7 @@ class LoginPage extends Component {
           value={this.state.login[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
-          InputProps={{
+          inputProps={{
             pattern: input.pattern,
             title: input.title,
             endAdornment: input.endAdornment,

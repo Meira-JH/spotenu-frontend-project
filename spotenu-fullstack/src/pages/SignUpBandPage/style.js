@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import img from "../../img/music/hans-band-unsplash.jpg";
 import { Button, TextField } from "@material-ui/core";
+import { device } from "../../components/Layout/mediaQueries";
 
 export const SignUpBandPageWrapper = styled.div`
   width: 100%;
@@ -12,7 +13,7 @@ export const SignUpBandPageWrapper = styled.div`
 
 export const FirstBlock = styled.div`
   width: 100%;
-  height: 42vw;
+  max-height: 42vw;
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
@@ -25,6 +26,22 @@ export const FirstBlock = styled.div`
     " . FormWrapper ."
     " . . . ";
   box-shadow: 0 1px 5px;
+
+  @media ${device.laptopL} {
+    max-height: 58vw;
+  }
+  @media ${device.laptop} {
+    max-height: 65vw;
+  }
+  @media ${device.tablet} {
+    max-height: 95vw;
+  }
+  @media ${device.mobileL} {
+    max-height: 140vw;
+    background-size: auto;
+    background-position: right;
+  }
+
 `;
 
 export const FormWrapper = styled.form`
@@ -39,10 +56,18 @@ export const FormWrapper = styled.form`
   background-color: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
   padding: 1vw 2vw ;
+
+  @media ${device.laptopL} {
+    min-width: 300px;
+  }
+  @media ${device.tablet} {
+    width: 300px;
+  }
 `;
 
 export const SignUpBandLogo = styled.img`
   max-height: 5vw;
+  min-height: 60px;
 `;
 
 export const SignUpBandTitle = styled.span`
@@ -64,8 +89,15 @@ export const SignUpBandButton = styled(Button)`
 `;
 
 export const SignUpBandTextField = styled(TextField)`
-  width: 18vw;
-  text-align: center;
+  && {
+    width: 15vw;
+    text-align: center;
+
+    @media ${device.tablet} {
+      width: 200px;
+      font-size: 5px;
+    }
+  }
 `;
 
 export const SecondBlock = styled.div`
@@ -82,4 +114,13 @@ export const SecondTitle = styled.p`
   color: black;
   font-size: 35px;
   font-weight: 900;
+  text-align: center;
+
+  @media ${device.laptop} {
+    font-size: 26px;
+  }
+  @media ${device.mobileL} {
+    padding-top: 10vw;
+    font-size: 22px;
+  }
 `;

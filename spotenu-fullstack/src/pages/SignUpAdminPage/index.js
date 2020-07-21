@@ -75,13 +75,14 @@ class SignUpAdminPage extends Component {
         label: "Insira seu email",
         required: true,
         title: "O email deve ser válido",
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       },
       {
         name: "nickname",
         type: "text",
         label: "Insira seu nome de usuário",
         required: true,
-        pattern: "{5,}",
+        pattern: ".{5,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
       },
       {
@@ -89,7 +90,7 @@ class SignUpAdminPage extends Component {
         type: this.state.showPassword ? "text" : "password",
         label: "Insira sua senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{10,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -138,7 +139,7 @@ class SignUpAdminPage extends Component {
         value={this.state.signUpAdmin[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
-        InputProps={{
+        inputProps={{
           pattern: input.pattern,
           title: input.title,
           endAdornment: input.endAdornment,
