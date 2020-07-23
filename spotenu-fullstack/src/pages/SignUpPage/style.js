@@ -69,11 +69,6 @@ export const SignUpLogo = styled.img`
   min-height: 60px;
 `;
 
-export const SignUpTitle = styled.span`
-  font-size: 28px;
-  font-weight: 700;
-  color: #483f35;
-`;
 
 export const SignUpTextField = styled(TextField)`
   && {

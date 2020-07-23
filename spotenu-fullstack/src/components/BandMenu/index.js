@@ -1,32 +1,41 @@
 import React, { PureComponent } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import { push } from "connected-react-router";
+import { routes } from "../../router";
 import { BandMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
+import { setContentAction } from "../../actions/bandActions";
 
 class BandMenu extends PureComponent {
-
-    // [open, setOpen] = React.useState(true);
-
-    // handleClick = () => {
-    //   setOpen(!open);
-    // };
+  constructor(props) {
+    super(props);
+    this.state = {
+      content: "music"
+    };
+  }
 
   goTo = (route) => {
     this.props.history.push(route);
   };
 
+  handleItemClick(event){
+    this.props.setContent(event)
+  }
+
+
   render() {
 
-    const FavListItemMap = [
+    const contentOptions = ["music", "bandAlbums", "createAlbum"]
+
+    const MenuListItemMap = [
       "Músicas da banda",
       "Albuns da banda",
-      "Criar música",
       "Criar álbum"
     ].map((text, index) => (
-      <ListItem button key={text}>
-        <ListItemIcon>
+      <ListItem button key={index} onClick={() => this.handleItemClick(contentOptions[index])}>
+        <ListItemIcon key={index}>
           {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
         </ListItemIcon>
         <ListItemText primary={text} />
@@ -45,11 +54,25 @@ class BandMenu extends PureComponent {
             </ListSubheader>
           }
         >
-            {FavListItemMap}
+            {MenuListItemMap}
         </List>
       </BandMenuWrapper>
       );
   }
 }
 
-export default withRouter(BandMenu);
+
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+  content: state.bands.content
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    goToLandingPage: () => dispatch(push(routes.root)),
+    goToPageLoading: () => dispatch(push(routes.loading)),
+    setContent: (content) => dispatch(setContentAction(content))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(BandMenu);

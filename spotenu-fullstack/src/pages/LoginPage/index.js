@@ -46,9 +46,7 @@ class LoginPage extends Component {
   handleSubmmit = (event) => {
     event.preventDefault();
 
-    if (this.password === this.confirmPassword) {
       this.props.toLogin(this.state.login);
-    }
   };
 
   render() {

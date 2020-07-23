@@ -1,11 +1,11 @@
-import React, { PureComponent } from "react";
+import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
 import { AccountMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
 
-class AccountMenu extends PureComponent {
+class AccountMenu extends Component {
 
 
   goTo = (route) => {

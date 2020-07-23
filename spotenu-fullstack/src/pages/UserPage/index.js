@@ -5,6 +5,7 @@ import { routes } from "../../router";
 import { UserPageWrapper } from "./style";
 import AccountMenu from "../../components/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
+import UserContent from "../../components/UserContent";
 
 class UserPage extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class UserPage extends Component {
               <AccountHeader />
               <UserPageWrapper>
                 <AccountMenu />
+                <UserContent/>
               </UserPageWrapper>
             </Fragment>
           )

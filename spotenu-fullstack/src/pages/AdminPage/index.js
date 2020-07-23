@@ -2,10 +2,11 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import { AdminPageWrapper } from "./style";
+import { AdminPageWrapper, MenuWrapper } from "./style";
 import AccountMenu from "../../components/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
 import AdminMenu from "../../components/AdminMenu";
+import AdminContent from "../../components/AdminContent";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -13,7 +14,7 @@ class AdminPage extends Component {
     this.state = {};
   }
 
-  userVerification () {
+  userVerification() {
     if (this.props.currentUser) {
       if (this.props.currentUser.role !== "admin") {
         this.props.goToLandingPage();
@@ -29,7 +30,7 @@ class AdminPage extends Component {
   };
 
   render() {
-    this.userVerification()
+    this.userVerification();
     return (
       <div>
         {this.props.currentUser ? (
@@ -37,8 +38,11 @@ class AdminPage extends Component {
             <Fragment>
               <AccountHeader />
               <AdminPageWrapper>
-                <AccountMenu />
-                <AdminMenu />
+                <MenuWrapper>
+                  <AccountMenu />
+                  <AdminMenu />
+                </MenuWrapper>
+                <AdminContent />
               </AdminPageWrapper>
             </Fragment>
           )
