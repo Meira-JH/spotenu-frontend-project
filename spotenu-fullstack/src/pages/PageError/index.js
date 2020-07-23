@@ -6,10 +6,15 @@ class PageError extends React.Component{
     render(){
         return(
             <div>
-                Error page not found
+                Page not found
             </div>
         )
     }
 }
 
-export default connect (null, null) (PageError);
+const mapDispatchToProps = (dispatch) => {
+    return {
+    };
+  };
+  
+export default connect (null, mapDispatchToProps) (PageError);

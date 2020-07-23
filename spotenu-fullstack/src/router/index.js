@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { ConnectedRouter } from "connected-react-router";
 import { Switch, Route } from "react-router-dom";
 import LandingPage from "../pages/LandingPage";
@@ -10,6 +10,9 @@ import PageError from "../pages/PageError";
 import UserPage from "../pages/UserPage";
 import AdminPage from "../pages/AdminPage";
 import BandPage from "../pages/BandPage";
+import { connect } from "react-redux";
+import { getUserFromFirebase } from "../actions/usersActions";
+import firebase from "firebase";
 
 export const routes = {
   root: "/",
@@ -19,10 +22,22 @@ export const routes = {
   registerAdmin: "/registerAdmin",
   user: "/user",
   admin: "/admin",
-  band: "/band"
+  band: "/band",
+  error: "/error",
 };
 
-export default function Router(props) {
+function Router(props) {
+
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        return props.toSetUser(user.uid);
+      } else {
+        return props.toSetUser(null);
+      }
+    });
+  }, [] );
+
   return (
     <Fragment>
       <ConnectedRouter history={props.history}>
@@ -41,3 +56,15 @@ export default function Router(props) {
     </Fragment>
   );
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toSetUser: (LoginInfo) => dispatch(getUserFromFirebase(LoginInfo)),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Router);

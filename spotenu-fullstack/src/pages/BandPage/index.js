@@ -13,6 +13,14 @@ class BandPage extends Component {
     this.state = {};
   }
 
+  userVerification () {
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role !== "banda") {
+        this.props.goToLandingPage();
+      }
+    }
+  }
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -21,23 +29,37 @@ class BandPage extends Component {
   };
 
   render() {
+    this.userVerification()
+
     return (
-      <Fragment>
-        <AccountHeader />
-        <BandPageWrapper>
-          <AccountMenu />
-          <BandMenu/>
-        </BandPageWrapper>
-      </Fragment>
+      <div>
+        {this.props.currentUser ? (
+          this.props.currentUser.role === "banda" && (
+            <Fragment>
+              <AccountHeader />
+              <BandPageWrapper>
+                <AccountMenu />
+                <BandMenu />
+              </BandPageWrapper>
+            </Fragment>
+          )
+        ) : (
+          <div> Carregando... </div>
+        )}
+      </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
-    // goToBandAdminPage: () => dispatch(push(routes.registerAdmin)),
+    goToPageLoading: () => dispatch(push(routes.loading)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(BandPage);
+export default connect(mapStateToProps, mapDispatchToProps)(BandPage);

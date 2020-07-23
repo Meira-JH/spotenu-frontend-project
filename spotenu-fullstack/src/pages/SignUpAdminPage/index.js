@@ -16,6 +16,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAdminAction } from "../../actions/adminActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
+import { Typography } from "@material-ui/core";
 
 class SignUpAdminPage extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class SignUpAdminPage extends Component {
         type: this.state.showConfirmPassword ? "text" : "password",
         label: "Repita sua senha",
         required: true,
-        pattern: "{10,}",
+        pattern: ".{10,}",
         title: "A senha deve ter pelo menos 10 caracteres",
         endAdornment: (
           <InputAdornment position="end">
@@ -135,7 +136,9 @@ class SignUpAdminPage extends Component {
         key={input.name}
         name={input.name}
         type={input.type}
-        label={input.label}
+        label={
+          <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
+        }        
         value={this.state.signUpAdmin[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}

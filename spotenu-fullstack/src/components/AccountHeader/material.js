@@ -16,10 +16,14 @@ import img from "../../img/music/logo-transparent-background.png";
 import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { AppBar } from "@material-ui/core";
+import { connect } from "react-redux";
+import { push } from "connected-react-router";
+import { routes } from "../../router";
 
 const Logo = styled.img`
   max-width: 190px;
   padding: 0 35px;
+  cursor: pointer;
 `
 
 const theme = createMuiTheme({
@@ -108,7 +112,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function PrimarySearchAppBar() {
+function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -195,7 +199,9 @@ export default function PrimarySearchAppBar() {
     <MuiThemeProvider theme={theme}>
       <AppBar position="static" color="secondary">
         <Toolbar>
-          <Logo src={img} />
+          <Logo src={img} 
+            onClick={props.goToLandingPage}
+            />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -251,3 +257,11 @@ export default function PrimarySearchAppBar() {
     </div>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    goToLandingPage: () => dispatch(push(routes.root)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(PrimarySearchAppBar);

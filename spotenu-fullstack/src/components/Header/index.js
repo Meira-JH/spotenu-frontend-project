@@ -16,22 +16,30 @@ import firebase from "firebase";
 import CustomizedMenus from "../HiddenMenu";
 
 class Header extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      uid: undefined
+    };
+  }
   goTo = (route) => {
     this.props.history.push(route);
   };
 
   render() {
-    const isLogged = firebase.auth().currentUser;
-
-    const logout = firebase
-      .auth()
-      .signOut()
-      .then(() => {
-        this.props.goToLandingPage();
-      })
-      .catch(function (error) {
-        console.log(error.code, error.message);
-      });
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        return this.setState({
+          uid: user.uid
+        })
+      }
+    });
+    const isLogged = this.state.uid
+    
+    const logout = async () => {
+      firebase.auth().signOut()
+      window.location.reload();
+    } 
 
     return (
       <HeaderWrapper>
@@ -45,13 +53,15 @@ class Header extends PureComponent {
         </LogoWrapper>
         <ButtonWrapper>
           <MenuContainer>
-            <CustomizedMenus 
-            goToSignUp = {() => this.goTo("/signUp")}
-            />
+            <CustomizedMenus />
           </MenuContainer>
-          <SignUp onClick={() => this.goTo("/signUp")}>Cadastre-se!</SignUp>
-          <BandSignUp onClick={() => this.goTo("/signUpBand")}>
-            Tem uma banda?
+          <SignUp 
+            onClick={() => this.goTo("/signUp")}
+          >Cadastre-se!
+          </SignUp>
+          <BandSignUp 
+            onClick={() => this.goTo("/signUpBand")}
+          >Tem uma banda?
           </BandSignUp>
           {isLogged ? (
             <Login onClick={logout}>Logout</Login>

@@ -13,6 +13,14 @@ class AdminPage extends Component {
     this.state = {};
   }
 
+  userVerification () {
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role !== "admin") {
+        this.props.goToLandingPage();
+      }
+    }
+  }
+
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -21,17 +29,30 @@ class AdminPage extends Component {
   };
 
   render() {
+    this.userVerification()
     return (
-      <Fragment>
-        <AccountHeader />
-        <AdminPageWrapper>
-          <AccountMenu />
-          <AdminMenu />
-        </AdminPageWrapper>
-      </Fragment>
+      <div>
+        {this.props.currentUser ? (
+          this.props.currentUser.role === "admin" && (
+            <Fragment>
+              <AccountHeader />
+              <AdminPageWrapper>
+                <AccountMenu />
+                <AdminMenu />
+              </AdminPageWrapper>
+            </Fragment>
+          )
+        ) : (
+          <div> Carregando... </div>
+        )}
+      </div>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+});
 
 const mapDispatchToProps = (dispatch) => {
   return {
@@ -40,4 +61,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(AdminPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AdminPage);

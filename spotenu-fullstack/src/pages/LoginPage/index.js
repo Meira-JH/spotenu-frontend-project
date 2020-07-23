@@ -18,6 +18,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { LoginAction } from "../../actions/usersActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
+import Typography from "@material-ui/core/Typography";
 
 class LoginPage extends Component {
   constructor(props) {
@@ -87,13 +88,17 @@ class LoginPage extends Component {
           variant="outlined"
           name={input.name}
           type={input.type}
-          label={input.label}
+          label={
+            <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
+          }
           value={this.state.login[input.name] || ""}
           required={input.required}
           onChange={this.handleInputChange}
           inputProps={{
             pattern: input.pattern,
             title: input.title,
+          }}
+          InputProps={{
             endAdornment: input.endAdornment,
           }}
         />

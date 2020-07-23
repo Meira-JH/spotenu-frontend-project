@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import img from "../../img/music/malte-wingen-background1-unsplash.jpg";
 import Button from "@material-ui/core/Button";
-import { device, size } from "../../components/Layout/mediaQueries";
+import { device } from "../../components/Layout/mediaQueries";
 
 export const LandingPageWrapper = styled.div`
   width: 100%;

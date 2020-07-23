@@ -1,31 +1,34 @@
-import { push, replace } from "connected-react-router";
+import { push } from "connected-react-router";
 import { routes } from "../router";
 import firebase from "firebase";
 
-export const SignUpAdminAction = (signUpInfo) => async (dispatch) => {
+function setCurrentUser(currentUser) {
+  return {
+    type: "SET_CURRENT_USER",
+    payload: {
+      currentUser,
+    },
+  };
+}
+
+export const SignUpAdminAction = (signUpAdminInfo) => async (dispatch) => {
+  console.log(signUpAdminInfo);
   try {
-    await firebase
+    const firebaseCreate = await firebase
       .auth()
-      .createUserWithEmailAndPassword(signUpInfo.email, signUpInfo.password)
-      .then((credential) => {
-        console.log(credential)
-        firebase
-          .firestore()
-          .collection('admins')
-          .doc(credential.user.uid)
-          .set({
-            approved: signUpInfo.approved,
-            email: signUpInfo.email,
-            name: signUpInfo.name,
-            nickname: signUpInfo.nickname,
-            password: signUpInfo.password,
-            role: signUpInfo.role
-          })
-        })
-      .catch(function (error) {
-        console.error(error.code, error.message);
-      });
-    dispatch(push(routes.root));
+      .createUserWithEmailAndPassword(
+        signUpAdminInfo.email,
+        signUpAdminInfo.password
+      );
+
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(firebaseCreate.user.uid)
+      .set(signUpAdminInfo);
+
+    dispatch(setCurrentUser(signUpAdminInfo));
+    dispatch(push(routes.admin));
   } catch (error) {
     console.error(error);
   }

@@ -4,7 +4,6 @@ import { BandMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
-import StarBorder from '@material-ui/icons/StarBorder';
 
 class BandMenu extends PureComponent {
 

@@ -1,7 +1,5 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../../router";
 import {
   SignUpBandPageWrapper,
   FormWrapper,
@@ -18,6 +16,7 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpBandAction } from "../../actions/bandActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
+import { Typography } from "@material-ui/core";
 
 class SignUpBandPage extends Component {
   constructor(props) {
@@ -66,7 +65,7 @@ class SignUpBandPage extends Component {
       {
         name: "name",
         type: "text",
-        label: "Insira o nome da sua banda",
+        label: "Insira o nome da banda",
         required: true,
         pattern: ".{5,}",
         title: "O nome deve conter no mínimo 5 letras",
@@ -74,7 +73,7 @@ class SignUpBandPage extends Component {
       {
         name: "email",
         type: "text",
-        label: "Insira o email da sua banda",
+        label: "Insira o email da banda",
         required: true,
         title: "O email deve ser válido",
         pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
@@ -82,7 +81,7 @@ class SignUpBandPage extends Component {
       {
         name: "nickname",
         type: "text",
-        label: "Nome de usuário da banda",
+        label: "Nome de usuário",
         required: true,
         pattern: ".{5,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
@@ -90,10 +89,10 @@ class SignUpBandPage extends Component {
       {
         name: "description",
         type: "text",
-        label: "Descreva o estilo da sua banda",
+        label: "Descreva o estilo musical",
         required: true,
         pattern: ".{15,}",
-        title: "Seu nome de usuário deve ter no mínimo 5 caracteres",
+        title: "Sua descrição deve ter pelo menos 15 caracteres",
       },
       {
         name: "password",
@@ -145,13 +144,17 @@ class SignUpBandPage extends Component {
         key={input.name}
         name={input.name}
         type={input.type}
-        label={input.label}
+        label={
+          <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
+        }        
         value={this.state.signUpBand[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
         inputProps={{
           pattern: input.pattern,
           title: input.title,
+        }}
+        InputProps={{
           endAdornment: input.endAdornment,
         }}
       />

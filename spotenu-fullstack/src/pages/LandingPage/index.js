@@ -15,7 +15,9 @@ import {
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 
 class LandingPage extends Component {
+
   render() {
+
     return (
       <Fragment>
         <Layout>

@@ -2,36 +2,22 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import { UserPageWrapper, Header, Menu } from "./style";
+import { UserPageWrapper } from "./style";
 import AccountMenu from "../../components/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
-import firebase from 'firebase'
-
-export function setCurrentUser(user) {
-  return {
-    type: 'SET_USER',
-    payload: {
-      user: user
-    }
-  }
-}
-
-// var user = firebase.auth().currentUser;
-// console.log(user)
-
-// firebase.auth().onAuthStateChanged(function(user) {
-//   if (user) {
-//     console.log(user)
-//     setCurrentUser(user)
-//   } else {
-//     setCurrentUser(null)
-//   }
-// })
 
 class UserPage extends Component {
   constructor(props) {
     super(props);
     this.state = {};
+  }
+
+  userVerification () {
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role !== "ouvinte") {
+        this.props.goToLandingPage();
+      }
+    }
   }
 
   handleInputChange = (event) => {
@@ -42,22 +28,36 @@ class UserPage extends Component {
   };
 
   render() {
+    this.userVerification()
+
     return (
-      <Fragment>
-        <AccountHeader />
-        <UserPageWrapper>
-          <AccountMenu />
-        </UserPageWrapper>
-      </Fragment>
+      <div>
+        {this.props.currentUser ? (
+          this.props.currentUser.role === "ouvinte" && (
+            <Fragment>
+              <AccountHeader />
+              <UserPageWrapper>
+                <AccountMenu />
+              </UserPageWrapper>
+            </Fragment>
+          )
+        ) : (
+          <div> Carregando... </div>
+        )}
+      </div>
     );
   }
 }
 
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
-    goToUserAdminPage: () => dispatch(push(routes.registerAdmin)),
+    goToPageLoading: () => dispatch(push(routes.loading)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(UserPage);
+export default connect(mapStateToProps, mapDispatchToProps)(UserPage);

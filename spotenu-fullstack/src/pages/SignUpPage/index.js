@@ -20,6 +20,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAction } from "../../actions/usersActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 import { infoValidation } from "../../util/validation";
+import { Typography } from "@material-ui/core";
 
 class SignUpPage extends Component {
   constructor(props) {
@@ -56,16 +57,18 @@ class SignUpPage extends Component {
 
   handleSubmmit = (event) => {
     event.preventDefault();
-    const state = this.state.signUp;
     new infoValidation().signup(
-      state.name,
-      state.password,
-      state.email,
-      state.role
+      this.state.signUp.name,
+      this.state.signUp.password,
+      this.state.signUp.email,
+      this.state.signUp.role
     );
 
     if (this.password === this.confirmPassword) {
+      console.log(this.state.signUp)
       this.props.toSignUp(this.state.signUp);
+    } else{
+      console.error("A senha não confere com sua repetição")
     }
   };
 
@@ -145,13 +148,17 @@ class SignUpPage extends Component {
         key={input.name}
         name={input.name}
         type={input.type}
-        label={input.label}
+        label={
+          <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
+        } 
         value={this.state.signUp[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
         inputProps={{
           pattern: input.pattern,
           title: input.title,
+        }}
+        InputProps={{
           endAdornment: input.endAdornment,
         }}
       />
