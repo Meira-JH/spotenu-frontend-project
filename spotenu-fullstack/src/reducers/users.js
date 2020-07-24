@@ -1,6 +1,7 @@
 const initialState = {
     currentUser: undefined,
     users: [],
+    content: "music",
 }
 
 const users = (state = initialState, action) => {
@@ -9,6 +10,16 @@ const users = (state = initialState, action) => {
         case 'SET_CURRENT_USER' : {
             return{
                 ...state, currentUser: action.payload.currentUser
+            }
+        }
+        case 'SET_CURRENT_USER_ID' : {
+            return{
+                ...state, currentUserId: action.payload.currentUserId
+            }
+        }
+        case 'SET_CONTENT' : {
+            return{
+                ...state, content: action.payload.content
             }
         }
         default:

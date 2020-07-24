@@ -1,59 +1,89 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../../router";
 import {
   BandContentWrapper,
-  MusicCardContainer,
   CreateAlbumTitle,
   CreateAlbumButton,
-  BandAlbumsContainer,
+  CreateMusicTextField,
+  CreateMusicTitle,
+  CreateMusicButton,
+  CreateAlbumSelect
 } from "./style";
-import MusicCard from "../MusicCard";
 import { FormWrapper, CreateAlbumTextField } from "./style";
-import { Typography } from "@material-ui/core";
+import { Typography, MenuItem } from "@material-ui/core";
+import { createAlbumAction, createMusicAction, getBandAlbumsAction } from '../../actions/bandActions'
+import BandAlbums from "../BandAlbums";
+import BandMusics from "../BandMusics";
+import Musics from "../Musics";
 
 class BandContent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      album: {},
-      showPassword: false,
-      showConfirmPassword: false,
+      album: {
+        artist: this.props.currentUser.name,
+        artistId: this.props.currentUserId
+      },
+      music: {
+        artist: this.props.currentUser.name,
+        artistId: this.props.currentUserId
+      },
+
     };
   }
-  goTo = (route) => {
-    this.props.history.push(route);
-  };
 
-  handleInputChange = (event) => {
+  componentDidMount() {
+    this.props.getBandAlbums(this.props.currentUserId)
+  }
+
+  handleInputChangeAlbum = (event) => {
     const { name, value } = event.target;
     this.setState({
-      album: { ...this.state.album, [name]: value },
+      ...this.state,
+      album: { 
+        ...this.state.album, 
+        [name]: value },
+    });
+  };
+  handleInputChangeMusic = (event) => {
+    const { name, value } = event.target;
+    this.setState({
+      ...this.state,
+      music: { 
+        ...this.state.music, 
+        [name]: value },
     });
   };
 
-  handleSubmmit = (event) => {
+  handleSubmmitAlbum = (event) => {
     event.preventDefault();
 
     console.log(this.state.album);
-    // this.props.toCreateAlbum(this.state.album);
+    this.props.toCreateAlbum(this.state.album);
+    this.setState({
+      ...this.state,
+      album: {
+        artist: this.props.currentUser,
+        artistId: this.props.currentUserId
+      },
+    });
+  };
+
+  handleSubmmitMusic = (event) => {
+    event.preventDefault();
+
+    console.log(this.state.music);
+    this.props.toCreateMusic(this.state.music);
+    this.setState({
+      ...this.state,
+      music: {
+        artist: this.props.currentUser,
+        artistId: this.props.currentUserId
+      },
+    });
   };
 
   render() {
-    const musicMock = {
-      name: "música teste",
-      album: "album teste",
-    };
-
-    const albumMock = {
-      name: "album name",
-      genre: "genero musical",
-    };
-
-    const musicsFromFirebase = [1, 2, 3, 4, 5, 6].map((music) => musicMock);
-
-    const albumsFromFirebase = [1, 2, 3, 4, 5, 6].map((music) => albumMock);
 
     const createAlbumFormStructure = [
       {
@@ -70,8 +100,25 @@ class BandContent extends Component {
       },
     ];
 
+    const createMusicFormTextField = [
+      {
+        name: "name",
+        type: "text",
+        label: "Nome da música",
+        required: true,
+      }
+    ];
+    const createMusicFormSelect = [
+      {
+        name: "Album",
+        type: "text",
+        label: "Album desta música",
+        required: true,
+      },
+    ];
+
     const createAlbumRenderMap = (
-      <FormWrapper onSubmit={this.handleSubmmit}>
+      <FormWrapper onSubmit={this.handleSubmmitAlbum}>
         <CreateAlbumTitle>Criar Album</CreateAlbumTitle>
         {createAlbumFormStructure.map((input) => (
           <CreateAlbumTextField
@@ -81,46 +128,69 @@ class BandContent extends Component {
             type={input.type}
             label={
               <Typography variant={"subtitle2"} display={"inline"}>
-                {" "}
-                {input.label}{" "}
+                {input.label}
               </Typography>
             }
             value={this.state.album[input.name] || ""}
             required={input.required}
-            onChange={this.handleInputChange}
+            onChange={this.handleInputChangeAlbum}
           />
         ))}
         <CreateAlbumButton type="submit">Criar Album</CreateAlbumButton>
       </FormWrapper>
     );
-
-    const musicContentRender = (
-      <MusicCardContainer>
-        {musicsFromFirebase.map((text, index) => (
-          <MusicCard name={musicMock.name} key={index} />
+    
+    const createMusicRenderMap = (
+      <FormWrapper onSubmit={this.handleSubmmitMusic}>
+        <CreateMusicTitle>Criar Música</CreateMusicTitle>
+        {createMusicFormTextField.map((input, index) => (
+          <CreateMusicTextField
+            variant="outlined"
+            key={index}
+            name={input.name}
+            type={input.type}
+            label={
+              <Typography variant={"subtitle2"} display={"inline"}>
+                {input.label}
+              </Typography>
+            }
+            value={this.state.music[input.name] || ""}
+            required={input.required}
+            onChange={this.handleInputChangeMusic}
+          />
         ))}
-      </MusicCardContainer>
+          <CreateAlbumSelect 
+            variant="outlined"
+            key="album"
+            name="album"
+            value={this.state.music["album"] || ""}
+            required={true}
+            onChange={this.handleInputChangeMusic}          
+          >
+            {this.props.bandAlbums.map((album, index) =>(
+              <MenuItem key={index} value={album.name}>{album.name}</MenuItem>
+            ))}
+          </CreateAlbumSelect>
+        <CreateMusicButton type="submit">Criar Música</CreateMusicButton>
+      </FormWrapper>
     );
-    const bandAlbumsContentRender = (
-      <BandAlbumsContainer>
-        {albumsFromFirebase.map((text, index) => (
-          <MusicCard name={albumMock.name} key={index} />
-        ))}
-      </BandAlbumsContainer>
-    );
-    const createAlbumsContentRender = createAlbumRenderMap;
 
+          
     function contentRender(contentPage) {
       switch (contentPage) {
-        case "music":
-          return musicContentRender;
-        case "bandAlbum":
-          return bandAlbumsContentRender;
+        case "musics":
+          return <Musics />;
+        case "bandMusics":
+          return <BandMusics />;
+        case "bandAlbums":
+          return <BandAlbums />;
         case "createAlbum":
-          return createAlbumsContentRender;
+          return createAlbumRenderMap;
+        case "createMusic":
+          return createMusicRenderMap;
 
         default:
-          return musicContentRender;
+          return <Musics />;
       }
     }
 
@@ -134,11 +204,17 @@ class BandContent extends Component {
 
 const mapStateToProps = (state) => ({
   currentUser: state.users.currentUser,
-  content: state.bands.content,
+  currentUserId: state.users.currentUserId,
+  content: state.users.content,
+  bandAlbums: state.bands.bandAlbums
 });
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    getBandAlbums: (userId) => dispatch(getBandAlbumsAction(userId)),
+    toCreateAlbum: (albumInfo) => dispatch(createAlbumAction(albumInfo)),
+    toCreateMusic: (musicInfo) => dispatch(createMusicAction(musicInfo)),
+  };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(BandContent);

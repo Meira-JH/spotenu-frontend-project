@@ -14,13 +14,13 @@ class BandPage extends Component {
     this.state = {};
   }
 
-  // userVerification() {
-  //   if (this.props.currentUser) {
-  //     if (this.props.currentUser.role !== "banda") {
-  //       this.props.goToLandingPage();
-  //     }
-  //   }
-  // }
+  userVerification() {
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role !== "banda") {
+        this.props.goToLandingPage();
+      }
+    }
+  }
 
   handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -30,11 +30,11 @@ class BandPage extends Component {
   };
 
   render() {
-    // this.userVerification();
+    this.userVerification();
     return (
       <div>
-        {/* {this.props.currentUser ? (
-          this.props.currentUser.role === "banda" && ( */}
+        {this.props.currentUser ? (
+          this.props.currentUser.role === "banda" && (
             <Fragment>
               <AccountHeader />
               <BandPageWrapper>
@@ -45,10 +45,10 @@ class BandPage extends Component {
                 <BandContent />
               </BandPageWrapper>
             </Fragment>
-          {/* )
-        // ) : (
-        //   <div> Carregando... </div>
-        // )} */}
+          )
+        ) : (
+          <div> Carregando... </div>
+        )}
       </div>
     );
   }

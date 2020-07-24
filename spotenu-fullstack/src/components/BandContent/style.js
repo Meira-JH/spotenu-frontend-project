@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { device } from "../Layout/mediaQueries";
-import { TextField, Button } from "@material-ui/core";
+import { TextField, Button, Select } from "@material-ui/core";
 
 export const BandContentWrapper = styled.div`
   height: 90vh;
@@ -44,31 +44,6 @@ export const MusicCardContainer = styled.div`
   }
 `;
 
-export const BandAlbumsContainer = styled.div`
-  height: 77vh;
-  min-width: 40vw;
-  margin: 3vw 12vw 3vw 3vw;
-  padding: 3vw 0;
-  display: flex;
-  justify-content: center;
-
-  
-  @media ${device.laptopL} {
-    grid-template-columns: repeat(3, 15vw);
-    grid-auto-rows: 15vw;
-  }
-  @media ${device.laptop} {
-    grid-template-columns: repeat(2, 20vw);
-    grid-auto-rows: 20vw;
-  }
-  @media ${device.tablet} {
-    height: 83vh;
-    grid-template-columns: repeat(1, 40vw);
-    grid-auto-rows: 30vw;
-    margin: 2vw;
-    padding: 0;
-  }
-`;
 
 export const FormWrapper = styled.form`
   justify-self: center;
@@ -110,13 +85,53 @@ export const CreateAlbumTextField = styled(TextField)`
   }
 `;
 
+export const CreateAlbumSelect = styled(Select)`
+  && {
+    width: 25vw;
+
+    @media ${device.tablet} {
+      width: 200px;
+    }
+  }
+`;
+
 export const CreateAlbumButton = styled(Button)`
   && {
     background-color: #614ea0;
     color: #ffff;
     &:hover {
-      background-color: rgba(250, 250, 250, 0.9);
-      color: #614ea0;
+      background-color: rgb(255, 205, 2, 0.5);
+      color: #483f35;
+      font-weight: 900;
+    }
+  }
+`;
+
+export const CreateMusicTitle = styled.span`
+  font-size: 28px;
+  font-weight: 700;
+  color: #483f35;
+`;
+
+export const CreateMusicTextField = styled(TextField)`
+  && {
+    width: 25vw;
+    text-align: center;
+
+    @media ${device.tablet} {
+      width: 200px;
+      font-size: 5px;
+    }
+  }
+`;
+
+export const CreateMusicButton = styled(Button)`
+  && {
+    background-color: #614ea0;
+    color: #ffff;
+    &:hover {
+      background-color: rgb(255, 205, 2, 0.5);
+      color: #483f35;
       font-weight: 900;
     }
   }

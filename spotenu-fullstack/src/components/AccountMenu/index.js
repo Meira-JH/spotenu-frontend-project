@@ -1,22 +1,26 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { AccountMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
+import { setContentAction } from "../../actions/usersActions";
 
 class AccountMenu extends Component {
 
 
-  goTo = (route) => {
-    this.props.history.push(route);
-  };
+  handleItemClick(content){
+    this.props.toSetContent(content)
+  }
 
   render() {
+
+    const contentOptions = ["musics", "genres", "playlists"]
+
     const GeneralListItemMap = ["Músicas", "Gêneros", "Playlists"].map(
       (text, index) => (
-        <ListItem button key={text}>
-          <ListItemIcon>
+        <ListItem button key={index} onClick={() => this.handleItemClick(contentOptions[index])}>
+        <ListItemIcon>
             {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
           </ListItemIcon>
           <ListItemText primary={text} />
@@ -57,4 +61,15 @@ class AccountMenu extends Component {
   }
 }
 
-export default withRouter(AccountMenu);
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+  content: state.users.content
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toSetContent: (content) => dispatch(setContentAction(content))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AccountMenu);

@@ -1,7 +1,5 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../../router";
 import { BandMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
@@ -9,30 +7,21 @@ import MusicVideoIcon from '@material-ui/icons/MusicVideo';
 import { setContentAction } from "../../actions/bandActions";
 
 class BandMenu extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      content: "music"
-    };
-  }
 
-  goTo = (route) => {
-    this.props.history.push(route);
-  };
-
-  handleItemClick(event){
-    this.props.setContent(event)
+  handleItemClick(content){
+    this.props.setContent(content)
   }
 
 
   render() {
 
-    const contentOptions = ["music", "bandAlbums", "createAlbum"]
+    const contentOptions = ["bandMusics", "bandAlbums", "createAlbum", "createMusic"]
 
     const MenuListItemMap = [
       "Músicas da banda",
       "Albuns da banda",
-      "Criar álbum"
+      "Criar álbum",
+      "Criar música"
     ].map((text, index) => (
       <ListItem button key={index} onClick={() => this.handleItemClick(contentOptions[index])}>
         <ListItemIcon key={index}>
@@ -64,13 +53,11 @@ class BandMenu extends PureComponent {
 
 const mapStateToProps = (state) => ({
   currentUser: state.users.currentUser,
-  content: state.bands.content
+  content: state.users.content
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    goToLandingPage: () => dispatch(push(routes.root)),
-    goToPageLoading: () => dispatch(push(routes.loading)),
     setContent: (content) => dispatch(setContentAction(content))
   };
 };

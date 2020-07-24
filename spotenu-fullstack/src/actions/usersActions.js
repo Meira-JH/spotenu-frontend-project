@@ -11,11 +11,40 @@ export function setCurrentUser(currentUser) {
   };
 }
 
+export function setCurrentUserId(currentUserId) {
+  return {
+    type: "SET_CURRENT_USER_ID",
+    payload: {
+      currentUserId,
+    },
+  };
+}
+
+export const setContentAction = (content) => {
+  return {
+    type: "SET_CONTENT",
+    payload: {
+      content,
+    },
+  };
+};
+
+export const setMusics = (musics) => {
+  return {
+    type: "SET_MUSICS",
+    payload: {
+      musics,
+    },
+  };
+};
+
+
 export const getUserFromFirebase = (userId) => async (dispatch) => {
   try{
     const currentUser = (
       await firebase.firestore().collection("users").doc(userId).get()
-    ).data();    
+    ).data();
+    dispatch(setCurrentUserId(userId))
     dispatch(setCurrentUser(currentUser));
   } catch(error){
     console.error(error);
@@ -69,6 +98,24 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
     } else if (user.role === "admin"){
       dispatch(push(routes.admin));
     }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getMusicsAction = () => async (dispatch) => {
+  try {
+    let musics = [];
+
+    await firebase
+      .firestore()
+      .collection("musics")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) => musics.push(doc.data()));
+      });
+
+    dispatch(setMusics(musics));
   } catch (error) {
     console.error(error);
   }
