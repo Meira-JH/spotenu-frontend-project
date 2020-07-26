@@ -15,6 +15,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ImgMusic from "../../img/music/tabua-capa.jpg";
+import Delete from "@material-ui/icons/DeleteForever";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -58,6 +59,9 @@ const useStyles = makeStyles((theme) => ({
   artist: {
     fontSize: 14,
   },
+  actionsWrapper: {
+    justifyContent: "space-between"
+  }
 }));
 
 export default function MusicCard(props) {
@@ -71,6 +75,9 @@ export default function MusicCard(props) {
         </IconButton>
         <IconButton aria-label="share">
           <ShareIcon />
+        </IconButton>
+        <IconButton aria-label="delete">
+          <Delete />
         </IconButton>
       </CardActions>
       <CardMedia className={classes.media} image={ImgMusic} />

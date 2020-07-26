@@ -111,7 +111,7 @@ export const getBandAlbumsAction = (artistId) => async (dispatch) => {
       .collection("albums")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => bandAlbums.push(doc.data()));
+        snapshot.forEach((doc) => bandAlbums.push({id: doc.id, data: doc.data()}));
       });
 
     dispatch(setBandAlbums(bandAlbums));
@@ -130,7 +130,7 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
       .where("artistId", "==", artistId)
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => bandMusics.push(doc.data()));
+        snapshot.forEach((doc) => bandMusics.push({id: doc.id, data: doc.data()}));
       });
 
     dispatch(setBandMusics(bandMusics));
@@ -148,9 +148,9 @@ export const getMusicsAction = () => async (dispatch) => {
       .collection("musics")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => musics.push(doc.data()));
+        snapshot.forEach((doc) => musics.push({id: doc.id, data: doc.data()}));
       });
-
+    console.log(musics)
     dispatch(setMusics(musics));
   } catch (error) {
     console.error(error);

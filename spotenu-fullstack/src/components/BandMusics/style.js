@@ -10,8 +10,8 @@ padding: 3vw 2vw;
 display: grid;
 justify-content: center;
 grid-gap: 3vw;
-grid-template-columns: repeat(5, 10vw);
-grid-auto-rows: 10vw;
+grid-template-columns: repeat(4, 14vw);
+grid-auto-rows: 14vw;
 overflow-y: scroll;
 box-shadow: 0 0 10px 1px #959094;
 

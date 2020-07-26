@@ -18,7 +18,7 @@ class BandAlbums extends React.Component {
   render() {
 
     const bandAlbumsContentRender = this.props.bandAlbums.map((album, index) => (
-          <AlbumCard name={album.name} artist={album.artist} key={index} />
+          <AlbumCard name={album.data.name} artist={album.data.artist} key={index} />
         ))
 
     return (
