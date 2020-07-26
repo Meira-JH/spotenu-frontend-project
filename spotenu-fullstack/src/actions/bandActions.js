@@ -84,6 +84,26 @@ export const createAlbumAction = (album) => async (dispatch) => {
   }
 };
 
+export const deleteAlbumAction = (albumId, albumName, artistId) => async (
+  dispatch
+) => {
+  console.log("delete action", albumId, albumName, artistId);
+  try {
+    await firebase.firestore().collection("albums").doc(albumId).delete();
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(artistId)
+      .collection("albums")
+      .doc(albumName)
+      .delete();
+
+    window.location.reload();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const createMusicAction = (music) => async (dispatch) => {
   try {
     await firebase
@@ -111,7 +131,9 @@ export const getBandAlbumsAction = (artistId) => async (dispatch) => {
       .collection("albums")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => bandAlbums.push({id: doc.id, data: doc.data()}));
+        snapshot.forEach((doc) =>
+          bandAlbums.push({ id: doc.id, data: doc.data() })
+        );
       });
 
     dispatch(setBandAlbums(bandAlbums));
@@ -130,7 +152,9 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
       .where("artistId", "==", artistId)
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => bandMusics.push({id: doc.id, data: doc.data()}));
+        snapshot.forEach((doc) =>
+          bandMusics.push({ id: doc.id, data: doc.data() })
+        );
       });
 
     dispatch(setBandMusics(bandMusics));
@@ -148,9 +172,11 @@ export const getMusicsAction = () => async (dispatch) => {
       .collection("musics")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => musics.push({id: doc.id, data: doc.data()}));
+        snapshot.forEach((doc) =>
+          musics.push({ id: doc.id, data: doc.data() })
+        );
       });
-    console.log(musics)
+    console.log(musics);
     dispatch(setMusics(musics));
   } catch (error) {
     console.error(error);

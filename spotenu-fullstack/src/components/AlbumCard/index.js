@@ -1,8 +1,7 @@
 import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
@@ -11,9 +10,8 @@ import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import Delete from "@material-ui/icons/DeleteForever";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import Imgalbum from "../../img/music/tabua-capa.jpg";
+import { deleteAlbumAction } from "../../actions/bandActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -44,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionsWrapper: {
     maxHeight: "15px",
+    justifyContent: "space-between",
   },
   cardContentWrapper: {
     maxHeight: "10px",
@@ -57,13 +56,15 @@ const useStyles = makeStyles((theme) => ({
   artist: {
     fontSize: 14,
   },
-  actionsWrapper: {
-    justifyContent: "space-between"
-  }
 }));
 
-export default function AlbumCard(props) {
+function AlbumCard(props ) {
   const classes = useStyles();
+
+  const deleteAlbum = () => {
+    props.toDeleteAlbum(props.albumId, props.name, props.artistId)
+    console.log('id e nome no albums', props.albumId, props.name, props.artistId)
+  }
 
   return (
     <Card className={classes.root}>
@@ -74,7 +75,10 @@ export default function AlbumCard(props) {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <IconButton aria-label="delete">
+        <IconButton
+          aria-label="delete"
+          onClick={deleteAlbum}
+        >
           <Delete />
         </IconButton>
       </CardActions>
@@ -86,3 +90,11 @@ export default function AlbumCard(props) {
     </Card>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toDeleteAlbum: (albumId, albumName, artistId) => dispatch(deleteAlbumAction(albumId, albumName, artistId)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(AlbumCard);

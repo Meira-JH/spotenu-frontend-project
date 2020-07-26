@@ -108,14 +108,6 @@ class BandContent extends Component {
         required: true,
       }
     ];
-    const createMusicFormSelect = [
-      {
-        name: "Album",
-        type: "text",
-        label: "Album desta música",
-        required: true,
-      },
-    ];
 
     const createAlbumRenderMap = (
       <FormWrapper onSubmit={this.handleSubmmitAlbum}>
