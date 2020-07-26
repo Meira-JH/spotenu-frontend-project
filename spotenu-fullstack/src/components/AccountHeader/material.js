@@ -13,8 +13,6 @@ import MailIcon from "@material-ui/icons/Mail";
 import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import img from "../../img/music/logo-transparent-background.png";
-import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider'
-import { createMuiTheme } from '@material-ui/core/styles';
 import { AppBar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
@@ -25,27 +23,6 @@ const Logo = styled.img`
   padding: 0 35px;
   cursor: pointer;
 `
-
-const theme = createMuiTheme({
-overrides: {
-    MuiAppBar: {
-      root: {
-        height: '10vh',
-        justifyContent: "center"
-      }
-    }
-  }, 
-    palette: {
-        primary: {
-            main: "#ff595c"
-        },
-        secondary: {
-            main: "#614EA0"
-        },
-    }
-  });
-
-  
 
 const useStyles = makeStyles((theme) => ({
     grow: {
@@ -110,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
     },
   },
+  appBar: {
+    height: '10vh',
+    justifyContent: "center",
+    backgroundColor: "614EA0"
+  }
 }));
 
 function PrimarySearchAppBar(props) {
@@ -196,8 +178,7 @@ function PrimarySearchAppBar(props) {
 
   return (
     <div className={classes.root}>
-    <MuiThemeProvider theme={theme}>
-      <AppBar position="static" color="secondary">
+      <AppBar position="static" className={classes.appBar}>
         <Toolbar>
           <Logo src={img} 
             onClick={props.goToLandingPage}
@@ -253,7 +234,6 @@ function PrimarySearchAppBar(props) {
       </AppBar>
       {renderMobileMenu}
       {renderMenu}
-      </MuiThemeProvider>
     </div>
   );
 }
