@@ -1,9 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
-import { push } from "connected-react-router";
-import { routes } from "../../router";
 import { BandAlbumsContainer } from "./style";
-import { getBandAlbumsAction, deleteAlbumAction } from "../../actions/bandActions";
+import { getBandAlbumsAction } from "../../actions/bandActions";
 import AlbumCard from "../AlbumCard";
 
 class BandAlbums extends React.Component {
@@ -36,7 +34,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     getBandAlbums: () => dispatch(getBandAlbumsAction()),
-    toDeleteAlbum: (albumId, albumName) => dispatch(deleteAlbumAction(albumId, albumName)),
   };
 };
 

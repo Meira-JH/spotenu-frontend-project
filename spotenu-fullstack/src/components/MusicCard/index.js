@@ -1,21 +1,17 @@
 import React from "react";
+import { connect } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
-import clsx from "clsx";
 import Card from "@material-ui/core/Card";
-import CardHeader from "@material-ui/core/CardHeader";
 import CardMedia from "@material-ui/core/CardMedia";
 import CardContent from "@material-ui/core/CardContent";
 import CardActions from "@material-ui/core/CardActions";
-import Collapse from "@material-ui/core/Collapse";
-import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import MoreVertIcon from "@material-ui/icons/MoreVert";
 import ImgMusic from "../../img/music/tabua-capa.jpg";
 import Delete from "@material-ui/icons/DeleteForever";
+import { deleteMusicAction } from "../../actions/bandActions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,6 +42,7 @@ const useStyles = makeStyles((theme) => ({
   },
   actionsWrapper: {
     maxHeight: "15px",
+    justifyContent: "space-between",
   },
   cardContentWrapper: {
     maxHeight: "10px",
@@ -54,18 +51,25 @@ const useStyles = makeStyles((theme) => ({
   },
   music: {
     fontWeight: 700,
-    maxWidth: "100%"
+    maxWidth: "100%",
   },
   artist: {
     fontSize: 14,
   },
-  actionsWrapper: {
-    justifyContent: "space-between"
-  }
 }));
 
-export default function MusicCard(props) {
+function MusicCard(props) {
   const classes = useStyles();
+
+  const deleteMusic = () => {
+    props.toDeleteMusic(props.musicId, props.albumName, props.artistId);
+    console.log(
+      "id e nome no musics",
+      props.musicId,
+      props.albumName,
+      props.artistId
+    );
+  };
 
   return (
     <Card className={classes.root}>
@@ -76,7 +80,7 @@ export default function MusicCard(props) {
         <IconButton aria-label="share">
           <ShareIcon />
         </IconButton>
-        <IconButton aria-label="delete">
+        <IconButton aria-label="delete" onClick={deleteMusic}>
           <Delete />
         </IconButton>
       </CardActions>
@@ -88,3 +92,12 @@ export default function MusicCard(props) {
     </Card>
   );
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    toDeleteMusic: (albumId, albumName, artistId) =>
+      dispatch(deleteMusicAction(albumId, albumName, artistId)),
+  };
+};
+
+export default connect(null, mapDispatchToProps)(MusicCard);

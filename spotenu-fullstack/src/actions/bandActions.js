@@ -120,6 +120,24 @@ export const createMusicAction = (music) => async (dispatch) => {
   }
 };
 
+export const deleteMusicAction = (musicId, albumName, artistId) => async (dispatch) => {
+  try {
+    await firebase
+      .firestore()
+      .collection("users")
+      .doc(artistId)
+      .collection("albums")
+      .doc(albumName)
+      .collection("musics")
+      .doc(musicId)
+      .delete()
+      ;
+    await firebase.firestore().collection("musics").doc(musicId).delete();
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 export const getBandAlbumsAction = (artistId) => async (dispatch) => {
   try {
     let bandAlbums = [];
