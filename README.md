@@ -47,7 +47,7 @@ npm start
 ```
 
 ## Contributing
-
+Support by:
 <p align="center">
 <img src="https://uploads-ssl.webflow.com/5e790d30d198385b09366d8f/5eb17dfd4a07be86d2b8951e_Labenu_principal_slogan.png"/>
 </p>
