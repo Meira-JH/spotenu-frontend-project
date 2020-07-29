@@ -5,7 +5,7 @@ A music web application.
 <img src="https://github.com/Meira-JH/spotenu-frontend-project/blob/master/spotenu-fullstack/src/img/music/logo-colorida.svg"/>
 </p>
 
-Spotenu is my first FullStack project. It consists in a development of an imaginary web-desktop-first application, as an activity result of Labenu's full-stack development course. The front-end code uses ReactJS as main framework and Firebase hosting/deploy. The back-end is structured through Google's Cloud Firestore platform.
+Spotenu is my first FullStack project. It consists in the development of an imaginary web-desktop-first application, as an activity result of Labenu's full-stack development course. The front-end code uses ReactJS as main framework and Firebase hosting/deploy. The back-end is structured through Google's Cloud Firestore platform.
 
 ## Tools and technologies
   
