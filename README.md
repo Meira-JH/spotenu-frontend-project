@@ -1,4 +1,4 @@
-# Spotenu
+# Spotenu :headphones:
 A music web application.
 
 <p align="center">
