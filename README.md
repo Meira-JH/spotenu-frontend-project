@@ -5,7 +5,7 @@ A music web application.
 <img src="https://github.com/Meira-JH/spotenu-frontend-project/blob/master/spotenu-fullstack/src/img/music/logo-colorida.svg"/>
 </p>
 
-Spotenu is my first solo FullStack project. It consists in the development of an imaginary web-desktop-first application, as an activity result of Labenu's full-stack development course. The front-end code uses ReactJS as main framework and Firebase hosting/deploy. The back-end is structured through Google's Cloud Firestore platform.
+Spotenu is my first solo FullStack project. It consists in the development of an imaginary web-desktop-first application, as an activity result of Labenu's full-stack development course. The front-end code uses ReactJS as main framework and Firebase hosting/deploy. The back-end is structured through Google's Cloud Firestore platform. Logo was inspired by Wix ideas. Background images were taken from Unsplash repository.
 
 ## Tools and technologies :wrench:
   
@@ -62,6 +62,9 @@ This code was designed concerned with JS best practices to best fit the use of r
 
 
 ## Contributing :nerd_face:
+
+Logo was inspired by Wix ideas. Background images were taken from Unsplash repository.
+
 Support by:
 <p align="center">
 <img src="https://uploads-ssl.webflow.com/5e790d30d198385b09366d8f/5eb17dfd4a07be86d2b8951e_Labenu_principal_slogan.png"/>
