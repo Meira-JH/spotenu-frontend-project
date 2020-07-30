@@ -54,7 +54,7 @@ It consists in the development of an imaginary web-desktop-first application, as
 
 ## The app  :iphone:
 
-[Deploy](https://spotenu-fullstack-project.web.app/)
+[Web Deploy](https://spotenu-fullstack-project.web.app/)
 
 [Documentation]()
 
