@@ -59,6 +59,13 @@ It consists in the development of an imaginary web-desktop-first application, as
 [Documentation]()
 
 
+<p align="center">
+<img height="400px" src="https://github.com/Meira-JH/spotenu-frontend-project/blob/master/spotenu-fullstack/src/img/spotenu-fullstack-project.web.app_(iPad).png
+"/>
+</p>
+
+
+
 ## Running the app :running:
 
 On your terminal, type:
