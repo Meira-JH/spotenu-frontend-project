@@ -17,21 +17,44 @@ It consists in the development of an imaginary web-desktop-first application, as
 
 ## Tools and technologies :wrench:
   
-![Node.js environment](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/EnvironmentNodejs.png)
 
-![Languages JS CSS HTML](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/languages.png)
+<p align="center">
+<img width="40px" src="https://cdn.iconscout.com/icon/free/png-256/nodejs-2-226035.png"/>
+<img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/redux.png"/>
+<img width="35px" src="https://raw.githubusercontent.com/jalbertsr/logo-badge-images/master/img/react_logo.png"/>
+<img width="35px" src="http://3con14.biz/code/_data/js/intro/js-logo.png"/>
+<img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/jest.png"/>
+<img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/npm.png"/>
+</p>
 
-![React Lib](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/JSLibReactJS.png)
 
-![Dev tools](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/tools.png) 
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/EnvironmentNodejs.png"/>
+</p>
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/languages.png"/>
+</p>
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/JSLibReactJS.png"/>
+</p>
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/tools.png"/>
+</p>
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/layout.png"/>
+</p>
+<p>
+<img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/jest.png"/>
+</p>
 
-![Layout tools](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/layout.png)
 
-![Tests with JEST](https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/jest.png)
+<p  style="font-size:5px; text-align:left">
+<i>Icons by <a href="https://github.com/jalbertsr/logo-badge-images">Joan Albert</a></i>
+</p>
 
 ## The app  :iphone:
 
-[Deploy]()
+[Deploy](https://spotenu-fullstack-project.web.app/)
 
 [Documentation]()
 
