@@ -87,7 +87,7 @@ function MusicCard(props) {
       <CardMedia className={classes.media} image={ImgMusic} />
       <CardContent className={classes.cardContentWrapper}>
         <Typography className={classes.music}>{props.name}</Typography>
-        <Typography className={classes.artist}>Testando conteudo</Typography>
+        <Typography className={classes.artist}></Typography>
       </CardContent>
     </Card>
   );

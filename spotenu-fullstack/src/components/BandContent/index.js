@@ -160,7 +160,7 @@ class BandContent extends Component {
             onChange={this.handleInputChangeMusic}          
           >
             {this.props.bandAlbums.map((album, index) =>(
-              <MenuItem key={index} value={album.name}>{album.name}</MenuItem>
+              <MenuItem key={index} value={album.data.name}>{album.data.name}</MenuItem>
             ))}
           </CreateAlbumSelect>
         <CreateMusicButton type="submit">Criar Música</CreateMusicButton>
