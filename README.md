@@ -19,6 +19,7 @@ It consists in the development of an imaginary web-desktop-first application, as
   
 
 <p align="center">
+<img width="35px" src="https://cdn4.iconfinder.com/data/icons/google-i-o-2016/512/google_firebase-2-128.png"/>
 <img width="40px" src="https://cdn.iconscout.com/icon/free/png-256/nodejs-2-226035.png"/>
 <img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/redux.png"/>
 <img width="35px" src="https://raw.githubusercontent.com/jalbertsr/logo-badge-images/master/img/react_logo.png"/>
@@ -26,7 +27,6 @@ It consists in the development of an imaginary web-desktop-first application, as
 <img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/jest.png"/>
 <img width="35px" src="https://github.com/MarioTerron/logo-images/blob/master/logos/npm.png"/>
 </p>
-
 
 <p>
 <img height="22px" src="https://github.com/Meira-JH/futureEats/blob/master/futureEats/src/imgs/EnvironmentNodejs.png"/>
