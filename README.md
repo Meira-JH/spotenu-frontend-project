@@ -70,7 +70,7 @@ It consists in the development of an imaginary web-desktop-first application, as
 On your terminal, type:
 
 ```
-git clone 
+git clone https://github.com/Meira-JH/spotenu-frontend-project
 ```
 
 Install dependencies:
