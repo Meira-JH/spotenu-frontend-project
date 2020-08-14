@@ -8,7 +8,7 @@ export const HeaderWrapper = styled.header`
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
   grid-template-rows: 1fr;
   grid-template-areas: " . LogoWrapper . . ButtonWrapper ButtonWrapper ";
-  background-color: rgb(72, 63, 53, 0.3);
+  background-color: rgb(72, 63, 53, 0.5);
   position: fixed;
   z-index: 1;
 `;
@@ -66,7 +66,7 @@ export const SignUp = styled.p`
   -o-transition: all 0.3s ease-out;
   &:hover {
     color: #ffff;
-    background-color: rgb(255, 205, 2, 0.5);
+    background-color: rgb(255, 205, 2, 0.9);
   }
   @media ${device.tablet} {
     display: none;
@@ -89,7 +89,7 @@ export const BandSignUp = styled.p`
   -o-transition: all 0.3s ease-out;
   &:hover {
     color: #ffff;
-    background-color: rgb(255, 205, 2, 0.5);
+    background-color: rgb(255, 205, 2, 0.9);
   }
   @media ${device.tablet} {
     display: none;

@@ -104,7 +104,7 @@ export const StyledButton = styled(Button)`
   padding: 7px 14px;
   &:hover {
     background-color: #ffff;
-    color: #483f35;
+    color: #614EA0;
     font-weight: 900;
   }
   @media ${device.mobileL}{
@@ -114,8 +114,9 @@ export const StyledButton = styled(Button)`
 `;
 
 export const SecondBlock = styled.div`
+  padding: 90px 0;
   width: 100%;
-  height: 80vh;
+  height: auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -123,7 +124,6 @@ export const SecondBlock = styled.div`
 `;
 
 export const SecondTitle = styled.p`
-  padding-top: 3vw;
   color: black;
   font-size: 45px;
   font-weight: 900;
@@ -138,3 +138,114 @@ export const SecondTitle = styled.p`
   }
 `;
 
+
+export const SecondSubtitle = styled.p`
+  padding-top: 70px;
+  color: #483f35;
+  font-size: 20px;
+  text-align: center;
+
+  @media ${device.laptop}{
+    font-size: 19px;
+  }
+  @media ${device.mobileL}{
+    padding-top: 10vw;
+    font-size: 15px;
+  }
+`;
+
+export const CardsWrapper = styled.div`
+  padding-top: 35px;
+  width: 700px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+`
+
+export const PlanCard = styled.div`
+  width: 300px;
+  height: 450px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-shadow: 0 0 5px;
+  border-radius: 10px;
+`
+
+export const CardHeader = styled.div`
+  height: 135px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border-bottom: 1px lightgrey solid;
+`
+
+export const IconCard = styled.div`
+  width: 90px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #614EA0;
+  color: white;
+  text-align: center;
+  border-radius: 5px;
+`
+
+export const CardTitle = styled.span`
+  padding-top: 15px;
+  color: #483f35;
+  font-size: 26px;
+  font-weight: 700;
+`
+
+export const CardSubtitle = styled.span`
+  padding-top: 10px;
+  color: #483f35;
+  font-size: 20px;
+  font-weight: 500;
+`
+
+export const CardBody = styled.div`
+  height: 230px;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+`
+
+export const CardItems = styled.div`
+  height: 40px;
+  padding: 5px 0;
+  display: flex;
+  justify-content: flex-start;
+`
+
+export const IconItem = styled.img`
+  height: 20px;
+  padding-right: 10px;
+`
+
+export const ItemText = styled.span`
+  font-size: 20px;
+  color: #483f35;
+`
+
+export const CardButton = styled(Button)`
+&& {  
+  background-color: rgb(255, 205, 2);
+  width: 100%;
+  color: #ffff;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  padding: 7px 14px;
+  &:hover {
+    background-color: rgb(72, 63, 53, 0.1);
+    color: #614EA0;
+    font-weight: 900;
+  }
+  @media ${device.mobileL}{
+    font-size: 12px;
+  }
+}
+`;
