@@ -3,31 +3,36 @@ import styled from "styled-components";
 import { device } from "../Layout/mediaQueries";
 
 export const MusicsContainer = styled.div`
-height: 77vh;
-min-width: 40vw;
+min-height: 500px;
+height: auto;
+width: 40vw;
+min-width: 1000px;
+max-width: 1050px;
 margin: 3vw 12vw 3vw 3vw;
-padding: 4vw 2vw;
+padding: 30px 30px;
 display: grid;
 justify-content: center;
 grid-gap: 3vw;
-grid-template-columns: repeat(4, 13vw);
+grid-template-columns: repeat(4, 200px);
 grid-auto-rows: 13vw;
 overflow-y: scroll;
 box-shadow: 0 0 10px 1px #959094;
 
 @media ${device.laptopL} {
-  grid-template-columns: repeat(3, 15vw);
-  grid-auto-rows: 15vw;
+  min-width: 700px;
+  grid-template-columns: repeat(3, 220px);
+  grid-auto-rows: 220px;
 }
 @media ${device.laptop} {
-  grid-template-columns: repeat(2, 20vw);
-  grid-auto-rows: 20vw;
+  min-width: 500px;
+  grid-template-columns: repeat(2, 220px);
+  grid-auto-rows: 220px;
 }
 @media ${device.tablet} {
-  height: 83vh;
-  grid-template-columns: repeat(1, 40vw);
-  grid-auto-rows: 30vw;
-  margin: 2vw;
-  padding: 0;
+  min-width: 300px;
+  height: auto;
+  grid-template-columns: repeat(1, 220px);
+  grid-auto-rows: 140px;
+  padding: 30px 0;
 }
 `;

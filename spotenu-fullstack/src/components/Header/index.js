@@ -57,7 +57,7 @@ class Header extends PureComponent {
           </MenuContainer>
           <SignUp 
             onClick={() => this.goTo("/signUp")}
-          >Cadastre-se!
+          ><span>Cadastre-se!</span>
           </SignUp>
           <BandSignUp 
             onClick={() => this.goTo("/signUpBand")}

@@ -32,13 +32,13 @@ export const FirstBlock = styled.div`
     max-height: 58vw;
   }
   @media ${device.laptop}{
-    max-height: 65vw;
+    max-height: 85vw;
   }
   @media ${device.tablet}{
-    max-height: 95vw;
+    max-height: 110vw;
   }
   @media ${device.mobileL}{
-    max-height: 120vw;
+    max-height: 140vw;
     background-size: auto;
     background-position: left;
   }
@@ -115,12 +115,16 @@ export const StyledButton = styled(Button)`
 
 export const SecondBlock = styled.div`
   padding: 90px 0;
-  width: 100%;
+  width: 90%;
   height: auto;
   display: flex;
   flex-direction: column;
   justify-content: start;
   align-items: center;
+
+  @media ${device.tablet}{
+    padding: 50px 0;
+  }
 `;
 
 export const SecondTitle = styled.p`
@@ -157,9 +161,15 @@ export const SecondSubtitle = styled.p`
 export const CardsWrapper = styled.div`
   padding-top: 35px;
   width: 700px;
+  max-width: 100%;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+
+  @media ${device.laptop}{
+    flex-direction: column;
+    align-items: center;
+  }
 `
 
 export const PlanCard = styled.div`
@@ -171,6 +181,12 @@ export const PlanCard = styled.div`
   justify-content: flex-start;
   box-shadow: 0 0 5px;
   border-radius: 10px;
+
+  @media ${device.laptop}{
+    height: 370px;
+    margin-top: 40px;
+    width: 90%;
+  }
 `
 
 export const CardHeader = styled.div`

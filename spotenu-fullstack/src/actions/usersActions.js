@@ -38,6 +38,16 @@ export const setMusics = (musics) => {
   };
 };
 
+export const logoutUser = () => async(dispatch) => {
+  try{
+    await firebase.auth().signOut()
+  } catch(error){
+    console.error(error)
+  }
+  dispatch(setCurrentUser(undefined))
+  dispatch(push(routes.root));
+}
+
 
 export const getUserFromFirebase = (userId) => async (dispatch) => {
   try{
