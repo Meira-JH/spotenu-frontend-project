@@ -12,6 +12,9 @@ import {
   SecondTitle,
   SignUpLogo,
   GoToAdminRegistration,
+  SecondSubtitle,
+  CardsWrapper,
+  PlanCard,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -19,7 +22,6 @@ import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAction } from "../../actions/usersActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
-import { infoValidation } from "../../util/validation";
 import { Typography } from "@material-ui/core";
 
 class SignUpPage extends Component {
@@ -57,12 +59,6 @@ class SignUpPage extends Component {
 
   handleSubmmit = (event) => {
     event.preventDefault();
-    new infoValidation().signup(
-      this.state.signUp.name,
-      this.state.signUp.password,
-      this.state.signUp.email,
-      this.state.signUp.role
-    );
 
     if (this.password === this.confirmPassword) {
       console.log(this.state.signUp)
@@ -93,7 +89,7 @@ class SignUpPage extends Component {
       {
         name: "nickname",
         type: "text",
-        label: "Insira seu nome de usuário",
+        label: "Insira o nome de usuário",
         required: true,
         pattern: ".{5,}",
         title: "Seu nome de usuário deve ter no mínimo 5 caracteres",

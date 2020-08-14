@@ -6,7 +6,7 @@ export const MusicsContainer = styled.div`
 height: 77vh;
 min-width: 40vw;
 margin: 3vw 12vw 3vw 3vw;
-padding: 3vw 2vw;
+padding: 4vw 2vw;
 display: grid;
 justify-content: center;
 grid-gap: 3vw;

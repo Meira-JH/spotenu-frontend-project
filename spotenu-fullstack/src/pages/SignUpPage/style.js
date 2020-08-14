@@ -117,7 +117,7 @@ export const SecondBlock = styled.div`
 
 export const SecondTitle = styled.p`
   padding-top: 2vw;
-  color: black;
+  color: #483f35;
   font-size: 35px;
   font-weight: 900;
   text-align: center;
