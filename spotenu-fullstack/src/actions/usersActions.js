@@ -38,18 +38,36 @@ export const setMusics = (musics) => {
   };
 };
 
+// export const setGenres = (genres) => {
+//   return {
+//     type: "SET_GENRES",
+//     payload: {
+//       genres,
+//     },
+//   };
+// };
+
+export const logoutUser = () => async (dispatch) => {
+  try {
+    await firebase.auth().signOut();
+  } catch (error) {
+    console.error(error);
+  }
+  dispatch(setCurrentUser(undefined));
+  dispatch(push(routes.root));
+};
 
 export const getUserFromFirebase = (userId) => async (dispatch) => {
-  try{
+  try {
     const currentUser = (
       await firebase.firestore().collection("users").doc(userId).get()
     ).data();
-    dispatch(setCurrentUserId(userId))
+    dispatch(setCurrentUserId(userId));
     dispatch(setCurrentUser(currentUser));
-  } catch(error){
+  } catch (error) {
     console.error(error);
   }
-}
+};
 
 export const SignUpAction = (signUpInfo) => async (dispatch) => {
   try {
@@ -91,11 +109,11 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
     ).data();
 
     dispatch(setCurrentUser(user));
-    if(user.role === "ouvinte"){
+    if (user.role === "ouvinte") {
       dispatch(push(routes.user));
     } else if (user.role === "banda") {
       dispatch(push(routes.band));
-    } else if (user.role === "admin"){
+    } else if (user.role === "admin") {
       dispatch(push(routes.admin));
     }
   } catch (error) {
@@ -112,11 +130,53 @@ export const getMusicsAction = () => async (dispatch) => {
       .collection("musics")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) => musics.push(doc.data()));
+        snapshot.forEach((doc) =>
+          musics.push({ id: doc.id, data: doc.data() })
+        );
       });
-
+    console.log("music users action", musics);
     dispatch(setMusics(musics));
   } catch (error) {
     console.error(error);
   }
+};
+
+export const getGenresAction = () => async (dispatch) => {
+  console.log("action genre");
+  try {
+    // let genres = [];
+
+    // await firebase
+    //   .firestore()
+    //   .collection("musicGenre")
+    //   .get()
+    //   .then((snapshot) => {
+    //     snapshot.forEach((doc) =>
+    //       genres.push({ id: doc.id, data: doc.data() })
+    //     );
+    //   });
+    let genres = [];
+
+    await firebase
+      .firestore()
+      .collection("musicGenre")
+      .get()
+      .then((snapshot) => {
+        snapshot.forEach((doc) =>
+          genres.push({ id: doc.id, data: doc.data() })
+        );
+      });
+    dispatch(setGenres(genres));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const setGenres = (genres) => {
+  return {
+    type: "SET_GENRES",
+    payload: {
+      genres,
+    },
+  };
 };

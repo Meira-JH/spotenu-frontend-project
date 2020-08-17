@@ -5,12 +5,13 @@ export const HeaderWrapper = styled.header`
   width: 100%;
   height: 90px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(7, 1fr);
   grid-template-rows: 1fr;
-  grid-template-areas: " . LogoWrapper . . ButtonWrapper ButtonWrapper ";
+  grid-template-areas: " . LogoWrapper . . ButtonWrapper ButtonWrapper .";
   background-color: rgb(72, 63, 53, 0.5);
   position: fixed;
   z-index: 1;
+
 `;
 
 export const LogoWrapper = styled.div`
@@ -35,38 +36,46 @@ export const Logo = styled.img`
 
 export const ButtonWrapper = styled.div`
   grid-area: ButtonWrapper;
-  font-size: 1.2vw;
+  min-width: 300px;
+  font-size: 23px;
   display: flex;
   flex-direction: row;
-  justify-self: flex-start;
+  align-self: center;
+  justify-self: flex-end;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-around;
   text-align: center;
   color: #ff595c;
   height: 100%;
 
   @media ${device.laptopL} {
-    font-size: 16px;
+    font-size: 19px;
+  }
+  @media ${device.laptop} {
+    justify-self: center;
   }
   @media ${device.tablet} {
+    justify-self: flex-end;
+    font-size: 17px;
   }
 `;
 
 export const SignUp = styled.p`
+  height: 84px;
+  display: flex;
+  align-items: center;
   text-align: center;
   color: #ffff;
   font-weight: 500;
-  padding: 6px;
-  border-radius: 4px;
   cursor: pointer;
+  border-bottom: 6px transparent solid;
 
-  transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -webkit-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
   &:hover {
-    color: #ffff;
-    background-color: rgb(255, 205, 2, 0.9);
+    border-bottom-color: rgb(255, 205, 2, 0.9);
   }
   @media ${device.tablet} {
     display: none;
@@ -75,21 +84,22 @@ export const SignUp = styled.p`
 `;
 
 export const BandSignUp = styled.p`
+  height: 84px;
+  display: flex;
+  align-items: center;
   text-align: center;
   color: #ffff;
   font-weight: 500;
-  padding: 4px;
-  margin: 8px;
-  border-radius: 4px;
   cursor: pointer;
+  border-bottom: 6px transparent solid;
+  margin: 0 14px;
 
-  transition: all 0.3s ease-out;
-  -moz-transition: all 0.3s ease-out;
-  -webkit-transition: all 0.3s ease-out;
-  -o-transition: all 0.3s ease-out;
+  transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  -webkit-transition: all 0.3s ease-in-out;
+  -o-transition: all 0.3s ease-in-out;
   &:hover {
-    color: #ffff;
-    background-color: rgb(255, 205, 2, 0.9);
+    border-bottom-color: rgb(255, 205, 2, 0.9);
   }
   @media ${device.tablet} {
     display: none;
@@ -101,7 +111,7 @@ export const Login = styled.p`
   text-align: center;
   color: #ffff;
   font-weight: 500;
-  padding: 4px;
+  padding: 0 0 6px 4px;
   border-radius: 0 8px 8px 0;
   border-left: 1px white solid;
   padding-left: 1vw;
@@ -121,6 +131,8 @@ export const Login = styled.p`
 export const MenuContainer = styled.div`
   display: none;
   @media ${device.tablet} {
-      display: inline;
+    width: 100%;
+      display: flex;
+      justify-content: flex-end;
     }
 `

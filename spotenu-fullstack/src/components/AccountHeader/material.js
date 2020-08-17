@@ -4,19 +4,18 @@ import { fade, makeStyles } from "@material-ui/core/styles";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
 import InputBase from "@material-ui/core/InputBase";
-import Badge from "@material-ui/core/Badge";
 import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import SearchIcon from "@material-ui/icons/Search";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import MailIcon from "@material-ui/icons/Mail";
-import NotificationsIcon from "@material-ui/icons/Notifications";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import img from "../../img/music/logo-transparent-background.png";
 import { AppBar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
+import firebase from "firebase";
+import { logoutUser } from "../../actions/usersActions";
 
 const Logo = styled.img`
   max-width: 190px;
@@ -76,6 +75,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionDesktop: {
+    width: '180px',
     display: "none",
     [theme.breakpoints.up("md")]: {
       display: "flex",
@@ -91,10 +91,14 @@ const useStyles = makeStyles((theme) => ({
     height: '10vh',
     justifyContent: "center",
     backgroundColor: "#614EA0"
+  },
+  accountIcon: {
+    width: "200px",
   }
 }));
 
 function PrimarySearchAppBar(props) {
+
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -130,8 +134,7 @@ function PrimarySearchAppBar(props) {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={props.toLogout}>Logout</MenuItem>
     </Menu>
   );
 
@@ -146,23 +149,7 @@ function PrimarySearchAppBar(props) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>
-        <IconButton aria-label="show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
+      <MenuItem onClick={props.toLogout}>
         <IconButton
           aria-label="account of current user"
           aria-controls="primary-search-account-menu"
@@ -171,7 +158,7 @@ function PrimarySearchAppBar(props) {
         >
           <AccountCircle />
         </IconButton>
-        <p>Profile</p>
+        <p>Logout</p>
       </MenuItem>
     </Menu>
   );
@@ -180,9 +167,7 @@ function PrimarySearchAppBar(props) {
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
         <Toolbar>
-          <Logo src={img} 
-            onClick={props.goToLandingPage}
-            />
+          <Logo src={img} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
@@ -198,25 +183,16 @@ function PrimarySearchAppBar(props) {
           </div>
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
-            <IconButton aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
             <IconButton
-              edge="end"
+              size="medium"
+              edge="start"
               aria-label="account of current user"
               aria-controls={menuId}
               aria-haspopup="true"
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle />
+              <AccountCircle/>
             </IconButton>
           </div>
           <div className={classes.sectionMobile}>
@@ -240,6 +216,7 @@ function PrimarySearchAppBar(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    toLogout: () => dispatch(logoutUser()),
     goToLandingPage: () => dispatch(push(routes.root)),
   };
 };

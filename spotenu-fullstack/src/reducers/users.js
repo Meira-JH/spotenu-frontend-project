@@ -1,6 +1,8 @@
 const initialState = {
     currentUser: undefined,
     users: [],
+    musics: [],
+    genres:[],
     content: "music",
 }
 
@@ -20,6 +22,16 @@ const users = (state = initialState, action) => {
         case 'SET_CONTENT' : {
             return{
                 ...state, content: action.payload.content
+            }
+        }
+        case 'SET_MUSICS' : {
+            return{
+                ...state, musics: action.payload.musics
+            }
+        }
+        case 'SET_GENRES' : {
+            return{
+                ...state, genres: action.payload.genres
             }
         }
         default:

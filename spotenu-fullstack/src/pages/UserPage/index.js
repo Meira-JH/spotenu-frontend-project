@@ -3,9 +3,10 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
 import { UserPageWrapper } from "./style";
-import AccountMenu from "../../components/AccountMenu";
+import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
-import UserContent from "../../components/UserContent";
+import UserContent from "../../components/User/UserContent";
+import LoadingRing from "../../components/LoadingRing";
 
 class UserPage extends Component {
   constructor(props) {
@@ -13,7 +14,15 @@ class UserPage extends Component {
     this.state = {};
   }
 
-  userVerification () {
+  componentDidMount () {
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role !== "ouvinte") {
+        this.props.goToLandingPage();
+      }
+    }
+  }
+
+  componentDidUpdate () {
     if (this.props.currentUser) {
       if (this.props.currentUser.role !== "ouvinte") {
         this.props.goToLandingPage();
@@ -29,7 +38,6 @@ class UserPage extends Component {
   };
 
   render() {
-    this.userVerification()
 
     return (
       <div>
@@ -44,7 +52,7 @@ class UserPage extends Component {
             </Fragment>
           )
         ) : (
-          <div> Carregando... </div>
+          <LoadingRing />
         )}
       </div>
     );

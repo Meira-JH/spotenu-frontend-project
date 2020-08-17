@@ -1,6 +1,7 @@
 import { push } from "connected-react-router";
 import { routes } from "../router";
 import firebase from "firebase";
+import { IdGenerator } from "../services/IdGenetor";
 
 function setCurrentUser(currentUser) {
   return {
@@ -38,14 +39,14 @@ export const setBandMusics = (bandMusics) => {
   };
 };
 
-export const setMusics = (musics) => {
-  return {
-    type: "SET_MUSICS",
-    payload: {
-      musics,
-    },
-  };
-};
+// export const setMusics = (musics) => {
+//   return {
+//     type: "SET_MUSICS",
+//     payload: {
+//       musics,
+//     },
+//   };
+// };
 
 export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
   try {
@@ -105,6 +106,8 @@ export const deleteAlbumAction = (albumId, albumName, artistId) => async (
 };
 
 export const createMusicAction = (music) => async (dispatch) => {
+  const newId = new IdGenerator().generate();
+
   try {
     await firebase
       .firestore()
@@ -113,14 +116,17 @@ export const createMusicAction = (music) => async (dispatch) => {
       .collection("albums")
       .doc(music.album)
       .collection("musics")
-      .add(music);
-    await firebase.firestore().collection("musics").add(music);
+      .doc(newId)
+      .set(music);
+    await firebase.firestore().collection("musics").doc(newId).set(music);
   } catch (error) {
     console.error(error);
   }
 };
 
-export const deleteMusicAction = (musicId, albumName, artistId) => async (dispatch) => {
+export const deleteMusicAction = (musicId, albumName, artistId) => async (
+  dispatch
+) => {
   try {
     await firebase
       .firestore()
@@ -130,8 +136,7 @@ export const deleteMusicAction = (musicId, albumName, artistId) => async (dispat
       .doc(albumName)
       .collection("musics")
       .doc(musicId)
-      .delete()
-      ;
+      .delete();
     await firebase.firestore().collection("musics").doc(musicId).delete();
   } catch (error) {
     console.error(error);
@@ -181,22 +186,22 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
   }
 };
 
-export const getMusicsAction = () => async (dispatch) => {
-  try {
-    let musics = [];
+// export const getMusicsAction = () => async (dispatch) => {
+//   try {
+//     let musics = [];
 
-    await firebase
-      .firestore()
-      .collection("musics")
-      .get()
-      .then((snapshot) => {
-        snapshot.forEach((doc) =>
-          musics.push({ id: doc.id, data: doc.data() })
-        );
-      });
-    console.log(musics);
-    dispatch(setMusics(musics));
-  } catch (error) {
-    console.error(error);
-  }
-};
+//     await firebase
+//       .firestore()
+//       .collection("musics")
+//       .get()
+//       .then((snapshot) => {
+//         snapshot.forEach((doc) =>
+//           musics.push({ id: doc.id, data: doc.data() })
+//         );
+//       });
+//     console.log(musics);
+//     dispatch(setBandMusics(musics));
+//   } catch (error) {
+//     console.error(error);
+//   }
+// };

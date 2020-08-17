@@ -13,7 +13,8 @@ export const SignUpBandPageWrapper = styled.div`
 
 export const FirstBlock = styled.div`
   width: 100%;
-  max-height: 42vw;
+  min-height: 600px;
+  max-height: 40vw;
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
@@ -26,8 +27,10 @@ export const FirstBlock = styled.div`
     " . FormWrapper ."
     " . . . ";
   box-shadow: 0 1px 5px;
+  padding-top: 20px;
 
   @media ${device.laptopL} {
+    padding-top: 30px;
     max-height: 58vw;
   }
   @media ${device.laptop} {
@@ -37,7 +40,7 @@ export const FirstBlock = styled.div`
     max-height: 95vw;
   }
   @media ${device.mobileL} {
-    max-height: 140vw;
+    max-height: 160vw;
     background-size: auto;
     background-position: right;
   }
@@ -48,20 +51,19 @@ export const FormWrapper = styled.form`
   justify-self: center;
   grid-area: FormWrapper;
   width: 60%;
-  height: 110%;
+  min-width: 320px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
-  padding: 1vw 2vw ;
+  padding: 20px 20px ;
+  min-width: 300px;
 
-  @media ${device.laptopL} {
-    min-width: 300px;
-  }
-  @media ${device.tablet} {
-    width: 300px;
+  @media ${device.laptop}{
+    height: 95%;
   }
 `;
 
@@ -92,6 +94,7 @@ export const SignUpBandTextField = styled(TextField)`
   && {
     width: 15vw;
     text-align: center;
+    min-width: 280px;
 
     @media ${device.tablet} {
       width: 200px;
