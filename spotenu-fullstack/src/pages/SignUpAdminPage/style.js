@@ -13,7 +13,8 @@ export const SignUpAdminPageWrapper = styled.div`
 
 export const FirstBlock = styled.div`
   width: 100%;
-  max-height: 42vw;
+  min-height: 600px;
+  max-height: 40vw;
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
@@ -26,6 +27,7 @@ export const FirstBlock = styled.div`
     " . FormWrapper ."
     " . . . ";
   box-shadow: 0 1px 5px;
+  padding-top: 20px;
 
   @media ${device.laptopL}{
     max-height: 58vw;
@@ -47,6 +49,7 @@ export const FormWrapper = styled.form`
   justify-self: center;
   grid-area: FormWrapper;
   width: 60%;
+  min-width: 320px;
   height: 110%;
   display: flex;
   flex-direction: column;
@@ -54,15 +57,7 @@ export const FormWrapper = styled.form`
   justify-content: space-between;
   background-color: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
-  padding: 1vw 2vw ;
-
-  @media ${device.laptopL}{
-    min-width: 300px;
-  }
-  @media ${device.tablet}{
-    width: 300px;
-    padding: vw 0;
-  }
+  padding: 20px 20px ;
 `;
 
 export const SignUpAdminLogo = styled.img`
@@ -91,6 +86,7 @@ export const SignUpAdminTextField = styled(TextField)`
   && {
     width: 15vw;
     text-align: center;
+    min-width: 280px;
 
     @media ${device.tablet} {
       width: 200px;

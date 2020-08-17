@@ -3,10 +3,10 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
 import { AdminPageWrapper, MenuWrapper } from "./style";
-import AccountMenu from "../../components/AccountMenu";
+import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
-import AdminMenu from "../../components/AdminMenu";
-import AdminContent from "../../components/AdminContent";
+import AdminMenu from "../../components/Admin/AdminMenu";
+import AdminContent from "../../components/Admin/AdminContent";
 
 class AdminPage extends Component {
   constructor(props) {

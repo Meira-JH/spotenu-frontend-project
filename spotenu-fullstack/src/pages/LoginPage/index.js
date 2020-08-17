@@ -32,6 +32,35 @@ class LoginPage extends Component {
     };
   }
 
+  componentDidMount() {
+    console.log("update login", this.props.currentUser);
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role === "ouvinte") {
+        this.props.goToUserPage();
+      }
+      if (this.props.currentUser.role === "banda") {
+        this.props.goToBandPage();
+      }
+      if (this.props.currentUser.role === "admin") {
+        this.props.goToAdminPage();
+      }
+    }
+  }
+  componentDidUpdate() {
+    console.log("update landing", this.props.currentUser);
+    if (this.props.currentUser) {
+      if (this.props.currentUser.role === "ouvinte") {
+        this.props.goToUserPage();
+      }
+      if (this.props.currentUser.role === "banda") {
+        this.props.goToBandPage();
+      }
+      if (this.props.currentUser.role === "admin") {
+        this.props.goToAdminPage();
+      }
+    }
+  }
+
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
   };

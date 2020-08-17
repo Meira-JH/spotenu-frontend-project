@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
 import { UserPageWrapper } from "./style";
-import AccountMenu from "../../components/AccountMenu";
+import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
-import UserContent from "../../components/UserContent";
+import UserContent from "../../components/User/UserContent";
 import LoadingRing from "../../components/LoadingRing";
 
 class UserPage extends Component {

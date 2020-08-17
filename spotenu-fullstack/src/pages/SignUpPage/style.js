@@ -13,7 +13,8 @@ export const SignUpPageWrapper = styled.div`
 
 export const FirstBlock = styled.div`
   width: 100%;
-  max-height: 42vw;
+  min-height: 600px;
+  max-height: 40vw;
   background-image: url(${img});
   background-position: center;
   background-repeat: no-repeat;
@@ -26,6 +27,7 @@ export const FirstBlock = styled.div`
     " . FormWrapper ."
     " . . . ";
   box-shadow: 0 1px 5px;
+  padding-top: 20px;
 
   @media ${device.laptopL}{
     max-height: 58vw;
@@ -47,25 +49,20 @@ export const FormWrapper = styled.form`
   justify-self: center;
   grid-area: FormWrapper;
   width: 60%;
-  height: 110%;
+  min-width: 320px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   background-color: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
-  padding: 1vw 2vw ;
-
-  @media ${device.laptopL}{
-    min-width: 300px;
-  }
-  @media ${device.tablet}{
-    width: 300px;
-  }
+  padding: 20px 20px ;
 `;
 
 export const SignUpLogo = styled.img`
-  max-height: 5vw;
+  height: 5vw;
+  max-height: 120px;
   min-height: 60px;
 `;
 
@@ -74,9 +71,9 @@ export const SignUpTextField = styled(TextField)`
   && {
     width: 15vw;
     text-align: center;
+    min-width: 280px;
 
     @media ${device.tablet} {
-      width: 200px;
       font-size: 5px;
     }
   }
