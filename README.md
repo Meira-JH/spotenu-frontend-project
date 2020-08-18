@@ -1,4 +1,4 @@
-# Spotenu :headphones:
+# Spotenu :headphones: - UNDER DEVELOPMENT
 A music web application.
 
 <p align="center">
