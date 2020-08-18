@@ -21,10 +21,10 @@ const Logo = styled.img`
   max-width: 190px;
   padding: 0 35px;
   cursor: pointer;
-`
+`;
 
 const useStyles = makeStyles((theme) => ({
-    grow: {
+  grow: {
     flexGrow: 1,
   },
   menuButton: {
@@ -75,10 +75,12 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   sectionDesktop: {
-    width: '180px',
+    width: "180px",
     display: "none",
     [theme.breakpoints.up("md")]: {
       display: "flex",
+      flexDirection: "column",
+      alignItems: "center"
     },
   },
   sectionMobile: {
@@ -88,17 +90,34 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
-    height: '10vh',
+    height: "10vh",
     justifyContent: "center",
-    backgroundColor: "#614EA0"
+    backgroundColor: "#614EA0",
   },
   accountIcon: {
-    width: "200px",
-  }
+    width: "auto",
+  },
+  accountDetails: {
+    width: "auto",
+    display: "flex",
+    flexDirection: "column",
+  },
 }));
 
-function PrimarySearchAppBar(props) {
+// await firebase
+// .firestore()
+// .collection("users")
+// .doc(artistId)
+// .collection("albums")
+// .onSnapshot((snapshot) => {
+//   const bandAlbums =  snapshot.docs.map(album => ({
+//     id: album.id,
+//     data: album.data()
+//   }))
+//   dispatch(setBandAlbums(bandAlbums));
 
+
+function PrimarySearchAppBar(props) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
@@ -184,6 +203,7 @@ function PrimarySearchAppBar(props) {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton
+              className={classes.accountDetails}
               size="medium"
               edge="start"
               aria-label="account of current user"
@@ -192,8 +212,9 @@ function PrimarySearchAppBar(props) {
               onClick={handleProfileMenuOpen}
               color="inherit"
             >
-              <AccountCircle/>
+              <AccountCircle />
             </IconButton>
+            {props.currentUserName && <span> Olá, {props.currentUserName} </span>}
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -214,6 +235,10 @@ function PrimarySearchAppBar(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  currentUserName: state.users.currentUser.nickname,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     toLogout: () => dispatch(logoutUser()),
@@ -221,4 +246,7 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(PrimarySearchAppBar);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PrimarySearchAppBar);

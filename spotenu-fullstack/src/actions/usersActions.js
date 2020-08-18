@@ -38,14 +38,23 @@ export const setMusics = (musics) => {
   };
 };
 
-// export const setGenres = (genres) => {
-//   return {
-//     type: "SET_GENRES",
-//     payload: {
-//       genres,
-//     },
-//   };
-// };
+export const setGenres = (genres) => {
+  return {
+    type: "SET_GENRES",
+    payload: {
+      genres,
+    },
+  };
+};
+
+export const setAlbumsByGenre = (albumsByGenre) => {
+  return {
+    type: "SET_ALBUMS_BY_GENRE",
+    payload: {
+      albumsByGenre,
+    },
+  };
+};
 
 export const logoutUser = () => async (dispatch) => {
   try {
@@ -123,6 +132,7 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
 
 export const getMusicsAction = () => async (dispatch) => {
   try {
+    console.log("action music")
     let musics = [];
 
     await firebase
@@ -157,15 +167,29 @@ export const getGenresAction = () => async (dispatch) => {
       });
     dispatch(setGenres(genres));
   } catch (error) {
-    console.error("Error to get genres:", error);
+    console.error(error);
   }
 };
 
-export const setGenres = (genres) => {
-  return {
-    type: "SET_GENRES",
-    payload: {
-      genres,
-    },
-  };
+export const getAlbumsByGenreAction = (genre) => async (dispatch) => {
+  try {
+    const albumsByGenre = firebase
+      .firestore()
+      .collection("albums")
+      .where("genre", "==", genre)
+
+      let response
+      if(albumsByGenre){
+       response = await albumsByGenre.get()
+        .then((snapshot) => {
+          return snapshot.docs.map((doc) =>
+            ({ id: doc.id, data: doc.data() })
+          );
+        });
+      }
+
+    dispatch(setAlbumsByGenre(response));
+  } catch (error) {
+    console.error(error);
+  }
 };

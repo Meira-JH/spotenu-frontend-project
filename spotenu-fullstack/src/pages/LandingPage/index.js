@@ -27,7 +27,6 @@ import {
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 import xIcon from "../../img/criss-cross.svg";
 import vIcon from "../../img/tick.svg";
-import LoadingRing from "../../components/LoadingRing";
 
 class LandingPage extends Component {
 
@@ -89,9 +88,9 @@ class LandingPage extends Component {
       },
     ];
 
-    const renderPlansCards = plans.map((plan) => (
-      <PlanCard>
-        <CardHeader>
+    const renderPlansCards = plans.map((plan, index) => (
+      <PlanCard key={index}>
+        <CardHeader >
           <IconCard>
             <span>{plan.name}</span>
           </IconCard>
@@ -99,8 +98,8 @@ class LandingPage extends Component {
           <CardSubtitle> {plan.value} </CardSubtitle>
         </CardHeader>
         <CardBody>
-          {plan.description.map((item) => (
-            <CardItems>
+          {plan.description.map((item, index) => (
+            <CardItems key={index}>
               <IconItem src={plan.icon} />
               <ItemText> {item} </ItemText>
             </CardItems>

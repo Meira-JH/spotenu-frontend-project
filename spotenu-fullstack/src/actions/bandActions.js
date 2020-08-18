@@ -39,14 +39,6 @@ export const setBandMusics = (bandMusics) => {
   };
 };
 
-// export const setMusics = (musics) => {
-//   return {
-//     type: "SET_MUSICS",
-//     payload: {
-//       musics,
-//     },
-//   };
-// };
 
 export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
   try {
@@ -71,14 +63,15 @@ export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
 };
 
 export const createAlbumAction = (album) => async (dispatch) => {
+  const newId = new IdGenerator().generate();
   try {
-    await firebase.firestore().collection("albums").add(album);
+    await firebase.firestore().collection("albums").doc(newId).set(album);
     await firebase
       .firestore()
       .collection("users")
       .doc(album.artistId)
       .collection("albums")
-      .doc(album.name)
+      .doc(newId)
       .set(album);
   } catch (error) {
     console.error(error);
@@ -90,13 +83,27 @@ export const deleteAlbumAction = (albumId, albumName, artistId) => async (
 ) => {
   console.log("delete action", albumId, albumName, artistId);
   try {
+    const musics = firebase
+    .firestore()
+    .collection("musics")
+    .where("album", "==", albumName)
+    .where("artistId", "==", artistId)
+
+    if(musics){
+      await musics.get().then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+          doc.ref.delete();
+        });
+      });
+    }
+
     await firebase.firestore().collection("albums").doc(albumId).delete();
     await firebase
       .firestore()
       .collection("users")
       .doc(artistId)
       .collection("albums")
-      .doc(albumName)
+      .doc(albumId)
       .delete();
 
     window.location.reload();
@@ -144,19 +151,19 @@ export const deleteMusicAction = (musicId, albumName, artistId) => async (
 };
 
 export const getBandAlbumsAction = (artistId) => async (dispatch) => {
+  console.log("get band albums action", artistId)
   try {
-    let bandAlbums = [];
-
-    await firebase
+    const bandAlbums = await firebase
       .firestore()
       .collection("users")
       .doc(artistId)
       .collection("albums")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) =>
-          bandAlbums.push({ id: doc.id, data: doc.data() })
-        );
+        return snapshot.docs.map(album => ({
+          id: album.id,
+          data: album.data()
+        }))
       });
 
     dispatch(setBandAlbums(bandAlbums));
@@ -185,23 +192,3 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
     console.error(error);
   }
 };
-
-// export const getMusicsAction = () => async (dispatch) => {
-//   try {
-//     let musics = [];
-
-//     await firebase
-//       .firestore()
-//       .collection("musics")
-//       .get()
-//       .then((snapshot) => {
-//         snapshot.forEach((doc) =>
-//           musics.push({ id: doc.id, data: doc.data() })
-//         );
-//       });
-//     console.log(musics);
-//     dispatch(setBandMusics(musics));
-//   } catch (error) {
-//     console.error(error);
-//   }
-// };

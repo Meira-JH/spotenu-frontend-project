@@ -6,11 +6,13 @@ import AlbumCard from "../AlbumCard";
 
 class BandAlbums extends React.Component {
   componentDidMount() {
-    this.props.getBandAlbums();
+    this.props.getBandAlbums(this.props.currentUserId);
   }
 
 
   render() {
+
+    console.log(this.props.bandAlbums)
     const bandAlbumsContentRender = this.props.bandAlbums.map(
       (album, index) => (
         <AlbumCard
@@ -28,12 +30,13 @@ class BandAlbums extends React.Component {
 }
 
 const mapStateToProps = (state) => ({
+  currentUserId: state.users.currentUserId,
   bandAlbums: state.bands.bandAlbums,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getBandAlbums: () => dispatch(getBandAlbumsAction()),
+    getBandAlbums: (artistId) => dispatch(getBandAlbumsAction(artistId)),
   };
 };
 

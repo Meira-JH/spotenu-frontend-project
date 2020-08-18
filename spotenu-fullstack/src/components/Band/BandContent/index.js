@@ -20,7 +20,10 @@ import {
 import BandAlbums from "../BandAlbums";
 import BandMusics from "../BandMusics";
 import Musics from "../../User/Musics";
-import { getMusicsAction } from "../../../actions/usersActions";
+import {
+  getMusicsAction,
+  getGenresAction,
+} from "../../../actions/usersActions";
 import Genres from "../../User/Genres";
 
 class BandContent extends Component {
@@ -32,18 +35,22 @@ class BandContent extends Component {
       album: {
         artist: this.props.currentUser.name,
         artistId: this.props.currentUserId,
+        genre: "",
+        name: "",
       },
       music: {
         artist: this.props.currentUser.name,
         artistId: this.props.currentUserId,
+        name: "",
+        album: "",
       },
     };
   }
 
   componentDidMount() {
     this.props.getMusics();
-    this.props.getBandMusics();
-    this.props.getBandAlbums(this.props.currentUserId);
+    this.props.getGenres();
+    this.props.getBandAlbums();
   }
 
   handleInputChangeAlbum = (event) => {
@@ -107,12 +114,6 @@ class BandContent extends Component {
         label: "Nome do álbum",
         required: true,
       },
-      {
-        name: "genre",
-        type: "text",
-        label: "Gênero musical",
-        required: true,
-      },
     ];
 
     const createMusicFormTextField = [
@@ -143,6 +144,20 @@ class BandContent extends Component {
             onChange={this.handleInputChangeAlbum}
           />
         ))}
+        <CreateAlbumSelect
+          variant="outlined"
+          key="genre"
+          name="genre"
+          value={this.state.album["genre"] || ""}
+          required={true}
+          onChange={this.handleInputChangeAlbum}
+        >
+          {this.props.genres.map((genre, index) => (
+            <MenuItem key={index} value={genre.data.genre}>
+              {genre.data.genre}
+            </MenuItem>
+          ))}
+        </CreateAlbumSelect>
         {this.state.createAlbumSuccess && (
           <span>Album criado com sucesso!</span>
         )}
@@ -178,7 +193,7 @@ class BandContent extends Component {
           onChange={this.handleInputChangeMusic}
         >
           {this.props.bandAlbums.map((album, index) => (
-            <MenuItem key={index} value={album.data.name}>
+            <MenuItem key={index} value={album.id}>
               {album.data.name}
             </MenuItem>
           ))}
@@ -194,8 +209,8 @@ class BandContent extends Component {
       switch (contentPage) {
         case "musics":
           return <Musics />;
-          case "genres":
-            return <Genres />;
+        case "genres":
+          return <Genres />;
         case "bandMusics":
           return <BandMusics />;
         case "bandAlbums":
@@ -223,11 +238,13 @@ const mapStateToProps = (state) => ({
   currentUserId: state.users.currentUserId,
   content: state.users.content,
   bandAlbums: state.bands.bandAlbums,
+  genres: state.users.genres,
 });
 
 const mapDispatchToProps = (dispatch) => {
   return {
     getMusics: () => dispatch(getMusicsAction()),
+    getGenres: () => dispatch(getGenresAction()),
     getBandMusics: (userId) => dispatch(getBandMusicsAction(userId)),
     getBandAlbums: (userId) => dispatch(getBandAlbumsAction(userId)),
     toCreateAlbum: (albumInfo) => dispatch(createAlbumAction(albumInfo)),

@@ -8,12 +8,22 @@ import {
   CardMedia,
   CardContent,
 } from "./style";
+import {
+  getAlbumsByGenreAction,
+} from "../../../actions/usersActions";
 
 
 function GenreCard(props) {
 
+
+  function handleItem(genre) {
+    console.log(genre)
+    props.getAlbumsByGenre(genre);
+  }
   return (
-    <Card>
+    <Card
+    onClick={() => handleItem(props.genre)}
+    >
       <CardActions/>
       <CardMedia src={ImgMusic} />
       <CardContent>
@@ -25,6 +35,7 @@ function GenreCard(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    getAlbumsByGenre: (genre) => dispatch(getAlbumsByGenreAction(genre))
   };
 };
 

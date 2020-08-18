@@ -3,6 +3,7 @@ const initialState = {
     users: [],
     musics: [],
     genres:[],
+    albumsByGenre: undefined,
     content: "music",
 }
 
@@ -32,6 +33,11 @@ const users = (state = initialState, action) => {
         case 'SET_GENRES' : {
             return{
                 ...state, genres: action.payload.genres
+            }
+        }
+        case 'SET_ALBUMS_BY_GENRE' : {
+            return{
+                ...state, albumsByGenre: action.payload.albumsByGenre
             }
         }
         default:

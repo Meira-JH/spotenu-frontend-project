@@ -27,11 +27,13 @@ export const CardActions = styled.div`
   border-radius: 5px 5px 0 0;
 `;
 export const IconButton = styled.div`
-  width: 45px;
-  height: 50px;
+  width: 25px;
+  height: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
+  margin-left: 10px;
 `;
 
 export const CardMedia = styled.img`
@@ -51,7 +53,7 @@ export const CardContent = styled.div`
 `;
 export const Title = styled.span`
   width: 100%;
-  height: 13px;
+  height: auto;
   font-size: 13px;
   font-weight: 700;
   padding-bottom: 5px;

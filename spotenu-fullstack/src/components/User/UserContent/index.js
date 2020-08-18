@@ -14,11 +14,6 @@ class UserContent extends Component {
     this.props.getGenres();
   }
 
-  compoentnDidUpdate(){
-    this.props.getMusics();
-    this.props.getGenres();
-  }
-
   render() {
 
     function contentRender(contentPage) {

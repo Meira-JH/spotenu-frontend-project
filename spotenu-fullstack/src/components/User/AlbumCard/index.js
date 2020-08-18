@@ -17,14 +17,6 @@ import {
 
 function AlbumCard(props) {
 
-  const deleteMusic = () => {
-    props.toDeleteAlbum(props.albumId, props.name, props.artistId);
-    console.log(
-      "id e nome no musics",
-      props.albumId, props.name, props.artistId
-    );
-  };
-
   return (
     <Card>
       <CardActions>
@@ -34,13 +26,10 @@ function AlbumCard(props) {
         <IconButton>
           <ShareIcon />
         </IconButton>
-        <IconButton onClick={deleteMusic}>
-          <Delete />
-        </IconButton>
       </CardActions>
       <CardMedia src={ImgMusic} />
       <CardContent>
-        <Title>{props.name}</Title>
+        <Title>Album: {props.name}</Title>
         <Band> {props.artist} </Band>
       </CardContent>
     </Card>

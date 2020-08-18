@@ -53,7 +53,7 @@ export const CardContent = styled.div`
 `;
 export const Title = styled.span`
   width: 100%;
-  height: 13px;
+  height: auto;
   font-size: 13px;
   font-weight: 700;
   padding-bottom: 5px;
