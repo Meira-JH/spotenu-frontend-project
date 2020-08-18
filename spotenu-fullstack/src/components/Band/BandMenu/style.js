@@ -11,6 +11,6 @@ export const BandMenuWrapper = styled.div`
   padding-left: 2vw;
 
   @media ${device.mobileL} {
-    width: 180px;
+    width: 150px;
   }
 `;

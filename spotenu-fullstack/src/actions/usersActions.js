@@ -144,22 +144,11 @@ export const getMusicsAction = () => async (dispatch) => {
 export const getGenresAction = () => async (dispatch) => {
   console.log("action genre");
   try {
-    // let genres = [];
-
-    // await firebase
-    //   .firestore()
-    //   .collection("musicGenre")
-    //   .get()
-    //   .then((snapshot) => {
-    //     snapshot.forEach((doc) =>
-    //       genres.push({ id: doc.id, data: doc.data() })
-    //     );
-    //   });
     let genres = [];
 
     await firebase
       .firestore()
-      .collection("musicGenre")
+      .collection("genres")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) =>
@@ -168,7 +157,7 @@ export const getGenresAction = () => async (dispatch) => {
       });
     dispatch(setGenres(genres));
   } catch (error) {
-    console.error(error);
+    console.error("Error to get genres:", error);
   }
 };
 

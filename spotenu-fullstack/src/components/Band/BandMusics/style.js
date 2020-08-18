@@ -24,10 +24,13 @@ box-shadow: 0 0 10px 1px #959094;
   grid-auto-rows: 20vw;
 }
 @media ${device.tablet} {
-  height: 83vh;
-  grid-template-columns: repeat(1, 40vw);
-  grid-auto-rows: 30vw;
-  margin: 2vw;
-  padding: 0;
+  justify-content: center;
+    width: 90%;
+    height: 100%;
+    grid-template-columns: repeat(1, 200px);
+    grid-auto-rows: 100px;
+    padding: 10px;
+    margin: 20px 0;
+    box-shadow: none;
 }
 `;

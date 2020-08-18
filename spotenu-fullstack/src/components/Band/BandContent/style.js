@@ -22,6 +22,7 @@ export const FormWrapper = styled.form`
   justify-self: center;
   grid-area: FormWrapper;
   width: 50%;
+  min-width: 300px;
   height: 50vh;
   display: flex;
   flex-direction: column;
@@ -32,14 +33,19 @@ export const FormWrapper = styled.form`
   padding: 1vw 2vw ;
 
   @media ${device.laptopL}{
-    min-width: 300px;
   }
   @media ${device.tablet}{
     width: 300px;
   }
   @media ${device.mobileL}{
-    padding: 5px 30px;
+    padding: 0 25px;
     width: auto;
+    min-width: 90px;
+  }
+  @media ${device.mobileM}{
+    padding: 0 15px;
+    width: auto;
+    min-width: 80px;
   }
 `;
 
@@ -54,9 +60,10 @@ export const CreateAlbumTextField = styled(TextField)`
   && {
     width: 25vw;
     text-align: center;
+    min-width: 200px;
 
     @media ${device.tablet} {
-      width: 200px;
+      min-width: 160px;
       font-size: 5px;
     }
   }
@@ -65,7 +72,7 @@ export const CreateAlbumTextField = styled(TextField)`
 export const CreateAlbumSelect = styled(Select)`
   && {
     width: 25vw;
-    min-width: 180px;
+    min-width: 160px;
   }
 `;
 
@@ -93,7 +100,7 @@ export const CreateMusicTextField = styled(TextField)`
     text-align: center;
 
     @media ${device.tablet} {
-      width: 200px;
+      min-width: 160px;
       font-size: 5px;
     }
   }

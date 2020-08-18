@@ -18,8 +18,8 @@ class BandMenu extends PureComponent {
     const contentOptions = ["bandMusics", "bandAlbums", "createAlbum", "createMusic"]
 
     const MenuListItemMap = [
-      "Músicas da banda",
-      "Albuns da banda",
+      "Músicas banda",
+      "Albuns banda",
       "Criar álbum",
       "Criar música"
     ].map((text, index) => (

@@ -21,6 +21,7 @@ import BandAlbums from "../BandAlbums";
 import BandMusics from "../BandMusics";
 import Musics from "../../User/Musics";
 import { getMusicsAction } from "../../../actions/usersActions";
+import Genres from "../../User/Genres";
 
 class BandContent extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class BandContent extends Component {
       {
         name: "genre",
         type: "text",
-        label: "Gênero(s) musical(is)",
+        label: "Gênero musical",
         required: true,
       },
     ];
@@ -193,6 +194,8 @@ class BandContent extends Component {
       switch (contentPage) {
         case "musics":
           return <Musics />;
+          case "genres":
+            return <Genres />;
         case "bandMusics":
           return <BandMusics />;
         case "bandAlbums":

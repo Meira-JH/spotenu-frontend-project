@@ -1,99 +1,129 @@
 import React from "react";
 import { connect } from "react-redux";
-import { makeStyles } from "@material-ui/core/styles";
-import Card from "@material-ui/core/Card";
-import CardMedia from "@material-ui/core/CardMedia";
-import CardContent from "@material-ui/core/CardContent";
-import CardActions from "@material-ui/core/CardActions";
-import IconButton from "@material-ui/core/IconButton";
-import Typography from "@material-ui/core/Typography";
+// import { makeStyles } from "@material-ui/core/styles";
+// import Card from "@material-ui/core/Card";
+// import CardMedia from "@material-ui/core/CardMedia";
+// import CardContent from "@material-ui/core/CardContent";
+// import CardActions from "@material-ui/core/CardActions";
+// import IconButton from "@material-ui/core/IconButton";
+// import Typography from "@material-ui/core/Typography";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import Delete from "@material-ui/icons/DeleteForever";
 import ShareIcon from "@material-ui/icons/Share";
-import Imgalbum from "../../../img/music/tabua-capa.jpg";
-import { deleteAlbumAction } from "../../../actions/bandActions";
+import ImgMusic from "../../../img/music/music.png";
+import Delete from "@material-ui/icons/DeleteForever";
+import { deleteMusicAction } from "../../../actions/bandActions";
+import {
+  Title,
+  Band,
+  Card,
+  CardActions,
+  IconButton,
+  CardMedia,
+  CardContent,
+} from "./style";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    maxWidth: 345,
-  },
-  media: {
-    height: "5vw",
-  },
-  expand: {
-    transform: "rotate(0deg)",
-    marginLeft: "auto",
-    transition: theme.transitions.create("transform", {
-      duration: theme.transitions.duration.shortest,
-    }),
-  },
-  expandOpen: {
-    transform: "rotate(180deg)",
-  },
-  avatar: {
-    backgroundColor: " rgb(255, 205, 2)",
-  },
-  favIcon: {
-    width: "1vw",
-    minWidth: "14px",
-  },
-  iconStyle: {
-    width: "1vw",
-  },
-  actionsWrapper: {
-    maxHeight: "15px",
-    justifyContent: "space-between",
-  },
-  cardContentWrapper: {
-    maxHeight: "10px",
-    padding: 10,
-    justifyContent: "flex-start",
-  },
-  album: {
-    fontWeight: 700,
-    maxWidth: "100%",
-  },
-  artist: {
-    fontSize: 14,
-  },
-}));
+// const useStyles = makeStyles((theme) => ({
+//   root: {
+//     maxWidth: 345,
+//   },
+//   media: {
+//     height: "5vw",
+//   },
+//   expand: {
+//     transform: "rotate(0deg)",
+//     marginLeft: "auto",
+//     transition: theme.transitions.create("transform", {
+//       duration: theme.transitions.duration.shortest,
+//     }),
+//   },
+//   expandOpen: {
+//     transform: "rotate(180deg)",
+//   },
+//   avatar: {
+//     backgroundColor: " rgb(255, 205, 2)",
+//   },
+//   favIcon: {
+//     width: "1vw",
+//     minWidth: "14px",
+//   },
+//   iconStyle: {
+//     width: "1vw",
+//   },
+//   actionsWrapper: {
+//     maxHeight: "15px",
+//     justifyContent: "space-between",
+//   },
+//   cardContentWrapper: {
+//     maxHeight: "10px",
+//     padding: 10,
+//     justifyContent: "flex-start",
+//   },
+//   music: {
+//     fontWeight: 700,
+//     maxWidth: "100%",
+//   },
+//   artist: {
+//     fontSize: 14,
+//   },
+// }));
 
-function AlbumCard(props ) {
-  const classes = useStyles();
+function AlbumCard(props) {
+  // const classes = useStyles();
 
-  const deleteAlbum = () => {
-    props.toDeleteAlbum(props.albumId, props.name, props.artistId)
-    console.log('id e nome no albums', props.albumId, props.name, props.artistId)
-  }
+  const deleteMusic = () => {
+    props.toDeleteMusic(props.musicId, props.albumName, props.artistId);
+    console.log(
+      "id e nome no musics",
+      props.musicId,
+      props.albumName,
+      props.artistId
+    );
+  };
 
   return (
-    <Card className={classes.root}>
-      <CardActions disableSpacing className={classes.actionsWrapper}>
-        <IconButton aria-label="add to favorites" className={classes.iconStyle}>
-          <FavoriteIcon className={classes.favIcon} />
+    <Card>
+      <CardActions>
+        <IconButton>
+          <FavoriteIcon />
         </IconButton>
-        <IconButton aria-label="share">
+        <IconButton>
           <ShareIcon />
         </IconButton>
-        <IconButton
-          aria-label="delete"
-          onClick={deleteAlbum}
-        >
+        <IconButton onClick={deleteMusic}>
           <Delete />
         </IconButton>
       </CardActions>
-      <CardMedia className={classes.media} image={Imgalbum} />
-      <CardContent className={classes.cardContentWrapper}>
-        <Typography className={classes.album}>{props.name}</Typography>
-        <Typography className={classes.artist}>{props.artist}</Typography>
+      <CardMedia src={ImgMusic} />
+      <CardContent>
+        <Title>{props.name}</Title>
+        <Band> {props.artist} </Band>
       </CardContent>
     </Card>
+    // <Card className={classes.root}>
+    //   <CardActions disableSpacing className={classes.actionsWrapper}>
+    //     <IconButton aria-label="add to favorites" className={classes.iconStyle}>
+    //       <FavoriteIcon className={classes.favIcon} />
+    //     </IconButton>
+    //     <IconButton aria-label="share">
+    //       <ShareIcon />
+    //     </IconButton>
+    //     <IconButton aria-label="delete" onClick={deleteMusic}>
+    //       <Delete />
+    //     </IconButton>
+    //   </CardActions>
+    //   <CardMedia className={classes.media} image={ImgMusic} />
+    //   <CardContent className={classes.cardContentWrapper}>
+    //     <Typography className={classes.music}>{props.name}</Typography>
+    //     <Typography className={classes.artist}></Typography>
+    //   </CardContent>
+    // </Card>
   );
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toDeleteAlbum: (albumId, albumName, artistId) => dispatch(deleteAlbumAction(albumId, albumName, artistId)),
+    toDeleteMusic: (albumId, albumName, artistId) =>
+    dispatch(deleteMusicAction(albumId, albumName, artistId)),
   };
 };
 
