@@ -92,7 +92,7 @@ class SignUpAdminPage extends Component {
         label: "Insira sua senha",
         required: true,
         pattern: ".{10,}",
-        title: "A senha deve ter pelo menos 6 caracteres",
+        title: "A senha deve ter pelo menos 10 caracteres",
         endAdornment: (
           <InputAdornment position="end">
             <IconButton

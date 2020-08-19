@@ -39,6 +39,14 @@ export const setBandMusics = (bandMusics) => {
   };
 };
 
+export const forceStateUpdate = (forceUpdate) => {
+  return {
+    type: "FORCE_UPDATE",
+    payload: {
+      forceUpdate
+    }
+  }
+}
 
 export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
   try {
@@ -81,32 +89,31 @@ export const createAlbumAction = (album) => async (dispatch) => {
 export const deleteAlbumAction = (albumId, albumName, artistId) => async (
   dispatch
 ) => {
-  console.log("delete action", albumId, albumName, artistId);
   try {
-    const musics = firebase
-    .firestore()
-    .collection("musics")
-    .where("album", "==", albumName)
-    .where("artistId", "==", artistId)
-
-    if(musics){
-      await musics.get().then(function(querySnapshot) {
-        querySnapshot.forEach(function(doc) {
-          doc.ref.delete();
-        });
-      });
-    }
-
-    await firebase.firestore().collection("albums").doc(albumId).delete();
-    await firebase
+      const musics = firebase
       .firestore()
-      .collection("users")
-      .doc(artistId)
-      .collection("albums")
-      .doc(albumId)
-      .delete();
+      .collection("musics")
+      .where("album", "==", albumId)
+      .where("artistId", "==", artistId)
+  
+      if(musics){
+        await musics.get().then(function(querySnapshot) {
+          querySnapshot.forEach(function(doc) {
+            doc.ref.delete();
+          });
+        });
+      }
 
-    window.location.reload();
+      await firebase.firestore().collection("albums").doc(albumId).delete();
+      await firebase
+        .firestore()
+        .collection("users")
+        .doc(artistId)
+        .collection("albums")
+        .doc(albumId)
+        .delete();
+
+    dispatch(getBandAlbumsAction(artistId))
   } catch (error) {
     console.error(error);
   }
@@ -145,6 +152,8 @@ export const deleteMusicAction = (musicId, albumName, artistId) => async (
       .doc(musicId)
       .delete();
     await firebase.firestore().collection("musics").doc(musicId).delete();
+
+    dispatch(getBandMusicsAction(artistId))
   } catch (error) {
     console.error(error);
   }

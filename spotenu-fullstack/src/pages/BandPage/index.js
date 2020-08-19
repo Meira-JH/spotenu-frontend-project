@@ -15,14 +15,6 @@ class BandPage extends Component {
     this.state = {};
   }
 
-  // userVerification() {
-  //   if (this.props.currentUser) {
-  //     if (this.props.currentUser.role !== "banda") {
-  //       this.props.goToLandingPage();
-  //     }
-  //   }
-  // }
-
   handleInputChange = (event) => {
     const { name, value } = event.target;
     this.setState({
@@ -31,7 +23,6 @@ class BandPage extends Component {
   };
 
   render() {
-    // this.userVerification();
     return (
       <div>
         {this.props.currentUser ? (

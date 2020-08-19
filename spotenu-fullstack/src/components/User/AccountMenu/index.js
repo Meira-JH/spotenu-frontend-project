@@ -4,12 +4,13 @@ import { AccountMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
-import { setContentAction } from "../../../actions/usersActions";
+import { setContentAction, setAlbumsByGenre } from "../../../actions/usersActions";
 
 class AccountMenu extends Component {
 
 
   handleItemClick(content){
+    this.props.setAlbumsByGenre()
     this.props.toSetContent(content)
   }
 
@@ -67,6 +68,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    setAlbumsByGenre: () => dispatch(setAlbumsByGenre(undefined)),
     toSetContent: (content) => dispatch(setContentAction(content))
   };
 };

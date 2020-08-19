@@ -9,11 +9,6 @@ import Genres from "../Genres";
 
 class UserContent extends Component {
 
-  compoentnDidMount(){
-    this.props.getMusics();
-    this.props.getGenres();
-  }
-
   render() {
 
     function contentRender(contentPage) {

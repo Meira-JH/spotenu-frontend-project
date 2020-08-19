@@ -7,6 +7,7 @@ import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
 import AdminMenu from "../../components/Admin/AdminMenu";
 import AdminContent from "../../components/Admin/AdminContent";
+import LoadingRing from "../../components/LoadingRing";
 
 class AdminPage extends Component {
   constructor(props) {
@@ -47,7 +48,7 @@ class AdminPage extends Component {
             </Fragment>
           )
         ) : (
-          <div> Carregando... </div>
+          <LoadingRing />
         )}
       </div>
     );

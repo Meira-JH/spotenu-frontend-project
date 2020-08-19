@@ -2,7 +2,7 @@ const initialState = {
     users: [],
     bandAlbums: [],
     bandMusics: [],
-    musics: []
+    musics: [],
 }
 
 const users = (state = initialState, action) => {
@@ -21,6 +21,11 @@ const users = (state = initialState, action) => {
         case 'SET_MUSICS' : {
             return{
                 ...state, musics: action.payload.musics
+            }
+        }
+        case 'FORCE_UPDATE' : {
+            return{
+                ...state, forceUpdate: action.payload.forceUpdate
             }
         }
         default:

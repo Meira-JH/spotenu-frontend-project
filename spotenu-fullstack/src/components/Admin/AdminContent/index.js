@@ -1,35 +1,63 @@
 import React, { Component } from "react";
-import { withRouter } from "react-router-dom";
-import { AdminContentWrapper, MusicCardContainer } from "./style";
-import MusicCard from "../../Band/MusicCardBand";
+import { connect } from "react-redux";
+import {
+  AdminContentWrapper,
+} from "./style";
+import Musics from "../../User/Musics";
+import {
+  getMusicsAction,
+  getGenresAction,
+} from "../../../actions/usersActions";
+import Genres from "../../User/Genres";
 
 class AdminContent extends Component {
-  goTo = (route) => {
-    this.props.history.push(route);
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      createGenre: false,
+      genre: ""
+  }
+}
 
   render() {
-    const musicMock = {
-      nome: "música teste",
-      album: "album teste",
-    };
 
-    const musicsFromFirebase = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1].map(
-      (music) => musicMock
-    );
-
-    const MusicCardRender = musicsFromFirebase.map((text, index) => (
-      <MusicCard name = {musicMock.name}/>
-    ));
+    function contentRender(contentPage) {
+      switch (contentPage) {
+        case "musics":
+          return <Musics />;
+        case "genres":
+          return <Genres />;
+        // case "adminAprove":
+        //   return <AdminAprove />;
+        // case "adminGenres":
+        //   return <AdminGenres />;
+        // case "createGenre":
+        //   return <CreateGenre />;
+        default:
+          return <Musics />;
+      }
+    }
 
     return (
       <AdminContentWrapper>
-        <MusicCardContainer>
-            {MusicCardRender}
-        </MusicCardContainer>
+        {contentRender(this.props.content)}
       </AdminContentWrapper>
     );
   }
 }
 
-export default withRouter(AdminContent);
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+  currentUserId: state.users.currentUserId,
+  content: state.users.content,
+  genres: state.users.genres,
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getMusics: () => dispatch(getMusicsAction()),
+    getGenres: () => dispatch(getGenresAction()),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminContent);

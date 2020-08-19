@@ -15,7 +15,6 @@ class AdminMenu extends PureComponent {
   render() {
 
     const FavListItemMap = [
-      "Aprovar músicos",
       "Aprovar admins",
       "Aprovar bandas",
       "Criar gênero musical",
