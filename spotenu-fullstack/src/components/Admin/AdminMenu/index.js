@@ -1,25 +1,28 @@
 import React, { PureComponent } from "react";
-import { withRouter } from "react-router-dom";
+import { connect } from "react-redux";
 import { AdminMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
+import { setContentAction } from "../../../actions/adminActions";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
 
 class AdminMenu extends PureComponent {
 
-  
-  goTo = (route) => {
-    this.props.history.push(route);
-  };
+  handleItemClick(content){
+    this.props.setContent(content)
+  }
 
   render() {
 
+    const contentOptions = ["adminApprove", "bandApprove", "createGenre"]
+
+
     const FavListItemMap = [
-      "Aprovar admins",
-      "Aprovar bandas",
-      "Criar gênero musical",
+      "Aprovar Admins",
+      "Aprovar Bandas",
+      "Criar Gênero Musical",
     ].map((text, index) => (
-      <ListItem button key={text}>
+      <ListItem button key={index} onClick={() => this.handleItemClick(contentOptions[index])}>
         <ListItemIcon>
           {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
         </ListItemIcon>
@@ -46,4 +49,15 @@ class AdminMenu extends PureComponent {
   }
 }
 
-export default withRouter(AdminMenu);
+const mapStateToProps = (state) => ({
+  currentUser: state.users.currentUser,
+  content: state.users.content
+});
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    setContent: (content) => dispatch(setContentAction(content))
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(AdminMenu);

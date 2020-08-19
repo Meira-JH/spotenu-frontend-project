@@ -94,7 +94,6 @@ export const deleteAlbumAction = (albumId, albumName, artistId) => async (
       .firestore()
       .collection("musics")
       .where("album", "==", albumId)
-      .where("artistId", "==", artistId)
   
       if(musics){
         await musics.get().then(function(querySnapshot) {

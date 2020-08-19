@@ -15,7 +15,7 @@ class Musics extends React.Component {
 
   render() {
 
-    const musicsContentRender = this.props.musics.map((music, index) => (
+    const musicsContentRender = this.props.musics && this.props.musics.map((music, index) => (
           <MusicCard name={music.data.name} artist={music.data.artist} key={index} />
         ))
 
