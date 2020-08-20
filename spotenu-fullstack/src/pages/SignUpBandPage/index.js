@@ -9,6 +9,7 @@ import {
   SecondBlock,
   SecondTitle,
   SignUpBandLogo,
+  Warning,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -34,6 +35,7 @@ class SignUpBandPage extends Component {
       },
       showPassword: false,
       showConfirmPassword: false,
+      passwordCompare: true,
     };
   }
 
@@ -54,9 +56,10 @@ class SignUpBandPage extends Component {
 
   handleSubmmit = (event) => {
     event.preventDefault();
-
-    if (this.password === this.confirmPassword) {
+    if (this.state.signUpBand.password === this.state.signUpBand.confirmPassword) {
       this.props.toSignUpBand(this.state.signUpBand);
+    } else {
+      this.setState({passwordCompare: false})
     }
   };
 
@@ -166,6 +169,7 @@ class SignUpBandPage extends Component {
           <SignUpBandPageWrapper>
             <FirstBlock>
               <FormWrapper onSubmit={this.handleSubmmit}>
+                {this.state.passwordCompare? "" : <Warning>As senhas não são iguais</Warning>}
                 <SignUpBandLogo
                   src={require("../../img/music/logocabecacirculo.png")}
                 />

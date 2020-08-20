@@ -3,17 +3,11 @@ import { device } from "../../Layout/mediaQueries";
 
 export const AdminContentWrapper = styled.div`
   height: auto;
-  min-height: 90vh;
-  width: 80%;
+  width: 100%;
+  min-width: 200px;
+  max-height: 90vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: flex-start;
   position: static;
-  border-right: 1px grey solid;
-  padding-left: 2vw;
-
-  @media ${device.mobileL}{
-    padding-left: 0;
-  }
 `;

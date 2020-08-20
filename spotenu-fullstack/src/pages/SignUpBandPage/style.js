@@ -59,7 +59,7 @@ export const FormWrapper = styled.form`
   justify-content: space-around;
   background-color: rgba(250, 250, 250, 0.9);
   border-radius: 8px;
-  padding: 20px 20px ;
+  padding: 15px 20px ;
   min-width: 300px;
 
   @media ${device.laptop}{
@@ -67,9 +67,16 @@ export const FormWrapper = styled.form`
   }
 `;
 
+export const Warning = styled.span`
+  font-size: 14;
+  color: red;
+`
+
 export const SignUpBandLogo = styled.img`
-  max-height: 5vw;
+  height: 5vw;
+  max-height: 120px;
   min-height: 60px;
+  margin-bottom: 10px;
 `;
 
 export const SignUpBandTitle = styled.span`

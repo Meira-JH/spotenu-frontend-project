@@ -64,6 +64,7 @@ export const SignUpLogo = styled.img`
   height: 5vw;
   max-height: 120px;
   min-height: 60px;
+  margin-bottom: 10px;
 `;
 
 
