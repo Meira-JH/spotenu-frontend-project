@@ -12,6 +12,7 @@
     "firebase": "^7.16.0",
     "firebase-admin": "^8.13.0",
     "history": "^4.10.1",
+    "http2": "^3.3.7",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.1.1",

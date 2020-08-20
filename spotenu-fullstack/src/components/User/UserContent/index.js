@@ -17,10 +17,6 @@ class UserContent extends Component {
           return <Musics />;
         case "genres":
           return <Genres />;
-        // case "myMusics":
-        //   return <BandAlbums />;
-        // case "myPlaylists":
-        //   return <BandAlbums />;
 
         default:
           return <Musics />;

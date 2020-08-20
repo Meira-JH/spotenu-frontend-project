@@ -10,4 +10,13 @@ export const AdminPageWrapper = styled.div`
 export const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
-`
+`;
+
+export const NotApproved = styled.div`
+  width: 100%;
+  height: 80vh;
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;

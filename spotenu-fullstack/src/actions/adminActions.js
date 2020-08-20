@@ -1,6 +1,7 @@
 import { push } from "connected-react-router";
 import { routes } from "../router";
 import firebase from "firebase";
+import * as admin from "firebase-admin";
 
 function setCurrentUser(currentUser) {
   return {
@@ -25,6 +26,15 @@ function setAdminsToApprove(adminsToApprove) {
     type: "SET_ADMINS_TO_APPROVE",
     payload: {
       adminsToApprove,
+    },
+  };
+}
+
+function setBandsToApprove(bandsToApprove) {
+  return {
+    type: "SET_BANDS_TO_APPROVE",
+    payload: {
+      bandsToApprove,
     },
   };
 }
@@ -58,12 +68,16 @@ export const getAdminsToApproveAction = () => async (dispatch) => {
     const firebaseSearch = firebase
       .firestore()
       .collection("users")
+      .orderBy("name")
       .where("role", "==", "admin");
 
-    const admins = await firebaseSearch.get().then((snapshot) => {
-      snapshot.docs.map((admin) =>
-        admin.approved ? false : { id: admin.id, data: admin.data() }
-      );
+    let admins = [];
+    await firebaseSearch.get().then((snapshot) => {
+      return snapshot.docs.forEach((admin) => {
+        if (!admin.data().approved) {
+          admins.push({ id: admin.id, data: admin.data() });
+        }
+      });
     });
 
     dispatch(setAdminsToApprove(admins));
@@ -75,16 +89,11 @@ export const getAdminsToApproveAction = () => async (dispatch) => {
 export const approveAdminAction = (adminId) => async (dispatch) => {
   console.log("aprovando admin");
   try {
-    await firebase
-      .firestore()
-      .collection("users")
-      .doc(adminId)
-      .update({
-        approved: true,
-      })
-      .then(() => {
-        console.log("usuário aprovado");
-      });
+    await firebase.firestore().collection("users").doc(adminId).update({
+      approved: true,
+    });
+
+    dispatch(getAdminsToApproveAction());
   } catch (error) {
     console.error(error);
   }
@@ -93,14 +102,50 @@ export const approveAdminAction = (adminId) => async (dispatch) => {
 export const deleteAdminAction = (adminId) => async (dispatch) => {
   console.log("deletando admin");
   try {
-    await firebase
+    await firebase.firestore().collection("users").doc(adminId).delete();
+    await admin
+      .auth()
+      .deleteUser(adminId)
+      .then(function () {
+        console.log("Successfully deleted user");
+      })
+      .catch(function (error) {
+        console.log("Error deleting user:", error);
+      });
+    dispatch(getAdminsToApproveAction());
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getBandsToApproveAction = () => async (dispatch) => {
+  console.log("get bands to approve funciona");
+  try {
+    const firebaseSearch = firebase
       .firestore()
       .collection("users")
-      .doc(adminId)
-      .delete()
-      .then(() => {
-        console.log("usuário deletado");
+      .orderBy("name")
+      .where("role", "==", "banda");
+
+    let bands = [];
+    await firebaseSearch.get().then((snapshot) => {
+      return snapshot.docs.forEach((band) => {
+        if (!band.data().approved) {
+          bands.push({ id: band.id, data: band.data() });
+        }
       });
+    });
+
+    dispatch(setBandsToApprove(bands));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+
+export const createGenreAction = (genre) => async (dispatch) => {
+  try {
+    await firebase.firestore().collection("genres").add(genre);
   } catch (error) {
     console.error(error);
   }

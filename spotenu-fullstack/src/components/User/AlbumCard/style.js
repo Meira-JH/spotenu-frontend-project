@@ -10,6 +10,7 @@ export const Card = styled.div`
   align-items: center;
   box-shadow: 0 0 3px black;
   border-radius: 5px;
+  cursor: pointer;
 
   @media ${device.tablet} {
     width: 200px;

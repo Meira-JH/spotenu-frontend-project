@@ -10,6 +10,8 @@ import {
 } from "../../../actions/usersActions";
 import Genres from "../../User/Genres";
 import ApproveAdmins from "../ApproveAdmins";
+import ApproveBands from "../ApproveBands";
+import CreateGenre from "../CreateGenre";
 
 class AdminContent extends Component {
   constructor(props) {
@@ -30,10 +32,12 @@ class AdminContent extends Component {
           return <Genres />;
         case "adminApprove":
           return <ApproveAdmins />;
+        case "bandApprove":
+          return <ApproveBands />;
         // case "adminGenres":
         //   return <AdminGenres />;
-        // case "createGenre":
-        //   return <CreateGenre />;
+        case "createGenre":
+          return <CreateGenre />;
         default:
           return <Musics />;
       }

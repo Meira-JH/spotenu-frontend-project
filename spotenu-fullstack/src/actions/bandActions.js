@@ -39,14 +39,14 @@ export const setBandMusics = (bandMusics) => {
   };
 };
 
-export const forceStateUpdate = (forceUpdate) => {
+export const setAlbumsMusic = (albumsMusic) => {
   return {
-    type: "FORCE_UPDATE",
+    type: "SET_BAND_MUSICS",
     payload: {
-      forceUpdate
-    }
-  }
-}
+      albumsMusic,
+    },
+  };
+};
 
 export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
   try {
@@ -166,6 +166,7 @@ export const getBandAlbumsAction = (artistId) => async (dispatch) => {
       .collection("users")
       .doc(artistId)
       .collection("albums")
+      .orderBy("artist")
       .get()
       .then((snapshot) => {
         return snapshot.docs.map(album => ({
@@ -188,6 +189,7 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
       .firestore()
       .collection("musics")
       .where("artistId", "==", artistId)
+      .orderBy("name")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) =>
@@ -200,3 +202,4 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
     console.error(error);
   }
 };
+

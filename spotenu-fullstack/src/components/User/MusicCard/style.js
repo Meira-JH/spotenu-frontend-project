@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { device } from "../../Layout/mediaQueries";
 
 export const Card = styled.div`
+align-self: flex-start;
+justify-self: center;
   width: 200px;
   height: 200px;
   display: flex;

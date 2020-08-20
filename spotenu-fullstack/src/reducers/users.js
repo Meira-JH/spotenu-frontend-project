@@ -3,8 +3,11 @@ const initialState = {
     users: [],
     musics: [],
     genres:[],
-    albumsByGenre: undefined,
+    albumsByGenre: [],
+    albumsMusic: [],
+    albumRender: undefined,
     content: "music",
+    error: undefined,
 }
 
 const users = (state = initialState, action) => {
@@ -13,6 +16,11 @@ const users = (state = initialState, action) => {
         case 'SET_CURRENT_USER' : {
             return{
                 ...state, currentUser: action.payload.currentUser
+            }
+        }
+        case 'SET_ERROR' : {
+            return{
+                ...state, error: action.payload.error
             }
         }
         case 'SET_CURRENT_USER_ID' : {
@@ -38,6 +46,16 @@ const users = (state = initialState, action) => {
         case 'SET_ALBUMS_BY_GENRE' : {
             return{
                 ...state, albumsByGenre: action.payload.albumsByGenre
+            }
+        }
+        case 'SET_ALBUMS_MUSIC' : {
+            return{
+                ...state, albumsMusic: action.payload.albumsMusic
+            }
+        }
+        case 'SET_ALBUM_RENDER' : {
+            return{
+                ...state, albumRender: action.payload.albumRender
             }
         }
         default:

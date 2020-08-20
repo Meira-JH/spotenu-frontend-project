@@ -2,6 +2,7 @@ const initialState = {
     bandsToApprove: [],
     adminsToApprove: [],
     adminsGenres: [],
+    createGenre: false
 }
 
 const admins = (state = initialState, action) => {
@@ -20,6 +21,11 @@ const admins = (state = initialState, action) => {
         case 'SET_ADMIN_GENRES' : {
             return{
                 ...state, adminsGenres: action.payload.adminsGenres
+            }
+        }
+        case 'SET_CREATE_GENRE' : {
+            return{
+                ...state, createGenre: action.payload.createGenre
             }
         }
 

@@ -44,11 +44,11 @@ const useStyles = makeStyles((theme) => ({
     "&:hover": {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(1),
     marginLeft: 0,
     width: "100%",
     [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(10),
+      marginLeft: theme.spacing(15),
       width: "50%",
     },
   },
@@ -60,12 +60,19 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
+    [theme.breakpoints.down("sm")]: {
+      display: "none",
+      width: "0",
+    },
   },
   inputRoot: {
     color: "inherit",
   },
   inputInput: {
     padding: theme.spacing(1, 1, 1, 0),
+    [theme.breakpoints.down("sm")]: {
+      padding: "5px",
+    },
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create("width"),
@@ -90,6 +97,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   appBar: {
+    minHeight: "70px",
     height: "10vh",
     justifyContent: "center",
     backgroundColor: "#614EA0",
@@ -103,19 +111,6 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: "column",
   },
 }));
-
-// await firebase
-// .firestore()
-// .collection("users")
-// .doc(artistId)
-// .collection("albums")
-// .onSnapshot((snapshot) => {
-//   const bandAlbums =  snapshot.docs.map(album => ({
-//     id: album.id,
-//     data: album.data()
-//   }))
-//   dispatch(setBandAlbums(bandAlbums));
-
 
 function PrimarySearchAppBar(props) {
   const classes = useStyles();
@@ -185,14 +180,14 @@ function PrimarySearchAppBar(props) {
   return (
     <div className={classes.root}>
       <AppBar position="static" className={classes.appBar}>
-        <Toolbar>
+        <Toolbar >
           <Logo src={img} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search…"
+              placeholder="Buscar música..."
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

@@ -11,6 +11,15 @@ export function setCurrentUser(currentUser) {
   };
 }
 
+export function setError(error) {
+  return {
+    type: "SET_ERROR",
+    payload: {
+      error,
+    },
+  };
+}
+
 export function setCurrentUserId(currentUserId) {
   return {
     type: "SET_CURRENT_USER_ID",
@@ -52,6 +61,24 @@ export const setAlbumsByGenre = (albumsByGenre) => {
     type: "SET_ALBUMS_BY_GENRE",
     payload: {
       albumsByGenre,
+    },
+  };
+};
+
+export const setAlbumRender = (albumRender) => {
+  return {
+    type: "SET_ALBUM_RENDER",
+    payload: {
+      albumRender,
+    },
+  };
+};
+
+export const setAlbumsMusic = (albumsMusic) => {
+  return {
+    type: "SET_ALBUMS_MUSIC",
+    payload: {
+      albumsMusic,
     },
   };
 };
@@ -110,7 +137,7 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
       .auth()
       .signInWithEmailAndPassword(loginInfo.email, loginInfo.password)
       .catch(function (error) {
-        console.error(error.code, error.message);
+        dispatch(setError(error.message));
       });
 
     const user = (
@@ -132,12 +159,14 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
 
 export const getMusicsAction = () => async (dispatch) => {
   try {
-    console.log("action music")
+    console.log("action music");
     let musics = [];
 
     await firebase
       .firestore()
       .collection("musics")
+      .orderBy("artist")
+      .orderBy("name")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) =>
@@ -159,6 +188,7 @@ export const getGenresAction = () => async (dispatch) => {
     await firebase
       .firestore()
       .collection("genres")
+      .orderBy("genre")
       .get()
       .then((snapshot) => {
         snapshot.forEach((doc) =>
@@ -171,24 +201,43 @@ export const getGenresAction = () => async (dispatch) => {
   }
 };
 
-export const getAlbumsByGenreAction = (genre) => async (dispatch) => {
+export const getAlbumsByGenreAction = (genre, render) => async (dispatch) => {
   try {
     const albumsByGenre = firebase
       .firestore()
       .collection("albums")
-      .where("genre", "==", genre)
+      .where("genre", "==", genre);
 
-      let response
-      if(albumsByGenre){
-       response = await albumsByGenre.get()
+    let response;
+    if (albumsByGenre) {
+      response = await albumsByGenre.get().then((snapshot) => {
+        return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
+      });
+    }
+    console.log("render na action", render)
+    dispatch(setAlbumsByGenre(response));
+    dispatch(setAlbumRender(render));
+  } catch (error) {
+    console.error(error);
+  }
+};
+
+export const getAlbumsMusicAction = (albumId, render) => async (dispatch) => {
+  try {
+    const musicsAlbum = firebase
+      .firestore()
+      .collection("musics")
+      .where("album", "==", albumId)
+
+       const response = await musicsAlbum.get()
         .then((snapshot) => {
           return snapshot.docs.map((doc) =>
             ({ id: doc.id, data: doc.data() })
           );
         });
-      }
 
-    dispatch(setAlbumsByGenre(response));
+    dispatch(setAlbumsMusic(response));
+    dispatch(setAlbumRender(render));
   } catch (error) {
     console.error(error);
   }

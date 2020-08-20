@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import { BandPageWrapper, MenuWrapper } from "./style";
+import { BandPageWrapper, MenuWrapper, NotApproved } from "./style";
 import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
 import BandMenu from "../../components/Band/BandMenu";
@@ -29,13 +29,19 @@ class BandPage extends Component {
           this.props.currentUser.role === "banda" && (
             <Fragment>
               <AccountHeader />
-              <BandPageWrapper>
-                <MenuWrapper>
-                  <AccountMenu />
-                  <BandMenu />
-                </MenuWrapper>
-                <BandContent />
-              </BandPageWrapper>
+              {this.props.currentUser.approved ? (
+                <BandPageWrapper>
+                  <MenuWrapper>
+                    <AccountMenu />
+                    <BandMenu />
+                  </MenuWrapper>
+                  <BandContent />
+                </BandPageWrapper>
+              ) : (
+                <NotApproved>
+                  <span>Sua banda ainda não foi aprovada por um Administrador</span>
+                </NotApproved>
+              )}
             </Fragment>
           )
         ) : (
@@ -48,7 +54,7 @@ class BandPage extends Component {
 
 const mapStateToProps = (state) => ({
   currentUser: state.users.currentUser,
-  content: state.bands.content
+  content: state.bands.content,
 });
 
 const mapDispatchToProps = (dispatch) => {

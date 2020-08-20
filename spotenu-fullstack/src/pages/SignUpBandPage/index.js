@@ -118,7 +118,7 @@ class SignUpBandPage extends Component {
         type: this.state.showConfirmPassword ? "text" : "password",
         label: "Repita a senha",
         required: true,
-        pattern: "{6,}",
+        pattern: ".{6,}",
         title: "A senha deve ter pelo menos 6 caracteres",
         endAdornment: (
           <InputAdornment position="end">

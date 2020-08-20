@@ -1,18 +1,8 @@
+
 import styled from "styled-components";
 import { device } from "../../Layout/mediaQueries";
 
-export const UserContentWrapper = styled.div`
-  height: auto;
-  width: 100%;
-  min-width: 200px;
-  max-height: 90vh;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  position: static;
-`;
-
-export const MusicCardContainer = styled.div`
+export const ApproveBandsContainer = styled.div`
   height: 77vh;
   display: grid;
   justify-content: center;
@@ -23,16 +13,16 @@ export const MusicCardContainer = styled.div`
   box-shadow: 0 0 10px 1px #959094;
   margin: 40px 40px;
   padding: 40px;
-  
+
+  @media ${device.laptopL} {
+    grid-template-columns: repeat(2, 200px);
+    grid-auto-rows: 210px;
+  }
   @media ${device.laptop} {
     grid-template-columns: repeat(2, 200px);
     grid-auto-rows: 210px;
   }
   @media ${device.tablet} {
-    grid-template-columns: repeat(2, 200px);
-    grid-auto-rows: 210px;
-  }
-  @media ${device.mobileL} {
     justify-content: center;
     width: 90%;
     height: 100%;

@@ -2,7 +2,8 @@ import styled from "styled-components";
 import { device } from "../../Layout/mediaQueries";
 
 export const AdminContentWrapper = styled.div`
-  height: 90vh;
+  height: auto;
+  min-height: 90vh;
   width: 80%;
   display: flex;
   justify-content: center;

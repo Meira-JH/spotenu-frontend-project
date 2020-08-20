@@ -4,13 +4,14 @@ import { AccountMenuWrapper } from "./style";
 import { List, ListItem, ListItemIcon, ListItemText, ListSubheader } from "@material-ui/core";
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import MusicVideoIcon from '@material-ui/icons/MusicVideo';
-import { setContentAction, setAlbumsByGenre } from "../../../actions/usersActions";
+import { setContentAction, setAlbumsByGenre, setAlbumRender } from "../../../actions/usersActions";
 
 class AccountMenu extends Component {
 
 
   handleItemClick(content){
     this.props.setAlbumsByGenre()
+    this.props.toSetAlbumsRender()
     this.props.toSetContent(content)
   }
 
@@ -29,17 +30,17 @@ class AccountMenu extends Component {
       )
     );
 
-    const FavListItemMap = [
-      "Minhas Músicas",
-      "Minhas Playlists",
-    ].map((text, index) => (
-      <ListItem button key={text}>
-        <ListItemIcon>
-          {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
-        </ListItemIcon>
-        <ListItemText primary={text} />
-      </ListItem>
-    ));
+    // const FavListItemMap = [
+    //   "Minhas Músicas",
+    //   "Minhas Playlists",
+    // ].map((text, index) => (
+    //   <ListItem button key={text}>
+    //     <ListItemIcon>
+    //       {index % 2 === 0 ? <MusicNoteIcon /> : <MusicVideoIcon />}
+    //     </ListItemIcon>
+    //     <ListItemText primary={text} />
+    //   </ListItem>
+    // ));
 
     return (
       <AccountMenuWrapper>
@@ -54,7 +55,7 @@ class AccountMenu extends Component {
           }
         >
             {GeneralListItemMap}
-            {FavListItemMap}
+            {/* {FavListItemMap} */}
         </List>
       </AccountMenuWrapper>
       );
@@ -69,6 +70,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => {
   return {
     setAlbumsByGenre: () => dispatch(setAlbumsByGenre(undefined)),
+    toSetAlbumsRender: () => dispatch(setAlbumRender(undefined)),
     toSetContent: (content) => dispatch(setContentAction(content))
   };
 };

@@ -10,7 +10,8 @@ import {
   LoginLogo,
   FirstBlock,
   SecondBlock,
-  SecondTitle
+  SecondTitle,
+  LoginError
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -138,6 +139,7 @@ class LoginPage extends Component {
         <FirstBlock>
           <FormWrapper onSubmit={this.handleSubmmit}>
             <LoginLogo src={require('../../img/music/logocabecacirculo.png')}/>
+            <LoginError> {this.props.error ? "Email ou senha inválidos" : ""} </LoginError>
             
             {LoginRenderMap}
 
@@ -156,6 +158,10 @@ class LoginPage extends Component {
   }
 }
 
+const mapStateToProps = (state) =>({
+  error: state.users.error
+})
+
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
@@ -163,4 +169,4 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 
-export default connect(null, mapDispatchToProps)(LoginPage);
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);

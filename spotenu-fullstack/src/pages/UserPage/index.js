@@ -11,10 +11,12 @@ import LoadingRing from "../../components/LoadingRing";
 class UserPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      search: "",
+    };
   }
 
-  componentDidMount () {
+  componentDidMount() {
     if (this.props.currentUser) {
       if (this.props.currentUser.role !== "ouvinte") {
         this.props.goToLandingPage();
@@ -22,7 +24,7 @@ class UserPage extends Component {
     }
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     if (this.props.currentUser) {
       if (this.props.currentUser.role !== "ouvinte") {
         this.props.goToLandingPage();
@@ -38,16 +40,19 @@ class UserPage extends Component {
   };
 
   render() {
-
     return (
       <div>
         {this.props.currentUser ? (
           this.props.currentUser.role === "ouvinte" && (
             <Fragment>
-              <AccountHeader />
+              <AccountHeader
+                name={"search"}
+                value={this.state.search}
+                search={this.handleInputChange}
+              />
               <UserPageWrapper>
                 <AccountMenu />
-                <UserContent/>
+                <UserContent search={this.state.search} />
               </UserPageWrapper>
             </Fragment>
           )

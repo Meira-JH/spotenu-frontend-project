@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import ImgMusic from "../../../img/music/music.png";
-import Delete from "@material-ui/icons/DeleteForever";
 import { deleteAlbumAction } from "../../../actions/bandActions";
 import {
   Title,
@@ -14,11 +13,20 @@ import {
   CardMedia,
   CardContent,
 } from "./style";
+import { getAlbumsMusicAction } from "../../../actions/usersActions";
 
 function AlbumCard(props) {
 
+  function handleItem(albumId) {
+    console.log("id do album",albumId)
+    const render = "albumsMusic"
+    props.getAlbumsMusic(albumId, render);
+  }
+
   return (
-    <Card>
+    <Card
+    onClick={() => handleItem(props.albumId)}
+    >
       <CardActions>
         <IconButton>
           <FavoriteIcon />
@@ -40,6 +48,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     toDeleteAlbum: (albumId, albumName, artistId) =>
     dispatch(deleteAlbumAction(albumId, albumName, artistId)),
+    getAlbumsMusic: (genre, render) => dispatch(getAlbumsMusicAction(genre, render))
   };
 };
 

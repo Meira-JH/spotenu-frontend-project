@@ -18,7 +18,8 @@ function GenreCard(props) {
 
   function handleItem(genre) {
     console.log(genre)
-    props.getAlbumsByGenre(genre);
+    const render = "albumsByGenre"
+    props.getAlbumsByGenre(genre, render);
   }
   return (
     <Card
@@ -35,7 +36,7 @@ function GenreCard(props) {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    getAlbumsByGenre: (genre) => dispatch(getAlbumsByGenreAction(genre))
+    getAlbumsByGenre: (genre, render) => dispatch(getAlbumsByGenreAction(genre, render))
   };
 };
 

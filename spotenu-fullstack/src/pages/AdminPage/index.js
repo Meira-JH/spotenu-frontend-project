@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import { AdminPageWrapper, MenuWrapper } from "./style";
+import { AdminPageWrapper, MenuWrapper, NotApproved } from "./style";
 import AccountMenu from "../../components/User/AccountMenu";
 import AccountHeader from "../../components/AccountHeader/material";
 import AdminMenu from "../../components/Admin/AdminMenu";
@@ -38,13 +38,21 @@ class AdminPage extends Component {
           this.props.currentUser.role === "admin" && (
             <Fragment>
               <AccountHeader />
-              <AdminPageWrapper>
-                <MenuWrapper>
-                  <AccountMenu />
-                  <AdminMenu />
-                </MenuWrapper>
-                <AdminContent />
-              </AdminPageWrapper>
+              {this.props.currentUser.approved ? (
+                <AdminPageWrapper>
+                  <MenuWrapper>
+                    <AccountMenu />
+                    <AdminMenu />
+                  </MenuWrapper>
+                  <AdminContent />
+                </AdminPageWrapper>
+              ) : (
+                <NotApproved>
+                  <span>
+                   Você ainda não foi aprovado por um Administrador
+                  </span>
+                </NotApproved>
+              )}
             </Fragment>
           )
         ) : (

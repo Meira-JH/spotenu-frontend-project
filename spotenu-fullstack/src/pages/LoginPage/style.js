@@ -72,10 +72,10 @@ export const LoginLogo = styled.img`
   min-height: 60px;
 `;
 
-export const LoginTitle = styled.span`
-  font-size: 28px;
-  font-weight: 700;
-  color: #483f35;
+export const LoginError = styled.span`
+  font-size: 14px;
+  font-weight: 500;
+  color: red;
 `;
 export const LoginButton = styled(Button)`
   && {
