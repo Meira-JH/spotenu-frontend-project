@@ -65,7 +65,6 @@ class SignUpPage extends Component {
     event.preventDefault();
 
     if (this.state.password === this.state.confirmPassword) {
-      console.log(this.state.signUp);
       this.props.toSignUp(this.state.signUp);
     } else {
       this.setState({ passwordCompare: false });

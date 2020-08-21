@@ -14,7 +14,6 @@ import { AppBar } from "@material-ui/core";
 import { connect } from "react-redux";
 import { push } from "connected-react-router";
 import { routes } from "../../router";
-import firebase from "firebase";
 import { logoutUser } from "../../actions/usersActions";
 
 const Logo = styled.img`

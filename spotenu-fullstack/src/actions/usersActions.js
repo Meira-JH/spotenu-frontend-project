@@ -181,7 +181,6 @@ export const getMusicsAction = () => async (dispatch) => {
 };
 
 export const getGenresAction = () => async (dispatch) => {
-  console.log("action genre");
   try {
     let genres = [];
 
@@ -214,7 +213,6 @@ export const getAlbumsByGenreAction = (genre, render) => async (dispatch) => {
         return snapshot.docs.map((doc) => ({ id: doc.id, data: doc.data() }));
       });
     }
-    console.log("render na action", render)
     dispatch(setAlbumsByGenre(response));
     dispatch(setAlbumRender(render));
   } catch (error) {

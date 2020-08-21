@@ -84,7 +84,7 @@ class SignUpAdminPage extends Component {
         label: "Insira seu email",
         required: true,
         title: "O email deve ser válido",
-        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
       },
       {
         name: "nickname",

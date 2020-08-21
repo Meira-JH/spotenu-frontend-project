@@ -192,17 +192,15 @@ export const getBandAlbumsAction = (artistId) => async (dispatch) => {
 
 export const getBandMusicsAction = (artistId) => async (dispatch) => {
   try {
-    let bandMusics = [];
 
-    await firebase
+    const bandMusics = await firebase
       .firestore()
       .collection("musics")
       .where("artistId", "==", artistId)
-      .orderBy("name")
       .get()
       .then((snapshot) => {
-        snapshot.forEach((doc) =>
-          bandMusics.push({ id: doc.id, data: doc.data() })
+        return snapshot.docs.map((doc) =>
+          ({ id: doc.id, data: doc.data() })
         );
       });
 

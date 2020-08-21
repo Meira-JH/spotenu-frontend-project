@@ -18,7 +18,6 @@ import { getAlbumsMusicAction } from "../../../actions/usersActions";
 function AlbumCard(props) {
 
   function handleItem(albumId) {
-    console.log("id do album",albumId)
     const render = "albumsMusic"
     props.getAlbumsMusic(albumId, render);
   }

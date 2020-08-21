@@ -17,7 +17,6 @@ function GenreCard(props) {
 
 
   function handleItem(genre) {
-    console.log(genre)
     const render = "albumsByGenre"
     props.getAlbumsByGenre(genre, render);
   }

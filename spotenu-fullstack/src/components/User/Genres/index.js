@@ -18,7 +18,6 @@ class Genres extends React.Component {
   }
 
   render() {
-    console.log("musicby gender props", this.props.albumsByGenre)
     const genresContentRender = this.props.genres.map((genre, index) => (
       <GenreCard
         genre={genre.data.genre}

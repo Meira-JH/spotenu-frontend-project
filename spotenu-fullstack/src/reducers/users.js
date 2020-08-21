@@ -11,7 +11,6 @@ const initialState = {
 }
 
 const users = (state = initialState, action) => {
-    console.log(action.payload)
     switch (action.type){
         case 'SET_CURRENT_USER' : {
             return{

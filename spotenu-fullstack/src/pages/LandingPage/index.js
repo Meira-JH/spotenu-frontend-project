@@ -31,7 +31,6 @@ import vIcon from "../../img/tick.svg";
 class LandingPage extends Component {
 
   componentDidMount() {
-    console.log("update landing", this.props.currentUser);
     if (this.props.currentUser) {
       if (this.props.currentUser.role === "ouvinte") {
         this.props.goToUserPage();
@@ -45,7 +44,6 @@ class LandingPage extends Component {
     }
   }
   componentDidUpdate() {
-    console.log("update landing", this.props.currentUser);
     if (this.props.currentUser) {
       if (this.props.currentUser.role === "ouvinte") {
         this.props.goToUserPage();

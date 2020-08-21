@@ -1,7 +1,6 @@
 import { push } from "connected-react-router";
 import { routes } from "../router";
 import firebase from "firebase";
-import * as admin from "firebase-admin";
 
 function setCurrentUser(currentUser) {
   return {
@@ -49,7 +48,6 @@ function setBandsToApprove(bandsToApprove) {
 }
 
 export const SignUpAdminAction = (signUpAdminInfo) => async (dispatch) => {
-  console.log(signUpAdminInfo);
   try {
     const firebaseCreate = await firebase
       .auth()
@@ -72,12 +70,10 @@ export const SignUpAdminAction = (signUpAdminInfo) => async (dispatch) => {
 };
 
 export const getAdminsToApproveAction = () => async (dispatch) => {
-  console.log("get admins to approve funciona");
   try {
     const firebaseSearch = firebase
       .firestore()
       .collection("users")
-      .orderBy("name")
       .where("role", "==", "admin");
 
     let admins = [];
@@ -96,7 +92,6 @@ export const getAdminsToApproveAction = () => async (dispatch) => {
 };
 
 export const approveAdminAction = (adminId) => async (dispatch) => {
-  console.log("aprovando admin");
   try {
     await firebase.firestore().collection("users").doc(adminId).update({
       approved: true,
@@ -111,15 +106,7 @@ export const approveAdminAction = (adminId) => async (dispatch) => {
 export const deleteAdminAction = (adminId) => async (dispatch) => {
   try {
     await firebase.firestore().collection("users").doc(adminId).delete();
-    await admin
-      .auth()
-      .deleteUser(adminId)
-      .then(function () {
-        dispatch(getAdminsToApproveAction())
-      })
-      .catch(function (error) {
-        dispatch(setError(error.message))
-      });
+
     dispatch(getAdminsToApproveAction());
   } catch (error) {
     dispatch(setError(error.message))
@@ -131,7 +118,6 @@ export const getBandsToApproveAction = () => async (dispatch) => {
     const firebaseSearch = firebase
       .firestore()
       .collection("users")
-      .orderBy("name")
       .where("role", "==", "banda");
 
     let bands = [];

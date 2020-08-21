@@ -1,20 +1,9 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  BandContentWrapper,
-  CreateAlbumTitle,
-  CreateAlbumButton,
-  CreateMusicTextField,
-  CreateMusicTitle,
-  CreateMusicButton,
-  CreateMusicSelect,
-} from "./style";
-import { FormWrapper, CreateAlbumTextField } from "./style";
-import { Typography, MenuItem } from "@material-ui/core";
+import { BandContentWrapper } from "./style";
 import {
   createAlbumAction,
   createMusicAction,
-  getBandAlbumsAction,
   getBandMusicsAction,
 } from "../../../actions/bandActions";
 import BandAlbums from "../BandAlbums";
@@ -50,7 +39,6 @@ class BandContent extends Component {
   }
 
   render() {
-
     function contentRender(contentPage) {
       switch (contentPage) {
         case "musics":

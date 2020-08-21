@@ -10,7 +10,6 @@ class ApproveBands extends React.Component {
   }
 
   render() {
-    console.log("bands to approve ", this.props.bandsToApprove)
     const approveBandsContentRender = this.props.bandsToApprove && this.props.bandsToApprove.map(
       (band, index) => (
         <ToApproveCard

@@ -19,10 +19,6 @@ function AlbumCard(props) {
 
   const deleteMusic = () => {
     props.toDeleteAlbum(props.albumId, props.name, props.artistId);
-    console.log(
-      "id e nome no musics",
-      props.albumId, props.name, props.artistId
-    );
   };
 
   return (

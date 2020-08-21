@@ -3,6 +3,14 @@ import styled from "styled-components";
 import { device } from "../../Layout/mediaQueries";
 import { TextField, Button, Select } from "@material-ui/core";
 
+export const CreateMusicWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 
 export const FormWrapper = styled.form`
 justify-self: center;

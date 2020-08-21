@@ -72,12 +72,6 @@ function MusicCardBand(props) {
 
   const deleteMusic = () => {
     props.toDeleteMusic(props.musicId, props.albumName, props.artistId);
-    console.log(
-      "id e nome no musics",
-      props.musicId,
-      props.albumName,
-      props.artistId
-    );
   };
 
   return (

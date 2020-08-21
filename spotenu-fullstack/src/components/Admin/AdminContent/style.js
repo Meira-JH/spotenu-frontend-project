@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { device } from "../../Layout/mediaQueries";
 
 export const AdminContentWrapper = styled.div`
   height: auto;

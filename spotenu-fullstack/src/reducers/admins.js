@@ -6,7 +6,6 @@ const initialState = {
 }
 
 const admins = (state = initialState, action) => {
-    console.log(action.payload)
     switch (action.type){
         case 'SET_BANDS_TO_APPROVE' : {
             return{

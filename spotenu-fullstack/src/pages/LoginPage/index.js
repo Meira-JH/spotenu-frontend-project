@@ -11,7 +11,6 @@ import {
   FirstBlock,
   SecondBlock,
   SecondTitle,
-  LoginError,
   Warning,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
@@ -35,7 +34,6 @@ class LoginPage extends Component {
   }
 
   componentDidMount() {
-    console.log("update login", this.props.currentUser);
     if (this.props.currentUser) {
       if (this.props.currentUser.role === "ouvinte") {
         this.props.goToUserPage();
@@ -49,7 +47,6 @@ class LoginPage extends Component {
     }
   }
   componentDidUpdate() {
-    console.log("update landing", this.props.currentUser);
     if (this.props.currentUser) {
       if (this.props.currentUser.role === "ouvinte") {
         this.props.goToUserPage();
@@ -85,7 +82,6 @@ class LoginPage extends Component {
   };
 
   render() {
-
     const errorMessages = {
       password: "The password is invalid or the user does not have a password.",
       email:
@@ -94,10 +90,12 @@ class LoginPage extends Component {
 
     function errorRender(error) {
       switch (error) {
-        case errorMessages.password:
+        case errorMessages.password:{
           return <Warning>Email ou senha inválidos</Warning>;
-        case errorMessages.email:
+        }
+        case errorMessages.email:{
           return <Warning>Email ou senha inválidos</Warning>;
+        }
         default:
           return <Warning>Ops, aconteceu algo inesperado</Warning>;
       }

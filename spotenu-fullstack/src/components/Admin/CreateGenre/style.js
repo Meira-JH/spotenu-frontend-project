@@ -1,13 +1,21 @@
 
 import styled from "styled-components";
 import { device } from "../../Layout/mediaQueries";
-import { TextField, Button, Select } from "@material-ui/core";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
+export const CreateGenreWrapper = styled.div`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
 
 export const FormWrapper = styled.form`
 justify-self: center;
 grid-area: FormWrapper;
-width: 50%;
+width: 78%;
 min-width: 300px;
 height: 50vh;
 display: flex;
@@ -18,19 +26,12 @@ background-color: rgba(250, 250, 250, 0.9);
 border-radius: 8px;
 padding: 1vw 2vw ;
 
-@media ${device.laptopL}{
-}
-@media ${device.tablet}{
-  width: 300px;
-}
 @media ${device.mobileL}{
   padding: 0 25px;
-  width: auto;
   min-width: 90px;
 }
 @media ${device.mobileM}{
   padding: 0 15px;
-  width: auto;
   min-width: 80px;
 }
 `;
