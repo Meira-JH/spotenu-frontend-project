@@ -12,6 +12,15 @@ function setCurrentUser(currentUser) {
   };
 }
 
+export function setError(error) {
+  return {
+    type: "SET_ERROR",
+    payload: {
+      error,
+    },
+  };
+}
+
 export const setContentAction = (content) => {
   return {
     type: "SET_CONTENT",
@@ -66,7 +75,7 @@ export const SignUpBandAction = (signUpBandInfo) => async (dispatch) => {
     dispatch(setCurrentUser(signUpBandInfo));
     dispatch(push(routes.band));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -81,9 +90,9 @@ export const createAlbumAction = (album) => async (dispatch) => {
       .collection("albums")
       .doc(newId)
       .set(album);
-  } catch (error) {
-    console.error(error);
-  }
+    } catch (error) {
+      dispatch(setError(error.message))
+    }
 };
 
 export const deleteAlbumAction = (albumId, albumName, artistId) => async (
@@ -114,7 +123,7 @@ export const deleteAlbumAction = (albumId, albumName, artistId) => async (
 
     dispatch(getBandAlbumsAction(artistId))
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -133,7 +142,7 @@ export const createMusicAction = (music) => async (dispatch) => {
       .set(music);
     await firebase.firestore().collection("musics").doc(newId).set(music);
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -150,16 +159,16 @@ export const deleteMusicAction = (musicId, albumName, artistId) => async (
       .collection("musics")
       .doc(musicId)
       .delete();
+      
     await firebase.firestore().collection("musics").doc(musicId).delete();
 
     dispatch(getBandMusicsAction(artistId))
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
 export const getBandAlbumsAction = (artistId) => async (dispatch) => {
-  console.log("get band albums action", artistId)
   try {
     const bandAlbums = await firebase
       .firestore()
@@ -177,7 +186,7 @@ export const getBandAlbumsAction = (artistId) => async (dispatch) => {
 
     dispatch(setBandAlbums(bandAlbums));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -199,7 +208,7 @@ export const getBandMusicsAction = (artistId) => async (dispatch) => {
 
     dispatch(setBandMusics(bandMusics));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 

@@ -9,6 +9,7 @@ import {
   SecondBlock,
   SecondTitle,
   SignUpAdminLogo,
+  Warning
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
@@ -17,6 +18,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpAdminAction } from "../../actions/adminActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 import { Typography } from "@material-ui/core";
+import { setError } from "../../actions/usersActions";
 
 class SignUpAdminPage extends Component {
   constructor(props) {
@@ -33,7 +35,12 @@ class SignUpAdminPage extends Component {
       },
       showPassword: false,
       showConfirmPassword: false,
+      passwordCompare: true
     };
+  }
+
+  componentWillUnmount(){
+    this.props.toSetError()
   }
 
   handleClickShowPassword = () => {
@@ -54,9 +61,10 @@ class SignUpAdminPage extends Component {
   handleSubmmit = (event) => {
     event.preventDefault();
 
-    if (this.password !== this.confirmPassword) {
-    } else {
+    if (this.state.password === this.state.confirmPassword) {
       this.props.toSignUpAdmin(this.state.signUpAdmin);
+    } else {
+      this.setState({ passwordCompare: false });
     }
   };
 
@@ -159,6 +167,16 @@ class SignUpAdminPage extends Component {
                 <SignUpAdminLogo
                   src={require("../../img/music/logocabecacirculo.png")}
                 />
+                {this.props.error ? (
+                  <Warning>Houve um problema ao cadastrar</Warning>
+                ) : (
+                  ""
+                )}
+                {this.state.passwordCompare ? (
+                  ""
+                ) : (
+                  <Warning>As senhas não são iguais</Warning>
+                )}
 
                 {signUpAdminRenderMap}
 
@@ -179,9 +197,9 @@ class SignUpAdminPage extends Component {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // goToLandingPage: () => dispatch(push(routes.root)),
     toSignUpAdmin: (signUpAdminInfo) =>
       dispatch(SignUpAdminAction(signUpAdminInfo)),
+      toSetError: () => dispatch(setError(undefined)),
   };
 };
 

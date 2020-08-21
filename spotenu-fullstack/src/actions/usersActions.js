@@ -101,7 +101,6 @@ export const getUserFromFirebase = (userId) => async (dispatch) => {
     dispatch(setCurrentUserId(userId));
     dispatch(setCurrentUser(currentUser));
   } catch (error) {
-    console.error(error);
   }
 };
 
@@ -123,11 +122,12 @@ export const SignUpAction = (signUpInfo) => async (dispatch) => {
         password: signUpInfo.password,
         role: signUpInfo.role,
       });
+      
 
     dispatch(setCurrentUser(signUpInfo));
     dispatch(push(routes.user));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -153,13 +153,13 @@ export const LoginAction = (loginInfo) => async (dispatch) => {
       dispatch(push(routes.admin));
     }
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
 export const getMusicsAction = () => async (dispatch) => {
   try {
-    console.log("action music");
+
     let musics = [];
 
     await firebase
@@ -173,10 +173,10 @@ export const getMusicsAction = () => async (dispatch) => {
           musics.push({ id: doc.id, data: doc.data() })
         );
       });
-    console.log("music users action", musics);
-    dispatch(setMusics(musics));
+
+      dispatch(setMusics(musics));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -197,7 +197,7 @@ export const getGenresAction = () => async (dispatch) => {
       });
     dispatch(setGenres(genres));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -218,7 +218,7 @@ export const getAlbumsByGenreAction = (genre, render) => async (dispatch) => {
     dispatch(setAlbumsByGenre(response));
     dispatch(setAlbumRender(render));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -239,6 +239,6 @@ export const getAlbumsMusicAction = (albumId, render) => async (dispatch) => {
     dispatch(setAlbumsMusic(response));
     dispatch(setAlbumRender(render));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };

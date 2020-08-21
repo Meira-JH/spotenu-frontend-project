@@ -67,6 +67,11 @@ export const SignUpLogo = styled.img`
   margin-bottom: 10px;
 `;
 
+export const Warning = styled.span`
+  font-size: 14px;
+  color: red;
+`
+
 
 export const SignUpTextField = styled(TextField)`
   && {

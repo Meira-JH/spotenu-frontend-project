@@ -68,7 +68,7 @@ export const FormWrapper = styled.form`
 `;
 
 export const Warning = styled.span`
-  font-size: 14;
+  font-size: 14px;
   color: red;
 `
 

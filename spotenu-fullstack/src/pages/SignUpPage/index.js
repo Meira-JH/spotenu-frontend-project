@@ -12,15 +12,13 @@ import {
   SecondTitle,
   SignUpLogo,
   GoToAdminRegistration,
-  SecondSubtitle,
-  CardsWrapper,
-  PlanCard,
+  Warning,
 } from "./style";
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import InputAdornment from "@material-ui/core/InputAdornment";
-import { SignUpAction } from "../../actions/usersActions";
+import { SignUpAction, setError } from "../../actions/usersActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 import { Typography } from "@material-ui/core";
 
@@ -39,8 +37,14 @@ class SignUpPage extends Component {
       },
       showPassword: false,
       showConfirmPassword: false,
+      passwordCompare: true,
     };
   }
+
+  componentWillUnmount(){
+    this.props.toSetError()
+  }
+
 
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
@@ -60,11 +64,11 @@ class SignUpPage extends Component {
   handleSubmmit = (event) => {
     event.preventDefault();
 
-    if (this.password === this.confirmPassword) {
-      console.log(this.state.signUp)
+    if (this.state.password === this.state.confirmPassword) {
+      console.log(this.state.signUp);
       this.props.toSignUp(this.state.signUp);
-    } else{
-      console.error("A senha não confere com sua repetição")
+    } else {
+      this.setState({ passwordCompare: false });
     }
   };
 
@@ -84,7 +88,7 @@ class SignUpPage extends Component {
         label: "Insira seu email",
         required: true,
         title: "O email deve ser válido",
-        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
       },
       {
         name: "nickname",
@@ -145,8 +149,11 @@ class SignUpPage extends Component {
         name={input.name}
         type={input.type}
         label={
-          <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
-        } 
+          <Typography variant={"subtitle2"} display={"inline"}>
+            {" "}
+            {input.label}{" "}
+          </Typography>
+        }
         value={this.state.signUp[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
@@ -169,6 +176,16 @@ class SignUpPage extends Component {
                 <SignUpLogo
                   src={require("../../img/music/logocabecacirculo.png")}
                 />
+                {this.props.error ? (
+                  <Warning>Houve um problema ao cadastrar</Warning>
+                ) : (
+                  ""
+                )}
+                {this.state.passwordCompare ? (
+                  ""
+                ) : (
+                  <Warning>As senhas não são iguais</Warning>
+                )}
 
                 {signUpRenderMap}
 
@@ -190,12 +207,17 @@ class SignUpPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  error: state.users.error,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     goToLandingPage: () => dispatch(push(routes.root)),
     goToSignUpAdminPage: () => dispatch(push(routes.registerAdmin)),
     toSignUp: (signUpInfo) => dispatch(SignUpAction(signUpInfo)),
+    toSetError: () => dispatch(setError(undefined)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpPage);

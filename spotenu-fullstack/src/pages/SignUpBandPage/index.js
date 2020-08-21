@@ -18,6 +18,7 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import { SignUpBandAction } from "../../actions/bandActions";
 import Layout from "../../components/Layout/FirstLayout/FirstLayout";
 import { Typography } from "@material-ui/core";
+import { setError } from "../../actions/usersActions";
 
 class SignUpBandPage extends Component {
   constructor(props) {
@@ -39,6 +40,10 @@ class SignUpBandPage extends Component {
     };
   }
 
+  componentWillUnmount() {
+    this.props.toSetError();
+  }
+
   handleClickShowPassword = () => {
     this.setState({ showPassword: !this.state.showPassword });
   };
@@ -56,10 +61,12 @@ class SignUpBandPage extends Component {
 
   handleSubmmit = (event) => {
     event.preventDefault();
-    if (this.state.signUpBand.password === this.state.signUpBand.confirmPassword) {
+    if (
+      this.state.signUpBand.password === this.state.signUpBand.confirmPassword
+    ) {
       this.props.toSignUpBand(this.state.signUpBand);
     } else {
-      this.setState({passwordCompare: false})
+      this.setState({ passwordCompare: false });
     }
   };
 
@@ -79,7 +86,7 @@ class SignUpBandPage extends Component {
         label: "Insira o email da banda",
         required: true,
         title: "O email deve ser válido",
-        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+        pattern: "[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,}$",
       },
       {
         name: "nickname",
@@ -148,8 +155,11 @@ class SignUpBandPage extends Component {
         name={input.name}
         type={input.type}
         label={
-          <Typography variant={"subtitle2"} display={"inline"}> {input.label} </Typography>
-        }        
+          <Typography variant={"subtitle2"} display={"inline"}>
+            {" "}
+            {input.label}{" "}
+          </Typography>
+        }
         value={this.state.signUpBand[input.name] || ""}
         required={input.required}
         onChange={this.handleInputChange}
@@ -169,10 +179,19 @@ class SignUpBandPage extends Component {
           <SignUpBandPageWrapper>
             <FirstBlock>
               <FormWrapper onSubmit={this.handleSubmmit}>
-                {this.state.passwordCompare? "" : <Warning>As senhas não são iguais</Warning>}
                 <SignUpBandLogo
                   src={require("../../img/music/logocabecacirculo.png")}
                 />
+                {this.state.passwordCompare ? (
+                  ""
+                ) : (
+                  <Warning>As senhas não são iguais</Warning>
+                )}
+                {this.props.error ? (
+                  <Warning>Houve um problema ao cadastrar</Warning>
+                ) : (
+                  ""
+                )}
 
                 {SignUpBandRenderMap}
 
@@ -193,11 +212,16 @@ class SignUpBandPage extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  error: state.users.error,
+});
+
 const mapDispatchToProps = (dispatch) => {
   return {
     toSignUpBand: (SignUpBandInfo) =>
       dispatch(SignUpBandAction(SignUpBandInfo)),
+    toSetError: () => dispatch(setError(undefined)),
   };
 };
 
-export default connect(null, mapDispatchToProps)(SignUpBandPage);
+export default connect(mapStateToProps, mapDispatchToProps)(SignUpBandPage);

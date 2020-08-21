@@ -65,6 +65,11 @@ export const SignUpAdminLogo = styled.img`
   min-height: 60px;
 `;
 
+export const Warning = styled.span`
+  font-size: 14px;
+  color: red;
+`
+
 export const SignUpAdminTitle = styled.span`
   font-size: 28px;
   font-weight: 700;

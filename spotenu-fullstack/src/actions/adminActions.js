@@ -12,6 +12,15 @@ function setCurrentUser(currentUser) {
   };
 }
 
+export function setError(error) {
+  return {
+    type: "SET_ERROR",
+    payload: {
+      error,
+    },
+  };
+}
+
 export const setContentAction = (content) => {
   return {
     type: "SET_CONTENT",
@@ -58,7 +67,7 @@ export const SignUpAdminAction = (signUpAdminInfo) => async (dispatch) => {
     dispatch(setCurrentUser(signUpAdminInfo));
     dispatch(push(routes.admin));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -82,7 +91,7 @@ export const getAdminsToApproveAction = () => async (dispatch) => {
 
     dispatch(setAdminsToApprove(admins));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -95,31 +104,29 @@ export const approveAdminAction = (adminId) => async (dispatch) => {
 
     dispatch(getAdminsToApproveAction());
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
 export const deleteAdminAction = (adminId) => async (dispatch) => {
-  console.log("deletando admin");
   try {
     await firebase.firestore().collection("users").doc(adminId).delete();
     await admin
       .auth()
       .deleteUser(adminId)
       .then(function () {
-        console.log("Successfully deleted user");
+        dispatch(getAdminsToApproveAction())
       })
       .catch(function (error) {
-        console.log("Error deleting user:", error);
+        dispatch(setError(error.message))
       });
     dispatch(getAdminsToApproveAction());
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
 export const getBandsToApproveAction = () => async (dispatch) => {
-  console.log("get bands to approve funciona");
   try {
     const firebaseSearch = firebase
       .firestore()
@@ -138,7 +145,7 @@ export const getBandsToApproveAction = () => async (dispatch) => {
 
     dispatch(setBandsToApprove(bands));
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
 
@@ -147,6 +154,6 @@ export const createGenreAction = (genre) => async (dispatch) => {
   try {
     await firebase.firestore().collection("genres").add(genre);
   } catch (error) {
-    console.error(error);
+    dispatch(setError(error.message))
   }
 };
